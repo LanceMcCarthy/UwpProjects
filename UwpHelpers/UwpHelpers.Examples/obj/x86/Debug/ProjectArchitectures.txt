@@ -1,0 +1,2 @@
+C:\Users\lance\Source\GitHub\UwpHelpers\UwpHelpers.Controls\UwpHelpers.Controls.csproj;x86
+C:\Users\lance\Source\GitHub\UwpHelpers\UwpHelpers.Examples\UwpHelpers.Examples.csproj;x86
