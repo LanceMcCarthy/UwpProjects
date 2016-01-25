@@ -1,22 +1,24 @@
 # UwpProjects
-A set of UWP controls and utilities
+A set of UWP controls and utilities (I will more over time)
 
-Contains only a BandBusyIndicator at the moment, I'll be adding more over time.
+| Contains
+- BandBusyIndicator (cool custom busy indicator)
+- AdpativeGridView (maintains aspect ratio of items but)
 
-BandBusyIndicator
 
+AdaptiveGridView and BandBusyIndicator
+![alt tag](https://i.gyazo.com/8b4eda7cd246474d4e7ec4262aecc82b.gif)
+
+--AdaptiveGridView Properties--
+| MinItemWidth and MinItemHeight: double - determines aspect ratio of items
+
+
+| **BandBusyIndicator**
 ![alt tag](https://i.gyazo.com/ba631921317b4f8a5a51b3506e9f53ff.gif)
 
 
---Properties--
+--BusyBandIndicator Properties--
 
-IsActive: 
-boolean - shows or hides the indicator
-
-
-Direction: 
-Uploading or Downloading - The direction of the animation
-
-
-DisplayMessage:
-string - message to show
+| IsActive: boolean - shows or hides the indicator
+| Direction: Uploading or Downloading - The direction of the animation
+| DisplayMessage: string - message to show

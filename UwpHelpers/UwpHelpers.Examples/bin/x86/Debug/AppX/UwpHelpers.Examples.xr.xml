@@ -1,20 +1,31 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Roots >
   <Roots.PropertyPathNames>
-    <RootPropertyPathName Name="IsChecked" />
+    <RootPropertyPathName Name="IsBusy" />
+    <RootPropertyPathName Name="ListItems" />
   </Roots.PropertyPathNames>
   <Roots.RootTypes>
     <RootType FullName="Windows.UI.Xaml.Application">
       <RootProperty Name="RequestedTheme" />
     </RootType>
     <RootType FullName="Windows.UI.Xaml.Controls.Page">
+      <RootProperty Name="DataContext" />
       <RootProperty Name="Content" />
     </RootType>
+    <RootType FullName="UwpHelpers.Examples.ViewModels.MainPageViewModel" />
     <RootType FullName="Windows.UI.Xaml.Controls.Grid">
       <RootProperty Name="Background" />
       <RootProperty Name="Children" />
     </RootType>
     <RootType FullName="Microsoft.Xaml.DirectUI.ProxyTypes.ThemeResourceExtension" />
+    <RootType FullName="UwpHelpers.Controls.ListControls.AdaptiveGridView">
+      <RootProperty Name="ItemsSource" />
+      <RootProperty Name="MinItemHeight" />
+      <RootProperty Name="MinItemWidth" />
+      <RootProperty Name="ItemTemplate" />
+      <RootProperty Name="ItemContainerStyle" />
+      <RootProperty Name="ItemContainerTransitions" />
+    </RootType>
     <RootType FullName="UwpHelpers.Controls.BusyIndicators.BandBusyIndicator">
       <RootProperty Name="IsActive" />
       <RootProperty Name="DisplayMessage" />
@@ -28,9 +39,36 @@
       <RootProperty Name="Margin" />
     </RootType>
     <RootType FullName="Windows.UI.Xaml.Data.Binding">
-      <RootProperty Name="ElementName" />
-      <RootProperty Name="Path" />
+      <RootProperty Name="Mode" />
     </RootType>
+    <RootType FullName="Windows.UI.Xaml.DataTemplate">
+      <RootProperty Name="Template" />
+    </RootType>
+    <RootType FullName="Windows.UI.Xaml.Controls.Border">
+      <RootProperty Name="Background" />
+      <RootProperty Name="Child" />
+    </RootType>
+    <RootType FullName="Windows.UI.Xaml.Controls.TextBlock">
+      <RootProperty Name="Text" />
+      <RootProperty Name="HorizontalAlignment" />
+      <RootProperty Name="Margin" />
+    </RootType>
+    <RootType FullName="Windows.UI.Xaml.Controls.GridViewItem" />
+    <RootType FullName="Windows.UI.Xaml.Controls.Control">
+      <RootProperty Name="HorizontalContentAlignment" />
+      <RootProperty Name="VerticalContentAlignment" />
+    </RootType>
+    <RootType FullName="Windows.UI.Xaml.FrameworkElement">
+      <RootProperty Name="HorizontalAlignment" />
+      <RootProperty Name="VerticalAlignment" />
+      <RootProperty Name="Margin" />
+    </RootType>
+    <RootType FullName="Windows.UI.Xaml.Setter">
+      <RootProperty Name="Property" />
+      <RootProperty Name="Value" />
+    </RootType>
+    <RootType FullName="Windows.UI.Xaml.Media.Animation.TransitionCollection" />
+    <RootType FullName="Windows.UI.Xaml.Media.Animation.EntranceThemeTransition" />
     <RootType FullName="UwpHelpers.Examples.MainPage" />
   </Roots.RootTypes>
 </Roots>

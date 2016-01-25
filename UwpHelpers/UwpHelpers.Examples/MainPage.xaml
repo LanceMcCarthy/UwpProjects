@@ -1,23 +1,65 @@
-﻿<Page
-    x:Class="UwpHelpers.Examples.MainPage"
-    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    xmlns:local="using:UwpHelpers.Examples"
-    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    xmlns:busyIndicators="using:UwpHelpers.Controls.BusyIndicators"
-    mc:Ignorable="d">
+﻿<Page xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+      xmlns:busyIndicators="using:UwpHelpers.Controls.BusyIndicators"
+      xmlns:listControls="using:UwpHelpers.Controls.ListControls"
+      xmlns:viewModels="using:UwpHelpers.Examples.ViewModels"
+      x:Class="UwpHelpers.Examples.MainPage"
+      mc:Ignorable="d">
+
+    <Page.DataContext>
+        <viewModels:MainPageViewModel />
+    </Page.DataContext>
 
     <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
-        <busyIndicators:BandBusyIndicator IsActive="{Binding ElementName=MyToggleButton, Path=IsChecked}" 
+        
+        <!-- AdapiveGridView demo -->
+        
+        <listControls:AdaptiveGridView ItemsSource="{Binding ListItems}"
+                                       MinItemHeight="105"
+                                       MinItemWidth="315">
+            <listControls:AdaptiveGridView.ItemTemplate>
+                <DataTemplate>
+                    <Border Background="{ThemeResource SystemControlHighlightListAccentHighBrush}">
+                        <TextBlock Text="{Binding}"
+                                   HorizontalAlignment="Center"
+                                   Margin="20" />
+                    </Border>
+                </DataTemplate>
+            </listControls:AdaptiveGridView.ItemTemplate>
+            <listControls:AdaptiveGridView.ItemContainerStyle>
+                <Style TargetType="GridViewItem">
+                    <Setter Property="HorizontalContentAlignment"
+                            Value="Stretch" />
+                    <Setter Property="HorizontalAlignment"
+                            Value="Stretch" />
+                    <Setter Property="VerticalContentAlignment"
+                            Value="Stretch" />
+                    <Setter Property="VerticalAlignment"
+                            Value="Stretch" />
+                    <Setter Property="Margin"
+                            Value="5" />
+                </Style>
+            </listControls:AdaptiveGridView.ItemContainerStyle>
+            <listControls:AdaptiveGridView.ItemContainerTransitions>
+                <TransitionCollection>
+                    <EntranceThemeTransition />
+                </TransitionCollection>
+            </listControls:AdaptiveGridView.ItemContainerTransitions>
+        </listControls:AdaptiveGridView>
+        
+        <!-- BandBusyIndicator Demo : Change the 'Direction' property to reverse the animation-->
+
+        <busyIndicators:BandBusyIndicator IsActive="{Binding IsBusy}"
                                           DisplayMessage="doing something right now..."
-                                          Direction="Uploading"/>
+                                          Direction="Uploading" />
 
         <ToggleButton x:Name="MyToggleButton"
-                      IsChecked="False"
+                      IsChecked="{Binding IsBusy, Mode=TwoWay}"
                       Content="Show BandBusyIndicator"
                       VerticalAlignment="Bottom"
                       HorizontalAlignment="Center"
-                      Margin="0,0,0,20" />
+                      Margin="20" />
     </Grid>
 </Page>

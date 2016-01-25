@@ -156,29 +156,43 @@ namespace UwpHelpers.Examples.UwpHelpers_Examples_XamlTypeInfo
 
         private void InitTypeTables()
         {
-            _typeNameTable = new string[10];
-            _typeNameTable[0] = "UwpHelpers.Controls.BusyIndicators.BandBusyIndicator";
-            _typeNameTable[1] = "Windows.UI.Xaml.Controls.UserControl";
-            _typeNameTable[2] = "Boolean";
-            _typeNameTable[3] = "String";
-            _typeNameTable[4] = "UwpHelpers.Controls.BusyIndicators.AnimationDirection";
-            _typeNameTable[5] = "System.Enum";
-            _typeNameTable[6] = "System.ValueType";
-            _typeNameTable[7] = "Object";
-            _typeNameTable[8] = "UwpHelpers.Examples.MainPage";
-            _typeNameTable[9] = "Windows.UI.Xaml.Controls.Page";
+            _typeNameTable = new string[17];
+            _typeNameTable[0] = "UwpHelpers.Examples.ViewModels.MainPageViewModel";
+            _typeNameTable[1] = "Object";
+            _typeNameTable[2] = "System.Collections.ObjectModel.ObservableCollection`1<String>";
+            _typeNameTable[3] = "System.Collections.ObjectModel.Collection`1<String>";
+            _typeNameTable[4] = "String";
+            _typeNameTable[5] = "Boolean";
+            _typeNameTable[6] = "UwpHelpers.Controls.ListControls.AdaptiveGridView";
+            _typeNameTable[7] = "Windows.UI.Xaml.Controls.GridView";
+            _typeNameTable[8] = "Windows.UI.Xaml.Controls.ItemsControl";
+            _typeNameTable[9] = "Double";
+            _typeNameTable[10] = "UwpHelpers.Controls.BusyIndicators.BandBusyIndicator";
+            _typeNameTable[11] = "Windows.UI.Xaml.Controls.UserControl";
+            _typeNameTable[12] = "UwpHelpers.Controls.BusyIndicators.AnimationDirection";
+            _typeNameTable[13] = "System.Enum";
+            _typeNameTable[14] = "System.ValueType";
+            _typeNameTable[15] = "UwpHelpers.Examples.MainPage";
+            _typeNameTable[16] = "Windows.UI.Xaml.Controls.Page";
 
-            _typeTable = new global::System.Type[10];
-            _typeTable[0] = typeof(global::UwpHelpers.Controls.BusyIndicators.BandBusyIndicator);
-            _typeTable[1] = typeof(global::Windows.UI.Xaml.Controls.UserControl);
-            _typeTable[2] = typeof(global::System.Boolean);
-            _typeTable[3] = typeof(global::System.String);
-            _typeTable[4] = typeof(global::UwpHelpers.Controls.BusyIndicators.AnimationDirection);
-            _typeTable[5] = typeof(global::System.Enum);
-            _typeTable[6] = typeof(global::System.ValueType);
-            _typeTable[7] = typeof(global::System.Object);
-            _typeTable[8] = typeof(global::UwpHelpers.Examples.MainPage);
-            _typeTable[9] = typeof(global::Windows.UI.Xaml.Controls.Page);
+            _typeTable = new global::System.Type[17];
+            _typeTable[0] = typeof(global::UwpHelpers.Examples.ViewModels.MainPageViewModel);
+            _typeTable[1] = typeof(global::System.Object);
+            _typeTable[2] = typeof(global::System.Collections.ObjectModel.ObservableCollection<global::System.String>);
+            _typeTable[3] = typeof(global::System.Collections.ObjectModel.Collection<global::System.String>);
+            _typeTable[4] = typeof(global::System.String);
+            _typeTable[5] = typeof(global::System.Boolean);
+            _typeTable[6] = typeof(global::UwpHelpers.Controls.ListControls.AdaptiveGridView);
+            _typeTable[7] = typeof(global::Windows.UI.Xaml.Controls.GridView);
+            _typeTable[8] = typeof(global::Windows.UI.Xaml.Controls.ItemsControl);
+            _typeTable[9] = typeof(global::System.Double);
+            _typeTable[10] = typeof(global::UwpHelpers.Controls.BusyIndicators.BandBusyIndicator);
+            _typeTable[11] = typeof(global::Windows.UI.Xaml.Controls.UserControl);
+            _typeTable[12] = typeof(global::UwpHelpers.Controls.BusyIndicators.AnimationDirection);
+            _typeTable[13] = typeof(global::System.Enum);
+            _typeTable[14] = typeof(global::System.ValueType);
+            _typeTable[15] = typeof(global::UwpHelpers.Examples.MainPage);
+            _typeTable[16] = typeof(global::Windows.UI.Xaml.Controls.Page);
         }
 
         private int LookupTypeIndexByName(string typeName)
@@ -213,8 +227,24 @@ namespace UwpHelpers.Examples.UwpHelpers_Examples_XamlTypeInfo
             return -1;
         }
 
-        private object Activate_0_BandBusyIndicator() { return new global::UwpHelpers.Controls.BusyIndicators.BandBusyIndicator(); }
-        private object Activate_8_MainPage() { return new global::UwpHelpers.Examples.MainPage(); }
+        private object Activate_0_MainPageViewModel() { return new global::UwpHelpers.Examples.ViewModels.MainPageViewModel(); }
+        private object Activate_2_ObservableCollection() { return new global::System.Collections.ObjectModel.ObservableCollection<global::System.String>(); }
+        private object Activate_3_Collection() { return new global::System.Collections.ObjectModel.Collection<global::System.String>(); }
+        private object Activate_6_AdaptiveGridView() { return new global::UwpHelpers.Controls.ListControls.AdaptiveGridView(); }
+        private object Activate_10_BandBusyIndicator() { return new global::UwpHelpers.Controls.BusyIndicators.BandBusyIndicator(); }
+        private object Activate_15_MainPage() { return new global::UwpHelpers.Examples.MainPage(); }
+        private void VectorAdd_2_ObservableCollection(object instance, object item)
+        {
+            var collection = (global::System.Collections.Generic.ICollection<global::System.String>)instance;
+            var newItem = (global::System.String)item;
+            collection.Add(newItem);
+        }
+        private void VectorAdd_3_Collection(object instance, object item)
+        {
+            var collection = (global::System.Collections.Generic.ICollection<global::System.String>)instance;
+            var newItem = (global::System.String)item;
+            collection.Add(newItem);
+        }
 
         private global::Windows.UI.Xaml.Markup.IXamlType CreateXamlType(int typeIndex)
         {
@@ -226,56 +256,99 @@ namespace UwpHelpers.Examples.UwpHelpers_Examples_XamlTypeInfo
             switch (typeIndex)
             {
 
-            case 0:   //  UwpHelpers.Controls.BusyIndicators.BandBusyIndicator
+            case 0:   //  UwpHelpers.Examples.ViewModels.MainPageViewModel
+                userType = new global::UwpHelpers.Examples.UwpHelpers_Examples_XamlTypeInfo.XamlUserType(this, typeName, type, GetXamlTypeByName("Object"));
+                userType.Activator = Activate_0_MainPageViewModel;
+                userType.AddMemberName("ListItems");
+                userType.AddMemberName("IsBusy");
+                userType.SetIsLocalType();
+                xamlType = userType;
+                break;
+
+            case 1:   //  Object
+                xamlType = new global::UwpHelpers.Examples.UwpHelpers_Examples_XamlTypeInfo.XamlSystemBaseType(typeName, type);
+                break;
+
+            case 2:   //  System.Collections.ObjectModel.ObservableCollection`1<String>
+                userType = new global::UwpHelpers.Examples.UwpHelpers_Examples_XamlTypeInfo.XamlUserType(this, typeName, type, GetXamlTypeByName("System.Collections.ObjectModel.Collection`1<String>"));
+                userType.CollectionAdd = VectorAdd_2_ObservableCollection;
+                userType.SetIsReturnTypeStub();
+                xamlType = userType;
+                break;
+
+            case 3:   //  System.Collections.ObjectModel.Collection`1<String>
+                userType = new global::UwpHelpers.Examples.UwpHelpers_Examples_XamlTypeInfo.XamlUserType(this, typeName, type, GetXamlTypeByName("Object"));
+                userType.Activator = Activate_3_Collection;
+                userType.CollectionAdd = VectorAdd_3_Collection;
+                xamlType = userType;
+                break;
+
+            case 4:   //  String
+                xamlType = new global::UwpHelpers.Examples.UwpHelpers_Examples_XamlTypeInfo.XamlSystemBaseType(typeName, type);
+                break;
+
+            case 5:   //  Boolean
+                xamlType = new global::UwpHelpers.Examples.UwpHelpers_Examples_XamlTypeInfo.XamlSystemBaseType(typeName, type);
+                break;
+
+            case 6:   //  UwpHelpers.Controls.ListControls.AdaptiveGridView
+                userType = new global::UwpHelpers.Examples.UwpHelpers_Examples_XamlTypeInfo.XamlUserType(this, typeName, type, GetXamlTypeByName("Windows.UI.Xaml.Controls.GridView"));
+                userType.Activator = Activate_6_AdaptiveGridView;
+                userType.AddMemberName("MinItemHeight");
+                userType.AddMemberName("MinItemWidth");
+                xamlType = userType;
+                break;
+
+            case 7:   //  Windows.UI.Xaml.Controls.GridView
+                xamlType = new global::UwpHelpers.Examples.UwpHelpers_Examples_XamlTypeInfo.XamlSystemBaseType(typeName, type);
+                break;
+
+            case 8:   //  Windows.UI.Xaml.Controls.ItemsControl
+                xamlType = new global::UwpHelpers.Examples.UwpHelpers_Examples_XamlTypeInfo.XamlSystemBaseType(typeName, type);
+                break;
+
+            case 9:   //  Double
+                xamlType = new global::UwpHelpers.Examples.UwpHelpers_Examples_XamlTypeInfo.XamlSystemBaseType(typeName, type);
+                break;
+
+            case 10:   //  UwpHelpers.Controls.BusyIndicators.BandBusyIndicator
                 userType = new global::UwpHelpers.Examples.UwpHelpers_Examples_XamlTypeInfo.XamlUserType(this, typeName, type, GetXamlTypeByName("Windows.UI.Xaml.Controls.UserControl"));
-                userType.Activator = Activate_0_BandBusyIndicator;
+                userType.Activator = Activate_10_BandBusyIndicator;
                 userType.AddMemberName("IsActive");
                 userType.AddMemberName("DisplayMessage");
                 userType.AddMemberName("Direction");
                 xamlType = userType;
                 break;
 
-            case 1:   //  Windows.UI.Xaml.Controls.UserControl
+            case 11:   //  Windows.UI.Xaml.Controls.UserControl
                 xamlType = new global::UwpHelpers.Examples.UwpHelpers_Examples_XamlTypeInfo.XamlSystemBaseType(typeName, type);
                 break;
 
-            case 2:   //  Boolean
-                xamlType = new global::UwpHelpers.Examples.UwpHelpers_Examples_XamlTypeInfo.XamlSystemBaseType(typeName, type);
-                break;
-
-            case 3:   //  String
-                xamlType = new global::UwpHelpers.Examples.UwpHelpers_Examples_XamlTypeInfo.XamlSystemBaseType(typeName, type);
-                break;
-
-            case 4:   //  UwpHelpers.Controls.BusyIndicators.AnimationDirection
+            case 12:   //  UwpHelpers.Controls.BusyIndicators.AnimationDirection
                 userType = new global::UwpHelpers.Examples.UwpHelpers_Examples_XamlTypeInfo.XamlUserType(this, typeName, type, GetXamlTypeByName("System.Enum"));
                 userType.AddEnumValue("Downloading", global::UwpHelpers.Controls.BusyIndicators.AnimationDirection.Downloading);
                 userType.AddEnumValue("Uploading", global::UwpHelpers.Controls.BusyIndicators.AnimationDirection.Uploading);
                 xamlType = userType;
                 break;
 
-            case 5:   //  System.Enum
+            case 13:   //  System.Enum
                 userType = new global::UwpHelpers.Examples.UwpHelpers_Examples_XamlTypeInfo.XamlUserType(this, typeName, type, GetXamlTypeByName("System.ValueType"));
                 xamlType = userType;
                 break;
 
-            case 6:   //  System.ValueType
+            case 14:   //  System.ValueType
                 userType = new global::UwpHelpers.Examples.UwpHelpers_Examples_XamlTypeInfo.XamlUserType(this, typeName, type, GetXamlTypeByName("Object"));
                 xamlType = userType;
                 break;
 
-            case 7:   //  Object
-                xamlType = new global::UwpHelpers.Examples.UwpHelpers_Examples_XamlTypeInfo.XamlSystemBaseType(typeName, type);
-                break;
-
-            case 8:   //  UwpHelpers.Examples.MainPage
+            case 15:   //  UwpHelpers.Examples.MainPage
                 userType = new global::UwpHelpers.Examples.UwpHelpers_Examples_XamlTypeInfo.XamlUserType(this, typeName, type, GetXamlTypeByName("Windows.UI.Xaml.Controls.Page"));
-                userType.Activator = Activate_8_MainPage;
+                userType.Activator = Activate_15_MainPage;
                 userType.SetIsLocalType();
                 xamlType = userType;
                 break;
 
-            case 9:   //  Windows.UI.Xaml.Controls.Page
+            case 16:   //  Windows.UI.Xaml.Controls.Page
                 xamlType = new global::UwpHelpers.Examples.UwpHelpers_Examples_XamlTypeInfo.XamlSystemBaseType(typeName, type);
                 break;
             }
@@ -337,32 +410,67 @@ namespace UwpHelpers.Examples.UwpHelpers_Examples_XamlTypeInfo
             return foundXamlType;
         }
 
-        private object get_0_BandBusyIndicator_IsActive(object instance)
+        private object get_0_MainPageViewModel_ListItems(object instance)
+        {
+            var that = (global::UwpHelpers.Examples.ViewModels.MainPageViewModel)instance;
+            return that.ListItems;
+        }
+        private object get_1_MainPageViewModel_IsBusy(object instance)
+        {
+            var that = (global::UwpHelpers.Examples.ViewModels.MainPageViewModel)instance;
+            return that.IsBusy;
+        }
+        private void set_1_MainPageViewModel_IsBusy(object instance, object Value)
+        {
+            var that = (global::UwpHelpers.Examples.ViewModels.MainPageViewModel)instance;
+            that.IsBusy = (global::System.Boolean)Value;
+        }
+        private object get_2_AdaptiveGridView_MinItemHeight(object instance)
+        {
+            var that = (global::UwpHelpers.Controls.ListControls.AdaptiveGridView)instance;
+            return that.MinItemHeight;
+        }
+        private void set_2_AdaptiveGridView_MinItemHeight(object instance, object Value)
+        {
+            var that = (global::UwpHelpers.Controls.ListControls.AdaptiveGridView)instance;
+            that.MinItemHeight = (global::System.Double)Value;
+        }
+        private object get_3_AdaptiveGridView_MinItemWidth(object instance)
+        {
+            var that = (global::UwpHelpers.Controls.ListControls.AdaptiveGridView)instance;
+            return that.MinItemWidth;
+        }
+        private void set_3_AdaptiveGridView_MinItemWidth(object instance, object Value)
+        {
+            var that = (global::UwpHelpers.Controls.ListControls.AdaptiveGridView)instance;
+            that.MinItemWidth = (global::System.Double)Value;
+        }
+        private object get_4_BandBusyIndicator_IsActive(object instance)
         {
             var that = (global::UwpHelpers.Controls.BusyIndicators.BandBusyIndicator)instance;
             return that.IsActive;
         }
-        private void set_0_BandBusyIndicator_IsActive(object instance, object Value)
+        private void set_4_BandBusyIndicator_IsActive(object instance, object Value)
         {
             var that = (global::UwpHelpers.Controls.BusyIndicators.BandBusyIndicator)instance;
             that.IsActive = (global::System.Boolean)Value;
         }
-        private object get_1_BandBusyIndicator_DisplayMessage(object instance)
+        private object get_5_BandBusyIndicator_DisplayMessage(object instance)
         {
             var that = (global::UwpHelpers.Controls.BusyIndicators.BandBusyIndicator)instance;
             return that.DisplayMessage;
         }
-        private void set_1_BandBusyIndicator_DisplayMessage(object instance, object Value)
+        private void set_5_BandBusyIndicator_DisplayMessage(object instance, object Value)
         {
             var that = (global::UwpHelpers.Controls.BusyIndicators.BandBusyIndicator)instance;
             that.DisplayMessage = (global::System.String)Value;
         }
-        private object get_2_BandBusyIndicator_Direction(object instance)
+        private object get_6_BandBusyIndicator_Direction(object instance)
         {
             var that = (global::UwpHelpers.Controls.BusyIndicators.BandBusyIndicator)instance;
             return that.Direction;
         }
-        private void set_2_BandBusyIndicator_Direction(object instance, object Value)
+        private void set_6_BandBusyIndicator_Direction(object instance, object Value)
         {
             var that = (global::UwpHelpers.Controls.BusyIndicators.BandBusyIndicator)instance;
             that.Direction = (global::UwpHelpers.Controls.BusyIndicators.AnimationDirection)Value;
@@ -375,26 +483,51 @@ namespace UwpHelpers.Examples.UwpHelpers_Examples_XamlTypeInfo
 
             switch (longMemberName)
             {
+            case "UwpHelpers.Examples.ViewModels.MainPageViewModel.ListItems":
+                userType = (global::UwpHelpers.Examples.UwpHelpers_Examples_XamlTypeInfo.XamlUserType)GetXamlTypeByName("UwpHelpers.Examples.ViewModels.MainPageViewModel");
+                xamlMember = new global::UwpHelpers.Examples.UwpHelpers_Examples_XamlTypeInfo.XamlMember(this, "ListItems", "System.Collections.ObjectModel.ObservableCollection`1<String>");
+                xamlMember.Getter = get_0_MainPageViewModel_ListItems;
+                xamlMember.SetIsReadOnly();
+                break;
+            case "UwpHelpers.Examples.ViewModels.MainPageViewModel.IsBusy":
+                userType = (global::UwpHelpers.Examples.UwpHelpers_Examples_XamlTypeInfo.XamlUserType)GetXamlTypeByName("UwpHelpers.Examples.ViewModels.MainPageViewModel");
+                xamlMember = new global::UwpHelpers.Examples.UwpHelpers_Examples_XamlTypeInfo.XamlMember(this, "IsBusy", "Boolean");
+                xamlMember.Getter = get_1_MainPageViewModel_IsBusy;
+                xamlMember.Setter = set_1_MainPageViewModel_IsBusy;
+                break;
+            case "UwpHelpers.Controls.ListControls.AdaptiveGridView.MinItemHeight":
+                userType = (global::UwpHelpers.Examples.UwpHelpers_Examples_XamlTypeInfo.XamlUserType)GetXamlTypeByName("UwpHelpers.Controls.ListControls.AdaptiveGridView");
+                xamlMember = new global::UwpHelpers.Examples.UwpHelpers_Examples_XamlTypeInfo.XamlMember(this, "MinItemHeight", "Double");
+                xamlMember.SetIsDependencyProperty();
+                xamlMember.Getter = get_2_AdaptiveGridView_MinItemHeight;
+                xamlMember.Setter = set_2_AdaptiveGridView_MinItemHeight;
+                break;
+            case "UwpHelpers.Controls.ListControls.AdaptiveGridView.MinItemWidth":
+                userType = (global::UwpHelpers.Examples.UwpHelpers_Examples_XamlTypeInfo.XamlUserType)GetXamlTypeByName("UwpHelpers.Controls.ListControls.AdaptiveGridView");
+                xamlMember = new global::UwpHelpers.Examples.UwpHelpers_Examples_XamlTypeInfo.XamlMember(this, "MinItemWidth", "Double");
+                xamlMember.Getter = get_3_AdaptiveGridView_MinItemWidth;
+                xamlMember.Setter = set_3_AdaptiveGridView_MinItemWidth;
+                break;
             case "UwpHelpers.Controls.BusyIndicators.BandBusyIndicator.IsActive":
                 userType = (global::UwpHelpers.Examples.UwpHelpers_Examples_XamlTypeInfo.XamlUserType)GetXamlTypeByName("UwpHelpers.Controls.BusyIndicators.BandBusyIndicator");
                 xamlMember = new global::UwpHelpers.Examples.UwpHelpers_Examples_XamlTypeInfo.XamlMember(this, "IsActive", "Boolean");
                 xamlMember.SetIsDependencyProperty();
-                xamlMember.Getter = get_0_BandBusyIndicator_IsActive;
-                xamlMember.Setter = set_0_BandBusyIndicator_IsActive;
+                xamlMember.Getter = get_4_BandBusyIndicator_IsActive;
+                xamlMember.Setter = set_4_BandBusyIndicator_IsActive;
                 break;
             case "UwpHelpers.Controls.BusyIndicators.BandBusyIndicator.DisplayMessage":
                 userType = (global::UwpHelpers.Examples.UwpHelpers_Examples_XamlTypeInfo.XamlUserType)GetXamlTypeByName("UwpHelpers.Controls.BusyIndicators.BandBusyIndicator");
                 xamlMember = new global::UwpHelpers.Examples.UwpHelpers_Examples_XamlTypeInfo.XamlMember(this, "DisplayMessage", "String");
                 xamlMember.SetIsDependencyProperty();
-                xamlMember.Getter = get_1_BandBusyIndicator_DisplayMessage;
-                xamlMember.Setter = set_1_BandBusyIndicator_DisplayMessage;
+                xamlMember.Getter = get_5_BandBusyIndicator_DisplayMessage;
+                xamlMember.Setter = set_5_BandBusyIndicator_DisplayMessage;
                 break;
             case "UwpHelpers.Controls.BusyIndicators.BandBusyIndicator.Direction":
                 userType = (global::UwpHelpers.Examples.UwpHelpers_Examples_XamlTypeInfo.XamlUserType)GetXamlTypeByName("UwpHelpers.Controls.BusyIndicators.BandBusyIndicator");
                 xamlMember = new global::UwpHelpers.Examples.UwpHelpers_Examples_XamlTypeInfo.XamlMember(this, "Direction", "UwpHelpers.Controls.BusyIndicators.AnimationDirection");
                 xamlMember.SetIsDependencyProperty();
-                xamlMember.Getter = get_2_BandBusyIndicator_Direction;
-                xamlMember.Setter = set_2_BandBusyIndicator_Direction;
+                xamlMember.Getter = get_6_BandBusyIndicator_Direction;
+                xamlMember.Setter = set_6_BandBusyIndicator_Direction;
                 break;
             }
             return xamlMember;
