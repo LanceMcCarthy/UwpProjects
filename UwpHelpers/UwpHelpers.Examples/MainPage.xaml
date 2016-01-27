@@ -5,6 +5,7 @@
       xmlns:busyIndicators="using:UwpHelpers.Controls.BusyIndicators"
       xmlns:listControls="using:UwpHelpers.Controls.ListControls"
       xmlns:viewModels="using:UwpHelpers.Examples.ViewModels"
+      xmlns:exs="using:UwpHelpers.Controls.Extensions"
       x:Class="UwpHelpers.Examples.MainPage"
       mc:Ignorable="d">
 
@@ -13,10 +14,14 @@
     </Page.DataContext>
 
     <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
-        
-        <!-- AdapiveGridView demo -->
-        
+        <Grid.RowDefinitions>
+            <RowDefinition />
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
+
+        <!-- AdapiveGridView demo and XamlExtension visibilty demo (uses AppBarButton IsChecked value for Visisbility -->
         <listControls:AdaptiveGridView ItemsSource="{Binding ListItems}"
+                                       exs:XamlExtensions.IsVisible="{Binding ElementName=GridVisibilityToggleButton, Path=IsChecked}"
                                        MinItemHeight="105"
                                        MinItemWidth="315">
             <listControls:AdaptiveGridView.ItemTemplate>
@@ -50,16 +55,24 @@
         </listControls:AdaptiveGridView>
         
         <!-- BandBusyIndicator Demo : Change the 'Direction' property to reverse the animation-->
-
         <busyIndicators:BandBusyIndicator IsActive="{Binding IsBusy}"
                                           DisplayMessage="doing something right now..."
-                                          Direction="Uploading" />
+                                          Direction="Uploading"
+                                          Grid.Row="0" />
+        
+        <CommandBar Grid.Row="1" >
 
-        <ToggleButton x:Name="MyToggleButton"
-                      IsChecked="{Binding IsBusy, Mode=TwoWay}"
-                      Content="Show BandBusyIndicator"
-                      VerticalAlignment="Bottom"
-                      HorizontalAlignment="Center"
-                      Margin="20" />
+            <!-- XamlExtensions demo : Any UI element's Visibility property can be toggled using a bool without needing a ValueConverter -->
+            <AppBarToggleButton x:Name="GridVisibilityToggleButton"
+                                Icon="Preview"
+                                IsChecked="False" 
+                                Label="delete button visibility via attached property"/>
+            
+            <!-- toggles BandBusyIndicator -->
+            <AppBarToggleButton x:Name="MyToggleButton"
+                                IsChecked="{Binding IsBusy, Mode=TwoWay}"
+                                Label="show busy indicator"
+                                Icon="Sync"/>
+        </CommandBar>
     </Grid>
 </Page>
