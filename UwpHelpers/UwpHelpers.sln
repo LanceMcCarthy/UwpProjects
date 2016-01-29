@@ -7,6 +7,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UwpHelpers.Controls", "UwpH
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UwpHelpers.Examples", "UwpHelpers.Examples\UwpHelpers.Examples.csproj", "{909DB4FC-F8BB-4F68-B1AA-F7B5715D47A5}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UwpHelpers.TelerikUwp", "UwpHelpers.TelerikUwp\UwpHelpers.TelerikUwp.csproj", "{29F56637-45CF-4F0E-9F46-F0ACFC5912FB}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|ARM = Debug|ARM
@@ -47,6 +49,24 @@ Global
 		{909DB4FC-F8BB-4F68-B1AA-F7B5715D47A5}.Release|x86.ActiveCfg = Release|x86
 		{909DB4FC-F8BB-4F68-B1AA-F7B5715D47A5}.Release|x86.Build.0 = Release|x86
 		{909DB4FC-F8BB-4F68-B1AA-F7B5715D47A5}.Release|x86.Deploy.0 = Release|x86
+		{29F56637-45CF-4F0E-9F46-F0ACFC5912FB}.Debug|ARM.ActiveCfg = Debug|ARM
+		{29F56637-45CF-4F0E-9F46-F0ACFC5912FB}.Debug|ARM.Build.0 = Debug|ARM
+		{29F56637-45CF-4F0E-9F46-F0ACFC5912FB}.Debug|ARM.Deploy.0 = Debug|ARM
+		{29F56637-45CF-4F0E-9F46-F0ACFC5912FB}.Debug|x64.ActiveCfg = Debug|x64
+		{29F56637-45CF-4F0E-9F46-F0ACFC5912FB}.Debug|x64.Build.0 = Debug|x64
+		{29F56637-45CF-4F0E-9F46-F0ACFC5912FB}.Debug|x64.Deploy.0 = Debug|x64
+		{29F56637-45CF-4F0E-9F46-F0ACFC5912FB}.Debug|x86.ActiveCfg = Debug|x86
+		{29F56637-45CF-4F0E-9F46-F0ACFC5912FB}.Debug|x86.Build.0 = Debug|x86
+		{29F56637-45CF-4F0E-9F46-F0ACFC5912FB}.Debug|x86.Deploy.0 = Debug|x86
+		{29F56637-45CF-4F0E-9F46-F0ACFC5912FB}.Release|ARM.ActiveCfg = Release|ARM
+		{29F56637-45CF-4F0E-9F46-F0ACFC5912FB}.Release|ARM.Build.0 = Release|ARM
+		{29F56637-45CF-4F0E-9F46-F0ACFC5912FB}.Release|ARM.Deploy.0 = Release|ARM
+		{29F56637-45CF-4F0E-9F46-F0ACFC5912FB}.Release|x64.ActiveCfg = Release|x64
+		{29F56637-45CF-4F0E-9F46-F0ACFC5912FB}.Release|x64.Build.0 = Release|x64
+		{29F56637-45CF-4F0E-9F46-F0ACFC5912FB}.Release|x64.Deploy.0 = Release|x64
+		{29F56637-45CF-4F0E-9F46-F0ACFC5912FB}.Release|x86.ActiveCfg = Release|x86
+		{29F56637-45CF-4F0E-9F46-F0ACFC5912FB}.Release|x86.Build.0 = Release|x86
+		{29F56637-45CF-4F0E-9F46-F0ACFC5912FB}.Release|x86.Deploy.0 = Release|x86
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
