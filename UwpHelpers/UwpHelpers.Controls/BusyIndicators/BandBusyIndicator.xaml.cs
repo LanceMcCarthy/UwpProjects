@@ -8,7 +8,13 @@ namespace UwpHelpers.Controls.BusyIndicators
     public sealed partial class BandBusyIndicator : UserControl
     {
         public static readonly DependencyProperty DisplayMessageProperty = DependencyProperty.Register(
-            "DisplayMessage", typeof(string), typeof(BandBusyIndicator), new PropertyMetadata(default(string)));
+            "DisplayMessage", 
+            typeof(string), 
+            typeof(BandBusyIndicator), 
+            new PropertyMetadata(default(string), (o, e) =>
+            {
+                ((BandBusyIndicator) o).MessageTextBlock.Text = (string) e.NewValue;
+            }));
 
         public string DisplayMessage
         {

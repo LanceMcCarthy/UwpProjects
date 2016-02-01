@@ -1,47 +1,25 @@
-﻿using System.Collections.ObjectModel;
+﻿using System;
+using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
+using UwpHelpers.Examples.Views;
 
 namespace UwpHelpers.Examples.ViewModels
 {
     public class MainPageViewModel : INotifyPropertyChanged
     {
-        private bool isBusy;
-        private ObservableCollection<string> listItems;
-
         public MainPageViewModel()
         {
-
-        }
-
-        #region properties
-
-        public ObservableCollection<string> ListItems => listItems ?? (listItems = GenerateSampleListData());
-        
-        public bool IsBusy
-        {
-            get { return isBusy; }
-            set { isBusy = value; OnPropertyChanged(); }
-        }
-
-        #endregion
-
-        #region methods and tasks
-
-        private ObservableCollection<string> GenerateSampleListData()
-        {
-            var list = new ObservableCollection<string>();
-
-            for (int i = 1; i < 10; i++)
+            Demos = new ObservableCollection<Demo>()
             {
-                list.Add($"Item {i}");
-            }
-
-            return list;
+                new Demo { DemoTitle = "AdaptiveGridView Demo", GlyphIcon ="", DemoPage = typeof(AdaptiveGridViewPage)},
+                new Demo { DemoTitle = "BandBusyIndicator Demo", GlyphIcon ="", DemoPage = typeof(BusyIndicatorPage)},
+                new Demo {DemoTitle = "UIElement Blur Demo", GlyphIcon = "", DemoPage = typeof(ElementBlurPage) }
+            };
         }
 
-        #endregion
-
+        public ObservableCollection<Demo> Demos { get; set; }
+        
         #region INPC
 
         public event PropertyChangedEventHandler PropertyChanged;
@@ -52,5 +30,12 @@ namespace UwpHelpers.Examples.ViewModels
         }
 
         #endregion
+    }
+
+    public class Demo
+    {
+        public Type DemoPage { get; set; }
+        public string DemoTitle { get; set; }
+        public string GlyphIcon { get; set; }
     }
 }

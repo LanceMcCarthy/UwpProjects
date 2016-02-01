@@ -2,10 +2,7 @@
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-      xmlns:busyIndicators="using:UwpHelpers.Controls.BusyIndicators"
-      xmlns:listControls="using:UwpHelpers.Controls.ListControls"
       xmlns:viewModels="using:UwpHelpers.Examples.ViewModels"
-      xmlns:exs="using:UwpHelpers.Controls.Extensions"
       x:Class="UwpHelpers.Examples.MainPage"
       mc:Ignorable="d">
 
@@ -14,27 +11,30 @@
     </Page.DataContext>
 
     <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
-        <Grid.RowDefinitions>
-            <RowDefinition />
-            <RowDefinition Height="Auto" />
-        </Grid.RowDefinitions>
-
-        <!-- AdapiveGridView demo and XamlExtension visibilty demo (uses AppBarButton IsChecked value for Visisbility -->
-        <listControls:AdaptiveGridView ItemsSource="{Binding ListItems}"
-                                       exs:XamlExtensions.IsVisible="{Binding ElementName=GridVisibilityToggleButton, Path=IsChecked}"
-                                       MinItemHeight="105"
-                                       MinItemWidth="315">
-            <listControls:AdaptiveGridView.ItemTemplate>
+        
+        <ListView ItemsSource="{Binding Demos}" 
+                  IsItemClickEnabled="True"
+                  ItemClick="ListViewBase_OnItemClick">
+            <ListView.ItemTemplate>
                 <DataTemplate>
-                    <Border Background="{ThemeResource SystemControlHighlightListAccentHighBrush}">
-                        <TextBlock Text="{Binding}"
-                                   HorizontalAlignment="Center"
-                                   Margin="20" />
-                    </Border>
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto" />
+                            <ColumnDefinition />
+                        </Grid.ColumnDefinitions>
+                        <FontIcon Glyph="{Binding GlyphIcon}"
+                                  Margin="5"
+                                  HorizontalAlignment="Center"
+                                  VerticalAlignment="Center" />
+                        <TextBlock Text="{Binding DemoTitle}"
+                                   Grid.Column="1"
+                                   VerticalAlignment="Center"
+                                   Margin="10,0,0,0" />
+                    </Grid>
                 </DataTemplate>
-            </listControls:AdaptiveGridView.ItemTemplate>
-            <listControls:AdaptiveGridView.ItemContainerStyle>
-                <Style TargetType="GridViewItem">
+            </ListView.ItemTemplate>
+            <ListView.ItemContainerStyle>
+                <Style TargetType="ListViewItem">
                     <Setter Property="HorizontalContentAlignment"
                             Value="Stretch" />
                     <Setter Property="HorizontalAlignment"
@@ -43,36 +43,9 @@
                             Value="Stretch" />
                     <Setter Property="VerticalAlignment"
                             Value="Stretch" />
-                    <Setter Property="Margin"
-                            Value="5" />
                 </Style>
-            </listControls:AdaptiveGridView.ItemContainerStyle>
-            <listControls:AdaptiveGridView.ItemContainerTransitions>
-                <TransitionCollection>
-                    <EntranceThemeTransition />
-                </TransitionCollection>
-            </listControls:AdaptiveGridView.ItemContainerTransitions>
-        </listControls:AdaptiveGridView>
+            </ListView.ItemContainerStyle>
+        </ListView>
         
-        <!-- BandBusyIndicator Demo : Change the 'Direction' property to reverse the animation-->
-        <busyIndicators:BandBusyIndicator IsActive="{Binding IsBusy}"
-                                          DisplayMessage="doing something right now..."
-                                          Direction="Uploading"
-                                          Grid.Row="0" />
-        
-        <CommandBar Grid.Row="1" >
-
-            <!-- XamlExtensions demo : Any UI element's Visibility property can be toggled using a bool without needing a ValueConverter -->
-            <AppBarToggleButton x:Name="GridVisibilityToggleButton"
-                                Icon="Preview"
-                                IsChecked="False" 
-                                Label="delete button visibility via attached property"/>
-            
-            <!-- toggles BandBusyIndicator -->
-            <AppBarToggleButton x:Name="MyToggleButton"
-                                IsChecked="{Binding IsBusy, Mode=TwoWay}"
-                                Label="show busy indicator"
-                                Icon="Sync"/>
-        </CommandBar>
     </Grid>
 </Page>

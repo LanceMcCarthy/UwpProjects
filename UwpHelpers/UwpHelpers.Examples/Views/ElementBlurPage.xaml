@@ -1,0 +1,69 @@
+﻿<Page x:Class="UwpHelpers.Examples.Views.ElementBlurPage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:local="using:UwpHelpers.Examples.Views"
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+      mc:Ignorable="d">
+
+
+    <Grid x:Name="ContentRoot" Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition />
+            </Grid.RowDefinitions>
+            <Grid x:Name="ContentToBlur"
+                  Width="360"
+                  Height="225"
+                  Margin="0,20,0,0">
+                <Image x:Name="OriginalImage"
+                       Source="ms-appx:///Assets/Images/BostonSkyline.jpg"
+                       Stretch="UniformToFill" />
+
+                <Border VerticalAlignment="Bottom"
+                        Margin="10"
+                        Background="{ThemeResource SystemControlHighlightAltBaseMediumBrush}">
+                    <TextBlock Text="Boston"
+                               FontSize="24"
+                               HorizontalAlignment="Center"
+                               Foreground="White" />
+                </Border>
+
+                <FontIcon Glyph="☺"
+                          FontFamily="Segoe UI Emoji"
+                          FontSize="48"
+                          HorizontalAlignment="Left"
+                          VerticalAlignment="Bottom"
+                          Margin="10,0,0,0" />
+
+                <FontIcon Glyph="☃" FontFamily="Segoe UI Emoji"
+                          FontSize="64"
+                          HorizontalAlignment="Right"
+                          VerticalAlignment="Bottom"
+                          Margin="0,0,10,0" />
+            </Grid>
+
+            <StackPanel Grid.Row="1"
+                        Width="360"
+                        VerticalAlignment="Center"
+                        HorizontalAlignment="Center"
+                        Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+                <Slider x:Name="BlurAmountSlider"
+                        Header="Blur Amount"
+                        Minimum="0"
+                        Value="3"
+                        Maximum="15"
+                        Margin="10,10,10,0" />
+
+                <Button Content="Apply Blur"
+                        Click="ButtonBase_OnClick"
+                        VerticalAlignment="Center"
+                        HorizontalAlignment="Stretch"
+                        Margin="10" />
+            </StackPanel>
+        </Grid>
+        
+    </Grid>
+</Page>

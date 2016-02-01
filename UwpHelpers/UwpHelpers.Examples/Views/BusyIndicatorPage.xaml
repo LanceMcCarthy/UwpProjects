@@ -1,0 +1,36 @@
+﻿<Page
+    x:Class="UwpHelpers.Examples.Views.BusyIndicatorPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:UwpHelpers.Examples.Views"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:viewModels="using:UwpHelpers.Examples.ViewModels"
+    xmlns:busyIndicators="using:UwpHelpers.Controls.BusyIndicators"
+    mc:Ignorable="d">
+
+    <Page.DataContext>
+        <viewModels:BusyIndicatorViewModel />
+    </Page.DataContext>
+
+    <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+        <Grid.RowDefinitions>
+            <RowDefinition />
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
+        
+        <!-- BandBusyIndicator Demo : Change the 'Direction' property to reverse the animation-->
+        <busyIndicators:BandBusyIndicator IsActive="{Binding IsBusy}"
+                                          DisplayMessage="{Binding IsBusyMessage}"
+                                          Direction="Uploading"
+                                          Grid.Row="0" />
+
+        <CommandBar Grid.Row="1">
+            <!-- toggles BandBusyIndicator -->
+            <AppBarToggleButton x:Name="MyToggleButton"
+                                IsChecked="{Binding IsBusy, Mode=TwoWay}"
+                                Label="toggle busy indicator"
+                                Icon="Sync" />
+        </CommandBar>
+    </Grid>
+</Page>

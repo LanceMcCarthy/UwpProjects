@@ -305,7 +305,7 @@
                   VerticalAlignment="Top"
                   d:LayoutOverrides="LeftPosition, RightPosition" />
         </Grid>
-        <TextBlock Text="{Binding ElementName=Control, Path=DisplayMessage}"
+        <TextBlock x:Name="MessageTextBlock"
                    TextWrapping="Wrap"
                    HorizontalAlignment="Center"
                    VerticalAlignment="Center"

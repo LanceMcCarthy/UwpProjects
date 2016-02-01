@@ -4,6 +4,7 @@ A set of UWP controls and utilities (I will add more over time)
 ##Contents
 * BandBusyIndicator in *UwpHelpers* (cool custom busy indicator)
 * AdaptiveGridView in *UwpHelpers* (maintains aspect ratio of items as it scales for column width)
+* BlurElementAsync in *UwpHelpers* (converts any UIElement into a blurred BitmapImage)
 * DateRangePicker in *TelerikUwp* (select a date range with start/end overlap protection)
 
 
@@ -42,6 +43,25 @@ A set of UWP controls and utilities (I will add more over time)
 <busyIndicators:BandBusyIndicator IsActive="{Binding IsBusy}"
                                   DisplayMessage="busy..."
                                   Direction="Uploading"  />
+```
+
+###BlurElementAsync
+
+![alt tag](https://i.gyazo.com/b1ef38ded3e6428e607595d8638bb88f.gif)
+
+
+**use example**
+
+```
+//You can pass any UIElement to the method and it will render all of the children into a bitmap with a Blur applied
+var blurredBitmapImage = await BlurElementAsync(ContentToBlur);
+
+//example: you can then set Background brush of a Grid
+ContentRootGrid.Background = new ImageBrush
+{
+      ImageSource = blurredBitmapImage,
+      Stretch = Stretch.UniformToFill
+};
 ```
 
 
