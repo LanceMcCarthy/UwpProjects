@@ -2,10 +2,10 @@
 A set of UWP controls and utilities (I will add more over time)
 
 ##Contents
-* BandBusyIndicator in *UwpHelpers* (cool custom busy indicator)
-* AdaptiveGridView in *UwpHelpers* (maintains aspect ratio of items as it scales for column width)
-* BlurElementAsync in *UwpHelpers* (converts any UIElement into a blurred BitmapImage)
-* DateRangePicker in *TelerikUwp* (select a date range with start/end overlap protection)
+* BandBusyIndicator in *UwpHelpers.Controls.BusyIndicators* (cool custom busy indicator)
+* AdaptiveGridView in *UwpHelpers.Controls.ListControls* (maintains aspect ratio of items as it scales for column width)
+* BlurElementAsync in *UwpHelpers.Examples.Helpers* (converts any UIElement into a blurred BitmapImage)
+* DateRangePicker in *TelerikUwp.CustomControls* (select a date range with start/end overlap protection)
 
 
 ###AdaptiveGridView
@@ -54,7 +54,7 @@ A set of UWP controls and utilities (I will add more over time)
 
 ```
 //You can pass any UIElement to the method and it will render all of the children into a bitmap with a Blur applied
-var blurredBitmapImage = await BlurElementAsync(ContentToBlur);
+var blurredElement = await ContentToBlur.BlurElementAsync();
 
 //example: you can then set Background brush of a Grid
 ContentRootGrid.Background = new ImageBrush
