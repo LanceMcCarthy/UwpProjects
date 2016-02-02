@@ -14,7 +14,8 @@ namespace UwpHelpers.Examples.ViewModels
             {
                 new Demo { DemoTitle = "AdaptiveGridView Demo", GlyphIcon ="", DemoPage = typeof(AdaptiveGridViewPage)},
                 new Demo { DemoTitle = "BandBusyIndicator Demo", GlyphIcon ="", DemoPage = typeof(BusyIndicatorPage)},
-                new Demo {DemoTitle = "UIElement Blur Demo", GlyphIcon = "", DemoPage = typeof(ElementBlurPage) }
+                new Demo {DemoTitle = "UIElement Blur Demo", GlyphIcon = "", DemoPage = typeof(ElementBlurPage) },
+                new Demo {DemoTitle = "Incremental Scrolling Demo", GlyphIcon = "", DemoPage = typeof(IncrementalScrollingPage) }
             };
         }
 

@@ -110,6 +110,7 @@
     <Compile Include="BusyIndicators\BandBusyIndicator.xaml.cs">
       <DependentUpon>BandBusyIndicator.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Common\IncrementalLoadingCollection.cs" />
     <Compile Include="Extensions\XamlExtensions.cs" />
     <Compile Include="ListControls\AdaptiveGridView.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

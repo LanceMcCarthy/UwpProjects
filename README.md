@@ -5,6 +5,7 @@ A set of UWP controls and utilities (I will add more over time)
 * BandBusyIndicator in *UwpHelpers.Controls.BusyIndicators* (cool custom busy indicator)
 * AdaptiveGridView in *UwpHelpers.Controls.ListControls* (maintains aspect ratio of items as it scales for column width)
 * BlurElementAsync in *UwpHelpers.Examples.Helpers* (converts any UIElement into a blurred BitmapImage)
+* IncrementalLoadingCollection in *UwpHelpers.Controls.Common* (demo in Examples)
 * DateRangePicker in *TelerikUwp.CustomControls* (select a date range with start/end overlap protection)
 
 
@@ -64,6 +65,22 @@ ContentRootGrid.Background = new ImageBrush
 };
 ```
 
+###IncrementalLoadingCollection
+
+![alt tag](https://i.gyazo.com/450b257a52ece99e59052af9ff28d825.gif)
+
+
+** Example **
+```
+var InfiniteItems = new IncrementalLoadingCollection<T>((cancellationToken, count) => Task.Run(GetMoreData, cancellationToken));
+
+//and GetMoreData is
+private async Task<ObservableCollection<T>> GetMoreData()
+{
+      return more items of type ObservableCollection<T>
+}
+
+```
 
 ###DateRangePicker
 
