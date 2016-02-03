@@ -1,12 +1,12 @@
 # UwpProjects
 A set of UWP controls and utilities (I will add more over time)
+*Note: To see my Telerik UWP examples, go here: https://github.com/LanceMcCarthy/TelerikUwpProjects*
 
 ##Contents
 * BandBusyIndicator in *UwpHelpers.Controls.BusyIndicators* (cool custom busy indicator)
 * AdaptiveGridView in *UwpHelpers.Controls.ListControls* (maintains aspect ratio of items as it scales for column width)
 * BlurElementAsync in *UwpHelpers.Examples.Helpers* (converts any UIElement into a blurred BitmapImage)
 * IncrementalLoadingCollection in *UwpHelpers.Controls.Common* (demo in Examples)
-* DateRangePicker in *TelerikUwp.CustomControls* (select a date range with start/end overlap protection)
 
 
 ###AdaptiveGridView
@@ -19,7 +19,7 @@ A set of UWP controls and utilities (I will add more over time)
 * MinItemHeight (double)
 
 
-** Example **
+**Example**
 ```
 <listControls:AdaptiveGridView ItemsSource="{Binding ListItems}"
                                MinItemHeight="105"
@@ -51,7 +51,7 @@ A set of UWP controls and utilities (I will add more over time)
 ![alt tag](https://i.gyazo.com/b1ef38ded3e6428e607595d8638bb88f.gif)
 
 
-**use example**
+**Example**
 
 ```
 //You can pass any UIElement to the method and it will render all of the children into a bitmap with a Blur applied
@@ -70,9 +70,16 @@ ContentRootGrid.Background = new ImageBrush
 ![alt tag](https://i.gyazo.com/450b257a52ece99e59052af9ff28d825.gif)
 
 
-** Example **
+**Example**
+
+*XAML*
 ```
-var InfiniteItems = new IncrementalLoadingCollection<T>((cancellationToken, count) => Task.Run(GetMoreData, cancellationToken));
+<ListView ItemsSource="{Binding InfiniteItems}" />
+```
+
+*ViewModel or Code-Behind*
+```
+InfiniteItems = new IncrementalLoadingCollection<T>((cancellationToken, count) => Task.Run(GetMoreData, cancellationToken));
 
 //and GetMoreData is
 private async Task<ObservableCollection<T>> GetMoreData()
@@ -80,46 +87,5 @@ private async Task<ObservableCollection<T>> GetMoreData()
       return more items of type ObservableCollection<T>
 }
 
-```
-
-###DateRangePicker
-
-![alt tag](https://i.gyazo.com/985e926ed201a7991aee4c4110bacbcc.gif)
-
-
-
-**Properties and Events**
-* StartDate (DateTime)
-* EndDate (DateTime)
-* DateRangeChanged (passed DateRangeChangedEventArgs)
-
-
-**Databinding use example**
-
-```
-<customControls:DateRangePicker StartDate="{Binding MyStartDate, Mode=TwoWay}"
-                                EndDate="{Binding MyEndDate, Mode=TwoWay}" />
-```
-
-
-** Event use example **
-
-
-*XAML*
-
-```
-<customControls:DateRangePicker x:Name="MyDateRangePicker"
-                                DateRangeValueChanged="MyDateRangePicker_OnDateRangeValueChanged" />
-```
-
-
-*Event Handler*
-
-```
-private void MyDateRangePicker_OnDateRangeValueChanged(object sender, DateRangeChangedEventArgs e)
-{
-      var startDate = e.StartDate;
-      var endDate = e.EndDate;
-}
 ```
 
