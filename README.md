@@ -1,4 +1,4 @@
-# UwpProjects
+# UwpProjects <img src="https://lance.visualstudio.com/DefaultCollection/_apis/public/build/definitions/99c7351f-17fc-47b4-9314-f259e58e77eb/2/badge" alt="Build status" />
 A set of UWP controls and utilities (I will add more over time)
 *Note: To see my Telerik UWP examples, go here: https://github.com/LanceMcCarthy/TelerikUwpProjects*
 
