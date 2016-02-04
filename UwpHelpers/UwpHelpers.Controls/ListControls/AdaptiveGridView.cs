@@ -88,12 +88,14 @@ namespace UwpHelpers.Controls.ListControls
             {
                 if (MinItemWidth == 0)
                     throw new DivideByZeroException("You need to have a MinItemWidth greater than zero");
-                
-                var numColumns = Math.Floor(availableSize.Width / MinItemWidth);
+
+                var availableWidth = availableSize.Width - (this.Padding.Right + this.Padding.Left);
+
+                var numColumns = Math.Floor(availableWidth / MinItemWidth);
                 numColumns = numColumns == 0 ? 1 : numColumns;
                 var numRows = Math.Ceiling(this.Items.Count / numColumns);
 
-                var itemWidth = availableSize.Width / numColumns;
+                var itemWidth = availableWidth / numColumns;
                 var aspectRatio = MinItemHeight / MinItemWidth;
                 var itemHeight = itemWidth * aspectRatio;
 
