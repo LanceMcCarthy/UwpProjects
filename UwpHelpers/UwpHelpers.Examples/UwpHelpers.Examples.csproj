@@ -104,6 +104,7 @@
     <Compile Include="ViewModels\BusyIndicatorViewModel.cs" />
     <Compile Include="ViewModels\IncrementalScrollingViewModel.cs" />
     <Compile Include="ViewModels\MainPageViewModel.cs" />
+    <Compile Include="ViewModels\NetworkImageViewModel.cs" />
     <Compile Include="Views\AdaptiveGridViewPage.xaml.cs">
       <DependentUpon>AdaptiveGridViewPage.xaml</DependentUpon>
     </Compile>
@@ -115,6 +116,9 @@
     </Compile>
     <Compile Include="Views\IncrementalScrollingPage.xaml.cs">
       <DependentUpon>IncrementalScrollingPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\NetworkImagePage.xaml.cs">
+      <DependentUpon>NetworkImagePage.xaml</DependentUpon>
     </Compile>
   </ItemGroup>
   <ItemGroup>
@@ -156,6 +160,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\IncrementalScrollingPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\NetworkImagePage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

@@ -13,9 +13,10 @@ namespace UwpHelpers.Examples.ViewModels
             Demos = new ObservableCollection<Demo>()
             {
                 new Demo { DemoTitle = "AdaptiveGridView Demo", GlyphIcon ="", DemoPage = typeof(AdaptiveGridViewPage)},
-                new Demo { DemoTitle = "BandBusyIndicator Demo", GlyphIcon ="", DemoPage = typeof(BusyIndicatorPage)},
+                new Demo { DemoTitle = "BusyIndicator Demos", GlyphIcon ="", DemoPage = typeof(BusyIndicatorPage)},
                 new Demo {DemoTitle = "UIElement Blur Demo", GlyphIcon = "", DemoPage = typeof(ElementBlurPage) },
-                new Demo {DemoTitle = "Incremental Scrolling Demo", GlyphIcon = "", DemoPage = typeof(IncrementalScrollingPage) }
+                new Demo {DemoTitle = "Incremental Scrolling Demo", GlyphIcon = "", DemoPage = typeof(IncrementalScrollingPage) },
+                new Demo {DemoTitle = "NetworkImage Demo", GlyphIcon = "", DemoPage = typeof(NetworkImagePage) }
             };
         }
 

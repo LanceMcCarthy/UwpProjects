@@ -6,17 +6,17 @@ using UwpHelpers.Controls.BusyIndicators.Primitives;
 
 namespace UwpHelpers.Controls.BusyIndicators
 {
-    public sealed partial class BandBusyIndicator : UserControl
+    public sealed partial class DownloadUploadIndicator : UserControl
     {
         #region dependency properties
 
         public static readonly DependencyProperty DisplayMessageProperty = DependencyProperty.Register(
-            "DisplayMessage", 
-            typeof(string), 
-            typeof(BandBusyIndicator), 
+            "DisplayMessage",
+            typeof(string),
+            typeof(DownloadUploadIndicator),
             new PropertyMetadata(default(string), (o, e) =>
             {
-                ((BandBusyIndicator) o).MessageTextBlock.Text = (string) e.NewValue;
+                ((DownloadUploadIndicator) o).MessageTextBlock.Text = (string) e.NewValue;
             }));
 
         public string DisplayMessage
@@ -24,14 +24,14 @@ namespace UwpHelpers.Controls.BusyIndicators
             get { return (string) GetValue(DisplayMessageProperty); }
             set { SetValue(DisplayMessageProperty, value); }
         }
-        
+
         public static readonly DependencyProperty IsActiveProperty = DependencyProperty.Register(
-            "IsActive", 
-            typeof(bool), 
-            typeof(BandBusyIndicator), 
+            "IsActive",
+            typeof(bool),
+            typeof(DownloadUploadIndicator),
             new PropertyMetadata(false, (obj, args) =>
             {
-                ((BandBusyIndicator) obj).IsActivePropertyChanged(args);
+                ((DownloadUploadIndicator) obj).IsActivePropertyChanged(args);
             }));
 
         private void IsActivePropertyChanged(DependencyPropertyChangedEventArgs args)
@@ -43,8 +43,8 @@ namespace UwpHelpers.Controls.BusyIndicators
                     DownloadingStory.RepeatBehavior = RepeatBehavior.Forever;
                 }
 
-                this.Visibility = Visibility.Visible;
-
+                this.Visibility = this.BaseRectangle.Visibility = this.MessageTextBlock.Visibility = Visibility.Visible;
+                
                 switch (Direction)
                 {
                     case AnimationDirection.Downloading:
@@ -60,7 +60,7 @@ namespace UwpHelpers.Controls.BusyIndicators
             }
             else
             {
-                this.Visibility = Visibility.Collapsed;
+                this.Visibility = this.BaseRectangle.Visibility = this.MessageTextBlock.Visibility = Visibility.Collapsed;
                 DownloadingStory.Stop();
             }
         }
@@ -72,12 +72,12 @@ namespace UwpHelpers.Controls.BusyIndicators
         }
 
         public static readonly DependencyProperty DirectionProperty = DependencyProperty.Register(
-            "Direction", 
-            typeof (AnimationDirection), 
-            typeof (BandBusyIndicator), 
+            "Direction",
+            typeof(AnimationDirection),
+            typeof(DownloadUploadIndicator),
             new PropertyMetadata(AnimationDirection.Downloading, (obj, args) =>
             {
-                ((BandBusyIndicator) obj).AnimationDirectionPropertyChanged(args);
+                ((DownloadUploadIndicator) obj).AnimationDirectionPropertyChanged(args);
             }));
 
         private void AnimationDirectionPropertyChanged(DependencyPropertyChangedEventArgs e)
@@ -108,7 +108,7 @@ namespace UwpHelpers.Controls.BusyIndicators
 
         #endregion
 
-        public BandBusyIndicator()
+        public DownloadUploadIndicator()
         {
             this.InitializeComponent();
         }

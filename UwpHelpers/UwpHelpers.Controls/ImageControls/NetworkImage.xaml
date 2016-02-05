@@ -1,0 +1,30 @@
+﻿<UserControl x:Name="Control"
+             x:Class="UwpHelpers.Controls.ImageControls.NetworkImage"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d"
+             d:DesignHeight="200"
+             d:DesignWidth="200">
+
+    <Grid>
+        <Image x:Name="RootImage" Stretch="{Binding ElementName=Control, Path=ImageStretch}">
+            <Image.Source>
+                <BitmapImage x:Name="RootImageSource"
+                             UriSource="{Binding ElementName=Control, Path=ImageUrl}"
+                             DecodePixelWidth="{Binding ElementName=Control, Path=ImageDecodeWidth}"
+                             DecodePixelHeight="{Binding ElementName=Control, Path=ImageDecodeHeight}"/>
+            </Image.Source>
+        </Image>
+        <ProgressRing x:Name="DownloadingProgressRing"
+                      IsActive="{Binding ElementName=Control, Path=IsActive}"
+                      Visibility="{Binding ElementName=Control, Path=ProgressRingVisibility}"
+                      Margin="10"/>
+        <TextBlock x:Name="DownloadProgressTextBlock"
+                   Text="{Binding ElementName=Control, Path=DownloadProgressStatus}"
+                   Visibility="{Binding ElementName=Control, Path=DownloadPercentageVisibility}"
+                   HorizontalAlignment="Center"
+                   VerticalAlignment="Center" />
+    </Grid>
+</UserControl>

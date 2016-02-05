@@ -3,15 +3,16 @@ A set of UWP controls and utilities (I will add more over time)
 *Note: To see my Telerik UWP examples, go here: https://github.com/LanceMcCarthy/TelerikUwpProjects*
 
 ##Contents
-* BandBusyIndicator in *UwpHelpers.Controls.BusyIndicators* (cool custom busy indicator)
+* BusyIndicators in *UwpHelpers.Controls.BusyIndicators* (cool custom busy indicator)
 * AdaptiveGridView in *UwpHelpers.Controls.ListControls* (maintains aspect ratio of items as it scales for column width)
 * BlurElementAsync in *UwpHelpers.Examples.Helpers* (converts any UIElement into a blurred BitmapImage)
 * IncrementalLoadingCollection in *UwpHelpers.Controls.Common* (demo in Examples)
+* NetworkImage in *UwpHelpers.Controls.ImageControls* (an Image control that shows download progress)
 
 
 ###AdaptiveGridView
 
-![alt tag](https://i.gyazo.com/8b4eda7cd246474d4e7ec4262aecc82b.gif)
+![alt tag](https://i.gyazo.com/9d19b70d72c65c3d24fb81a857cdf4f8.gif)
 
 
 **Properties**
@@ -28,10 +29,13 @@ A set of UWP controls and utilities (I will add more over time)
 ```
 
 
-###BandBusyIndicator
+###BusyIndicators
 
-![alt tag](https://i.gyazo.com/ba631921317b4f8a5a51b3506e9f53ff.gif)
+![alt tag](https://i.gyazo.com/f4bb068908151c6d0563f9157ae3f27e.gif)
 
+
+* BandBusyIndicator
+* DownloadUploadIndicator
 
 **Properties**
 
@@ -88,4 +92,27 @@ private async Task<ObservableCollection<T>> GetMoreData()
 }
 
 ```
+
+###NetworkImage
+
+![alt tag](https://i.gyazo.com/3cfc9b6d98bd5b060440a308edc45df7.gif)
+
+
+**Properties**
+
+* ImageUrl (string): string url of the photo
+* IsActive (bool) - the control manages this automatically, but you can manually enable/disable if needed 
+* DownloadPercentageVisibility (Visibility) - If you want to hide the progress percentage
+* ProgressRingVisibility (Visibility) - If you want to hide the ProgressRing animation
+* ImageStretch (Stretch) - Stretch property passed ot the underlying Image control
+
+
+**Example**
+
+*XAML*
+```
+<imageControls:NetworkImage ImageUrl="http://bigimages.com/MyHugeImage.jpg" />
+```
+
+
 

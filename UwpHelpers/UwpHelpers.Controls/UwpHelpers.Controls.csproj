@@ -110,8 +110,15 @@
     <Compile Include="BusyIndicators\BandBusyIndicator.xaml.cs">
       <DependentUpon>BandBusyIndicator.xaml</DependentUpon>
     </Compile>
+    <Compile Include="BusyIndicators\Primitives\AnimationDirection.cs" />
+    <Compile Include="BusyIndicators\DownloadUploadIndicator.xaml.cs">
+      <DependentUpon>DownloadUploadIndicator.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Common\IncrementalLoadingCollection.cs" />
     <Compile Include="Extensions\XamlExtensions.cs" />
+    <Compile Include="ImageControls\NetworkImage.xaml.cs">
+      <DependentUpon>NetworkImage.xaml</DependentUpon>
+    </Compile>
     <Compile Include="ListControls\AdaptiveGridView.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="Properties\UwpHelpers.Controls.rd.xml" />
@@ -119,6 +126,14 @@
   <ItemGroup />
   <ItemGroup>
     <Page Include="BusyIndicators\BandBusyIndicator.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="BusyIndicators\DownloadUploadIndicator.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="ImageControls\NetworkImage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

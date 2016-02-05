@@ -3,11 +3,12 @@
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
       xmlns:viewModels="using:UwpHelpers.Examples.ViewModels"
-      x:Class="UwpHelpers.Examples.MainPage"
+      xmlns:imageControls="using:UwpHelpers.Controls.ImageControls"
+      x:Class="UwpHelpers.Examples.Views.NetworkImagePage"
       mc:Ignorable="d">
 
     <Page.DataContext>
-        <viewModels:MainPageViewModel />
+        <viewModels:NetworkImageViewModel />
     </Page.DataContext>
 
     <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
@@ -17,43 +18,27 @@
         </Grid.RowDefinitions>
 
         <Border x:Name="Header"
-                Background="{ThemeResource SystemControlForegroundAccentBrush}">
+                VerticalAlignment="Top"
+                Background="Black">
             <StackPanel Orientation="Horizontal"
                         HorizontalAlignment="Center">
-                <TextBlock Text="Examples:"
+                <TextBlock Text="Photos:"
                            Foreground="White"
                            Margin="5" />
-                <TextBlock Text="{Binding Demos.Count}"
+                <TextBlock Text="{Binding Images.Count}"
                            Foreground="White"
                            Margin="5" />
             </StackPanel>
         </Border>
 
-        <ListView ItemsSource="{Binding Demos}" 
-                  IsItemClickEnabled="True"
-                  Grid.Row="1"
-                  ItemClick="ListViewBase_OnItemClick">
+        <ListView ItemsSource="{Binding Images}"
+                  Grid.Row="1">
             <ListView.ItemTemplate>
                 <DataTemplate>
-                    <Grid Margin="0,10,5,0"
-                          Background="{ThemeResource SystemControlBackgroundBaseMediumLowBrush}">
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="Auto" />
-                            <ColumnDefinition />
-                        </Grid.ColumnDefinitions>
-                        <Grid Background="{ThemeResource SystemControlBackgroundBaseMediumLowBrush}">
-                            <FontIcon Glyph="{Binding GlyphIcon}"
-                                      Margin="10"
-                                      HorizontalAlignment="Center"
-                                      VerticalAlignment="Center"
-                                      Foreground="{ThemeResource SystemControlHighlightAltChromeWhiteBrush}" />
-                        </Grid>
-                        
-                        <TextBlock Text="{Binding DemoTitle}"
-                                   Grid.Column="1"
-                                   VerticalAlignment="Center"
-                                   Margin="10,0,0,0"
-                                   Foreground="{ThemeResource SystemControlHighlightAltChromeWhiteBrush}"/>
+                    <Grid Background="{ThemeResource SystemControlBackgroundBaseLowBrush}"
+                          Margin="0,0,0,5">
+                        <imageControls:NetworkImage ImageUrl="{Binding}"
+                                                    ImageStretch="UniformToFill"/>
                     </Grid>
                 </DataTemplate>
             </ListView.ItemTemplate>
@@ -70,6 +55,5 @@
                 </Style>
             </ListView.ItemContainerStyle>
         </ListView>
-        
     </Grid>
 </Page>

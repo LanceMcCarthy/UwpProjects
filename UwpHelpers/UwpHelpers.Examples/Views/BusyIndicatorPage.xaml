@@ -16,6 +16,7 @@
     <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
         <Grid.RowDefinitions>
             <RowDefinition />
+            <RowDefinition />
             <RowDefinition Height="Auto" />
         </Grid.RowDefinitions>
         
@@ -25,8 +26,13 @@
                                           Direction="Uploading"
                                           Grid.Row="0" />
 
-        <CommandBar Grid.Row="1">
-            <!-- toggles BandBusyIndicator -->
+        <busyIndicators:DownloadUploadIndicator IsActive="{Binding IsBusy}"
+                                                DisplayMessage="{Binding IsBusyMessage}"
+                                                Direction="Downloading"
+                                                Grid.Row="1"/>
+
+        <CommandBar Grid.Row="2">
+            <!-- toggles BusyIndicators -->
             <AppBarToggleButton x:Name="MyToggleButton"
                                 IsChecked="{Binding IsBusy, Mode=TwoWay}"
                                 Label="toggle busy indicator"

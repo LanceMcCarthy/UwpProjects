@@ -1,5 +1,4 @@
 ﻿/*
-Open source, no warranty implied. 
 I'd like to give credit to Farhan Ghumra for this great post on working with BitmapEncoder 
 http://www.c-sharpcorner.com/UploadFile/269510/save-writeablebitmap-as-storagefile-in-winrt-app/
 */

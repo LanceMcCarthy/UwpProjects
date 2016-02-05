@@ -10,7 +10,7 @@ namespace UwpHelpers.Examples.ViewModels
             
         }
 
-        private bool isBusy;
+        private bool isBusy = true;
         private string isBusyMessage = "please wait...";
 
         public bool IsBusy
