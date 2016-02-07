@@ -11,32 +11,38 @@ namespace UwpHelpers.Controls.BusyIndicators
         #region dependency properties
 
         public static readonly DependencyProperty DisplayMessageProperty = DependencyProperty.Register(
-            "DisplayMessage", 
-            typeof(string), 
-            typeof(BandBusyIndicator), 
-            new PropertyMetadata(default(string), (o, e) =>
-            {
-                ((BandBusyIndicator) o).MessageTextBlock.Text = (string) e.NewValue;
-            }));
+                    "DisplayMessage",
+                    typeof(string),
+                    typeof(BandBusyIndicator),
+                    new PropertyMetadata(default(string)));
 
         public string DisplayMessage
         {
-            get { return (string) GetValue(DisplayMessageProperty); }
+            get { return (string)GetValue(DisplayMessageProperty); }
             set { SetValue(DisplayMessageProperty, value); }
         }
-        
+
+        public double DisplayMessageSize
+        {
+            get { return (double)GetValue(DisplayMessageSizeProperty); }
+            set { SetValue(DisplayMessageSizeProperty, value); }
+        }
+        // Using a DependencyProperty as the backing store for DisplayMessageSize.  This enables animation, styling, binding, etc...
+        public static readonly DependencyProperty DisplayMessageSizeProperty =
+            DependencyProperty.Register("DisplayMessageSize", typeof(double), typeof(BandBusyIndicator), new PropertyMetadata(10d));
+
         public static readonly DependencyProperty IsActiveProperty = DependencyProperty.Register(
-            "IsActive", 
-            typeof(bool), 
-            typeof(BandBusyIndicator), 
+            "IsActive",
+            typeof(bool),
+            typeof(BandBusyIndicator),
             new PropertyMetadata(false, (obj, args) =>
             {
-                ((BandBusyIndicator) obj).IsActivePropertyChanged(args);
+                ((BandBusyIndicator)obj).IsActivePropertyChanged(args);
             }));
 
         private void IsActivePropertyChanged(DependencyPropertyChangedEventArgs args)
         {
-            if ((bool) args.NewValue)
+            if ((bool)args.NewValue)
             {
                 if (Windows.Foundation.Metadata.ApiInformation.IsTypePresent("Windows.UI.Xaml.Media.Animation.RepeatBehavior"))
                 {
@@ -67,17 +73,17 @@ namespace UwpHelpers.Controls.BusyIndicators
 
         public bool IsActive
         {
-            get { return (bool) GetValue(IsActiveProperty); }
+            get { return (bool)GetValue(IsActiveProperty); }
             set { SetValue(IsActiveProperty, value); }
         }
 
         public static readonly DependencyProperty DirectionProperty = DependencyProperty.Register(
-            "Direction", 
-            typeof (AnimationDirection), 
-            typeof (BandBusyIndicator), 
+            "Direction",
+            typeof(AnimationDirection),
+            typeof(BandBusyIndicator),
             new PropertyMetadata(AnimationDirection.Downloading, (obj, args) =>
             {
-                ((BandBusyIndicator) obj).AnimationDirectionPropertyChanged(args);
+                ((BandBusyIndicator)obj).AnimationDirectionPropertyChanged(args);
             }));
 
         private void AnimationDirectionPropertyChanged(DependencyPropertyChangedEventArgs e)
@@ -86,7 +92,7 @@ namespace UwpHelpers.Controls.BusyIndicators
             if (e.NewValue == e.OldValue || !IsActive)
                 return;
 
-            switch ((AnimationDirection) e.NewValue)
+            switch ((AnimationDirection)e.NewValue)
             {
                 case AnimationDirection.Downloading:
                     StartDownloadAnimation();
@@ -102,7 +108,7 @@ namespace UwpHelpers.Controls.BusyIndicators
 
         public AnimationDirection Direction
         {
-            get { return (AnimationDirection) GetValue(DirectionProperty); }
+            get { return (AnimationDirection)GetValue(DirectionProperty); }
             set { SetValue(DirectionProperty, value); }
         }
 
