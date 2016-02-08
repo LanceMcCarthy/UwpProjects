@@ -20,19 +20,31 @@
             <RowDefinition Height="Auto" />
         </Grid.RowDefinitions>
         
-        <!-- BandBusyIndicator Demo : Change the 'Direction' property to reverse the animation-->
-        <busyIndicators:BandBusyIndicator IsActive="{Binding IsBusy}"
+        <busyIndicators:BandBusyIndicator x:Name="Demo1" 
+                                          IsActive="{Binding IsBusy}"
                                           DisplayMessage="{Binding IsBusyMessage}"
                                           Direction="Uploading"
                                           Grid.Row="0" />
 
-        <busyIndicators:DownloadUploadIndicator IsActive="{Binding IsBusy}"
+        <busyIndicators:DownloadUploadIndicator x:Name="Demo2" 
+                                                IsActive="{Binding IsBusy}"
                                                 DisplayMessage="{Binding IsBusyMessage}"
                                                 Direction="Downloading"
                                                 Grid.Row="1"/>
 
         <CommandBar Grid.Row="2">
-            <!-- toggles BusyIndicators -->
+            <AppBarButton x:Name="UpButton"
+                          Icon="FontIncrease"
+                          Label="increase text size"
+                          Click="UpButton_OnClick" />
+            <AppBarButton x:Name="DownButton"
+                          Icon="FontDecrease"
+                          Label="decrease text size"
+                          Click="DownButton_OnClick" />
+            <AppBarButton x:Name="ForegroundChangeButton"
+                          Icon="FontColor"
+                          Label="foreground color"
+                          Click="ForegroundChangeButton_OnClick" />
             <AppBarToggleButton x:Name="MyToggleButton"
                                 IsChecked="{Binding IsBusy, Mode=TwoWay}"
                                 Label="toggle busy indicator"

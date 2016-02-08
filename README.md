@@ -31,7 +31,7 @@ A set of UWP controls and utilities (I will add more over time)
 
 ###BusyIndicators
 
-![alt tag](https://i.gyazo.com/f4bb068908151c6d0563f9157ae3f27e.gif)
+![alt tag](https://i.gyazo.com/f95e8b62627551bec566f45aa7b77655.gif)
 
 
 * BandBusyIndicator
@@ -42,6 +42,7 @@ A set of UWP controls and utilities (I will add more over time)
 * IsActive (boolean): shows or hides the indicator
 * Direction (AnimationDirection.Uploading or Downloading): The direction of the animation
 * DisplayMessage (string): message shown when active
+* DisplayMessageSize (double): message font size
 
 
 ```

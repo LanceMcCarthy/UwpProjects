@@ -14,10 +14,7 @@ namespace UwpHelpers.Controls.BusyIndicators
             "DisplayMessage",
             typeof(string),
             typeof(DownloadUploadIndicator),
-            new PropertyMetadata(default(string), (o, e) =>
-            {
-                ((DownloadUploadIndicator) o).MessageTextBlock.Text = (string) e.NewValue;
-            }));
+            new PropertyMetadata(default(string)));
 
         public string DisplayMessage
         {
@@ -25,6 +22,18 @@ namespace UwpHelpers.Controls.BusyIndicators
             set { SetValue(DisplayMessageProperty, value); }
         }
 
+        public double DisplayMessageSize
+        {
+            get { return (double) GetValue(DisplayMessageSizeProperty); }
+            set { SetValue(DisplayMessageSizeProperty, value); }
+        }
+
+        public static readonly DependencyProperty DisplayMessageSizeProperty =
+            DependencyProperty.Register("DisplayMessageSize", 
+                typeof(double), 
+                typeof(DownloadUploadIndicator), 
+                new PropertyMetadata(10d));
+        
         public static readonly DependencyProperty IsActiveProperty = DependencyProperty.Register(
             "IsActive",
             typeof(bool),

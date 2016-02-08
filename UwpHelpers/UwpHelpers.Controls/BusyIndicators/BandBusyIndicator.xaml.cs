@@ -27,9 +27,12 @@ namespace UwpHelpers.Controls.BusyIndicators
             get { return (double)GetValue(DisplayMessageSizeProperty); }
             set { SetValue(DisplayMessageSizeProperty, value); }
         }
-        // Using a DependencyProperty as the backing store for DisplayMessageSize.  This enables animation, styling, binding, etc...
+
         public static readonly DependencyProperty DisplayMessageSizeProperty =
-            DependencyProperty.Register("DisplayMessageSize", typeof(double), typeof(BandBusyIndicator), new PropertyMetadata(10d));
+            DependencyProperty.Register("DisplayMessageSize", 
+                typeof(double), 
+                typeof(BandBusyIndicator), 
+                new PropertyMetadata(10d));
 
         public static readonly DependencyProperty IsActiveProperty = DependencyProperty.Register(
             "IsActive",

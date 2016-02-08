@@ -218,7 +218,7 @@
         </Storyboard>
     </UserControl.Resources>
 
-    <Grid>
+    <Grid Background="{x:Bind Background, Mode=OneWay}">
         <Grid x:Name="VisualsGrid"
               Width="100"
               Height="100"
@@ -226,48 +226,48 @@
               VerticalAlignment="Center">
             <Rectangle x:Name="Path1"
                        Opacity="0"
-                       Fill="{ThemeResource SystemControlHighlightAccentBrush}"
+                       Fill="{x:Bind Foreground, Mode=OneWay}"
                        Height="10"
                        Margin="25,75,25,0"
                        VerticalAlignment="Top"
                        Width="50" />
             <Rectangle x:Name="Path2"
                        Opacity="0"
-                       Fill="{ThemeResource SystemControlHighlightAccentBrush}"
+                       Fill="{x:Bind Foreground, Mode=OneWay}"
                        Margin="25,0,25,30"
                        Height="10"
                        VerticalAlignment="Bottom"
                        Width="50" />
             <Rectangle x:Name="Path3"
                        Opacity="0"
-                       Fill="{ThemeResource SystemControlHighlightAccentBrush}"
+                       Fill="{x:Bind Foreground, Mode=OneWay}"
                        Margin="25,45"
                        Width="50"
                        d:LayoutOverrides="TopPosition, BottomPosition" />
             <Rectangle x:Name="Path4"
                        Opacity="0"
-                       Fill="{ThemeResource SystemControlHighlightAccentBrush}"
+                       Fill="{x:Bind Foreground, Mode=OneWay}"
                        Height="10"
                        Margin="25,30,25,0"
                        VerticalAlignment="Top"
                        Width="50" />
             <Rectangle x:Name="Path5"
                        Opacity="0"
-                       Fill="{ThemeResource SystemControlHighlightAccentBrush}"
+                       Fill="{x:Bind Foreground, Mode=OneWay}"
                        Height="10"
                        Margin="25,15,25,0"
                        VerticalAlignment="Top"
                        Width="50" />
             <Rectangle x:Name="Path6"
                        Opacity="0"
-                       Fill="{ThemeResource SystemControlHighlightAccentBrush}"
+                       Fill="{x:Bind Foreground, Mode=OneWay}"
                        Height="10"
                        Margin="25,0"
                        VerticalAlignment="Top"
                        Width="50" />
             <Rectangle x:Name="BaseRectangle"
                        Visibility="Collapsed"
-                       Fill="{ThemeResource SystemControlHighlightAccentBrush}"
+                       Fill="{x:Bind Foreground, Mode=OneWay}"
                        Height="10"
                        VerticalAlignment="Bottom" />
         </Grid>
@@ -277,6 +277,9 @@
                    HorizontalAlignment="Center"
                    VerticalAlignment="Center"
                    Margin="10,140,10,0"
+                   Foreground="{x:Bind Foreground, Mode=OneWay}"
+                   FontSize="{x:Bind DisplayMessageSize, Mode=OneWay}"
+                   Text="{x:Bind DisplayMessage, Mode=OneWay}"
                    TextAlignment="Center" />
     </Grid>
 </UserControl>
