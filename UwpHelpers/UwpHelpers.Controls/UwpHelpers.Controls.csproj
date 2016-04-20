@@ -114,7 +114,9 @@
     <Compile Include="BusyIndicators\DownloadUploadIndicator.xaml.cs">
       <DependentUpon>DownloadUploadIndicator.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Common\DownloadProgressArgs.cs" />
     <Compile Include="Common\IncrementalLoadingCollection.cs" />
+    <Compile Include="Extensions\HttpClientExtensions.cs" />
     <Compile Include="Extensions\XamlExtensions.cs" />
     <Compile Include="ImageControls\NetworkImage.xaml.cs">
       <DependentUpon>NetworkImage.xaml</DependentUpon>
