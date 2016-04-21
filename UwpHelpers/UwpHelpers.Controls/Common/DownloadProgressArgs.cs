@@ -2,6 +2,12 @@
 
 namespace UwpHelpers.Controls.Common
 {
+    // Note: There is a DownloadProgressEventArgs available in Windows.UI.Xaml.Media.Imaging.DownloadProgressEventArgs, 
+    // but it's sealed and we need more into than just (double)Progress that is available in DownloadProgressEventArgs
+
+    /// <summary>
+    /// To be used with Progress for DownloadStreamWithProgressAsync
+    /// </summary>
     public class DownloadProgressArgs : EventArgs
     {
         public DownloadProgressArgs(int bytesReceived, int totalBytes)
@@ -10,10 +16,10 @@ namespace UwpHelpers.Controls.Common
             TotalBytes = totalBytes;
         }
 
-        public int TotalBytes { get; }
+        public double TotalBytes { get; }
 
-        public int BytesReceived { get; }
+        public double BytesReceived { get; }
 
-        public float PercentComplete => 100 * ((float) BytesReceived / TotalBytes);
+        public double PercentComplete => 100 * ((double) BytesReceived / TotalBytes);
     }
 }

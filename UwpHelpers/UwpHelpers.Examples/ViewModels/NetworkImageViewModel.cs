@@ -13,6 +13,7 @@ using System.Runtime.Serialization.Json;
 using System.Text;
 using System.Threading.Tasks;
 using Windows.UI.Popups;
+using UwpHelpers.Examples.Annotations;
 
 namespace UwpHelpers.Examples.ViewModels
 {
@@ -85,13 +86,18 @@ namespace UwpHelpers.Examples.ViewModels
                 return (T) serializer.ReadObject(stream);
             }
         }
+        
+        #region INPC
 
         public event PropertyChangedEventHandler PropertyChanged;
 
+        [NotifyPropertyChangedInvocator]
         protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
+        
+        #endregion
     }
     
     #region demo models

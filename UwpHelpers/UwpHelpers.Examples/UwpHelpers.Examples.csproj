@@ -99,9 +99,11 @@
     <Compile Include="MainPage.xaml.cs">
       <DependentUpon>MainPage.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Properties\Annotations.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ViewModels\AdaptiveGridViewViewModel.cs" />
     <Compile Include="ViewModels\BusyIndicatorViewModel.cs" />
+    <Compile Include="ViewModels\HttpClientExtensionsViewModel.cs" />
     <Compile Include="ViewModels\IncrementalScrollingViewModel.cs" />
     <Compile Include="ViewModels\MainPageViewModel.cs" />
     <Compile Include="ViewModels\NetworkImageViewModel.cs" />
@@ -113,6 +115,9 @@
     </Compile>
     <Compile Include="Views\ElementBlurPage.xaml.cs">
       <DependentUpon>ElementBlurPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\HttpClientExtensionsPage.xaml.cs">
+      <DependentUpon>HttpClientExtensionsPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\IncrementalScrollingPage.xaml.cs">
       <DependentUpon>IncrementalScrollingPage.xaml</DependentUpon>
@@ -156,6 +161,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\ElementBlurPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\HttpClientExtensionsPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

@@ -4,6 +4,7 @@ using System.Runtime.CompilerServices;
 using System.Threading.Tasks;
 using Windows.ApplicationModel;
 using UwpHelpers.Controls.Common;
+using UwpHelpers.Examples.Annotations;
 
 namespace UwpHelpers.Examples.ViewModels
 {
@@ -62,6 +63,7 @@ namespace UwpHelpers.Examples.ViewModels
         #region INPC
         public event PropertyChangedEventHandler PropertyChanged;
 
+        [NotifyPropertyChangedInvocator]
         protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));

@@ -8,6 +8,7 @@ A set of UWP controls and utilities (I will add more over time)
 * BlurElementAsync in *UwpHelpers.Examples.Helpers* (converts any UIElement into a blurred BitmapImage)
 * IncrementalLoadingCollection in *UwpHelpers.Controls.Common* (demo in Examples)
 * NetworkImage in *UwpHelpers.Controls.ImageControls* (an Image control that shows download progress)
+* DownloadStreamWithProgressAsync in *UwpHelpers.Controls.Extensions* (HttpClient Extension method that reports download progress)
 
 
 ###AdaptiveGridView
@@ -115,5 +116,37 @@ private async Task<ObservableCollection<T>> GetMoreData()
 <imageControls:NetworkImage ImageUrl="http://bigimages.com/MyHugeImage.jpg" />
 ```
 
+	
+###DownloadStreamWithProgressAsync (HttpClient Extension)
+
+![alt tag](https://i.gyazo.com/70dc4afcd36b9a04a9c3159c67000a1c.gif)
+
+
+**Properties**
+
+* Url (string): url of the thing you want to download
+* Reporter (Progress<DownloadProgressArgs> ) - reports the progress via event, see example below
+
+Note: There are a couple more methods in the helper class (i.e. DownloadStringwithProgressAsync)
+
+
+**Example**
+
+*C# - usage*
+```
+var reporter = new Progress<DownloadProgressArgs>();
+reporter.ProgressChanged += Reporter_ProgressChanged;
+
+var imageStream = await new HttpClient(myFavoriteHandler).DownloadStreamWithProgressAsync(bigImageUrl, reporter)
+
+```
+
+*C# - event handler*
+```
+private void Reporter_ProgressChanged(object sender, DownloadProgressArgs e)
+{
+     SomeProgressBar.Value = e.PercentComplete;
+}
+```
 
 

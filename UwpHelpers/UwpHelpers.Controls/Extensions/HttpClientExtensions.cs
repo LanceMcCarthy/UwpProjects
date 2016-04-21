@@ -8,6 +8,10 @@ using UwpHelpers.Controls.Common;
 
 namespace UwpHelpers.Controls.Extensions
 {
+    /// <summary>
+    /// A set of extension methods for System.Net.Http.HttpClient. These can be used in PCLs (e.g. Xamarin apps).
+    /// Note- Windows.Web.Http.HttpClient has support for Progress. If you do not need System.Net.Http, investigate the possibility of using Windows.Web.Http
+    /// </summary>
     public static class HttpClientExtensions
     {
         /// <summary>
@@ -16,62 +20,16 @@ namespace UwpHelpers.Controls.Extensions
         /// <param name="client">HttpClient instance</param>
         /// <param name="imageFile">Valie StorageFile of the image</param>
         /// <param name="url">The API's http or https endpoint</param>
+        /// <param name="progessReporter">Progress reporter to track progress of the download operation</param>
         /// <param name="parameterName">The name of the parameter the API expects the image data in</param>
         /// <returns></returns>
-        public static async Task<HttpResponseMessage> SendImageDataAsync(this HttpClient client, StorageFile imageFile, string url, string parameterName)
+        public static async Task<string> SendImageDataWithDownloadProgressAsync(this HttpClient client, StorageFile imageFile, string url, string parameterName, IProgress<DownloadProgressArgs> progessReporter)
         {
             if (client == null)
                 throw new ArgumentNullException(nameof(client), "HttpClient was null");
 
             if (string.IsNullOrEmpty(url))
-                throw new ArgumentNullException(nameof(url), "You must set a URL for the API endpoint");
-
-            if (imageFile == null)
-                throw new ArgumentNullException(nameof(imageFile), "You must have a valid StorageFile for this method to work");
-
-            if (string.IsNullOrEmpty(parameterName))
-                throw new ArgumentNullException(nameof(parameterName), "You must set a parameter name for the image data");
-
-            try
-            {
-                byte[] fileBytes = null;
-                using (var fileStream = await imageFile.OpenStreamForReadAsync())
-                {
-                    var binaryReader = new BinaryReader(fileStream);
-                    fileBytes = binaryReader.ReadBytes((int) fileStream.Length);
-                }
-
-                var multipartContent = new MultipartFormDataContent();
-                multipartContent.Add(new ByteArrayContent(fileBytes), parameterName);
-                return await client.PostAsync(new Uri(url), multipartContent);
-
-            }
-            catch (Exception ex)
-            {
-                throw;
-            }
-            finally
-            {
-                client.Dispose();
-            }
-        }
-
-        /// <summary>
-        /// Helper method to POST binary image data to an API endpoint that expects the data to be accompanied by a parameter
-        /// </summary>
-        /// <param name="client">HttpClient instance</param>
-        /// <param name="imageFile">Valie StorageFile of the image</param>
-        /// <param name="apiUrl">The API's http or https endpoint</param>
-        /// <param name="progessReporter">Progress reporter to track progress of the download operation</param>
-        /// <param name="parameterName">The name of the parameter the API expects the image data in</param>
-        /// <returns></returns>
-        public static async Task<string> SendImageDataWithDownloadProgressAsync(this HttpClient client, StorageFile imageFile, string apiUrl, string parameterName, IProgress<DownloadProgressArgs> progessReporter)
-        {
-            if (client == null)
-                throw new ArgumentNullException(nameof(client), "HttpClient was null");
-
-            if (string.IsNullOrEmpty(apiUrl))
-                throw new ArgumentNullException(nameof(apiUrl), "You must set a URL for the API endpoint");
+                throw new ArgumentNullException(nameof(url), "You must set a URL for the the HttpClient");
 
             if (imageFile == null)
                 throw new ArgumentNullException(nameof(imageFile), "You must have a valid StorageFile for this method to work");
@@ -86,7 +44,7 @@ namespace UwpHelpers.Controls.Extensions
             {
                 client.DefaultRequestHeaders.ExpectContinue = false;
 
-                byte[] fileBytes = null;
+                byte[] fileBytes;
                 using (var fileStream = await imageFile.OpenStreamForReadAsync())
                 {
                     var binaryReader = new BinaryReader(fileStream);
@@ -95,42 +53,39 @@ namespace UwpHelpers.Controls.Extensions
 
                 var multipartContent = new MultipartFormDataContent();
                 multipartContent.Add(new ByteArrayContent(fileBytes), parameterName);
-                var response = await client.PostAsync(new Uri(apiUrl), multipartContent);
 
-                //Important - this makes it possible to rewind and re-read the stream
-                await response.Content.LoadIntoBufferAsync();
-
-                //NOTE - This Stream will need to be closed by the caller
-                var stream = await response.Content.ReadAsStreamAsync();
-
-                int receivedBytes = 0;
-                var totalBytes = Convert.ToInt32(response.Content.Headers.ContentLength);
-
-                while (true)
+                using (var response = await client.PostAsync(new Uri(url), multipartContent))
+                using (var stream = await response.Content.ReadAsStreamAsync())
+                using (var memStream = new MemoryStream())
                 {
-                    var buffer = new byte[4096];
-                    int bytesRead = await stream.ReadAsync(buffer, 0, buffer.Length);
+                    int receivedBytes = 0;
+                    var totalBytes = Convert.ToInt32(response.Content.Headers.ContentLength);
 
-                    if (bytesRead == 0)
+                    while (true)
                     {
-                        break;
+                        var buffer = new byte[4096];
+                        int bytesRead = await stream.ReadAsync(buffer, 0, buffer.Length);
+
+                        //write the current loop's bytes into the MemoryStream that will be returned
+                        await memStream.WriteAsync(buffer, 0, bytesRead);
+
+                        if (bytesRead == 0)
+                        {
+                            break;
+                        }
+
+                        receivedBytes += bytesRead;
+
+                        var args = new DownloadProgressArgs(receivedBytes, receivedBytes);
+                        progessReporter.Report(args);
+
+                        Debug.WriteLine($"Progress: {receivedBytes} of {totalBytes} bytes read");
                     }
 
-                    receivedBytes += bytesRead;
-
-                    var args = new DownloadProgressArgs(receivedBytes, receivedBytes);
-                    progessReporter.Report(args);
-
-                    Debug.WriteLine($"Progress: {receivedBytes} of {totalBytes} bytes read");
+                    memStream.Position = 0;
+                    var stringContent = new StreamReader(memStream);
+                    return stringContent.ReadToEnd();
                 }
-
-                stream.Position = 0;
-                var stringContent = new StreamReader(stream);
-                return stringContent.ReadToEnd();
-            }
-            catch (Exception ex)
-            {
-                throw; 
             }
             finally
             {
@@ -140,7 +95,6 @@ namespace UwpHelpers.Controls.Extensions
 
         /// <summary>
         /// Stand-in replacement for HttpClient.GetStreamAsync that can report download progress.
-        /// IMPORTANT - The caller is responsible for disposing the Stream object
         /// </summary>
         /// <param name="client">HttpClient instance</param>
         /// <param name="url">Url of where to download the stream from</param>
@@ -161,42 +115,36 @@ namespace UwpHelpers.Controls.Extensions
             {
                 client.DefaultRequestHeaders.ExpectContinue = false;
 
-                var response = await client.GetAsync(url, HttpCompletionOption.ResponseHeadersRead);
-
-                //Important - this makes it possible to rewind and re-read the stream
-                await response.Content.LoadIntoBufferAsync();
-
-                //NOTE - This Stream will need to be disposed by the caller
-                var stream = await response.Content.ReadAsStreamAsync();
-
-                int receivedBytes = 0;
-                var totalBytes = Convert.ToInt32(response.Content.Headers.ContentLength);
-
-                while (true)
+                using (var response = await client.GetAsync(url, HttpCompletionOption.ResponseHeadersRead))
+                using (var stream = await response.Content.ReadAsStreamAsync())
                 {
-                    var buffer = new byte[4096];
-                    int bytesRead = await stream.ReadAsync(buffer, 0, buffer.Length);
+                    int receivedBytes = 0;
+                    var totalBytes = Convert.ToInt32(response.Content.Headers.ContentLength);
 
-                    if (bytesRead == 0)
+                    var memStream = new MemoryStream();
+
+                    while (true)
                     {
-                        break;
+                        var buffer = new byte[4096];
+                        int bytesRead = await stream.ReadAsync(buffer, 0, buffer.Length);
+
+                        //write the current loop's bytes into the MemoryStream that will be returned
+                        await memStream.WriteAsync(buffer, 0, bytesRead);
+
+                        if (bytesRead == 0)
+                        {
+                            break;
+                        }
+
+                        receivedBytes += bytesRead;
+
+                        var args = new DownloadProgressArgs(receivedBytes, totalBytes);
+                        progessReporter.Report(args);
                     }
 
-                    receivedBytes += bytesRead;
-
-                    var args = new DownloadProgressArgs(receivedBytes, receivedBytes);
-                    progessReporter.Report(args);
-
-                    Debug.WriteLine($"Progress: {receivedBytes} of {totalBytes} bytes read");
+                    memStream.Position = 0;
+                    return memStream;
                 }
-
-                stream.Position = 0;
-                return stream;
-            }
-            catch (Exception ex)
-            {
-                Debug.WriteLine($"DownloadStreamWithProgressAsync Exception\r\n{ex}");
-                return null;
             }
             finally
             {
@@ -206,7 +154,6 @@ namespace UwpHelpers.Controls.Extensions
 
         /// <summary>
         /// Stand-in replacement for HttpClient.GetStringAsync that can report download progress.
-        /// IMPORTANT - The caller is responsible for disposing the Stream object
         /// </summary>
         /// <param name="client">HttpClient instance</param>
         /// <param name="url">Url of where to download the stream from</param>
@@ -223,44 +170,46 @@ namespace UwpHelpers.Controls.Extensions
             if (progessReporter == null)
                 throw new ArgumentNullException(nameof(progessReporter), "ProgressReporter was null");
 
-            using (var stream = await DownloadStreamWithProgressAsync(client, url, progessReporter))
+            try
             {
-                if (stream == null)
-                    return null;
+                client.DefaultRequestHeaders.ExpectContinue = false;
 
-                var stringContent = new StreamReader(stream);
-                return stringContent.ReadToEnd();
+                using (var response = await client.GetAsync(url, HttpCompletionOption.ResponseHeadersRead))
+                using (var stream = await response.Content.ReadAsStreamAsync())
+                using (var memStream = new MemoryStream())
+                {
+                    int receivedBytes = 0;
+                    var totalBytes = Convert.ToInt32(response.Content.Headers.ContentLength);
+
+                    while (true)
+                    {
+                        var buffer = new byte[4096];
+                        int bytesRead = await stream.ReadAsync(buffer, 0, buffer.Length);
+
+                        //write the current loop's bytes into the MemoryStream that will be returned
+                        await memStream.WriteAsync(buffer, 0, bytesRead);
+
+                        if (bytesRead == 0)
+                        {
+                            break;
+                        }
+
+                        receivedBytes += bytesRead;
+
+                        var args = new DownloadProgressArgs(receivedBytes, totalBytes);
+                        progessReporter.Report(args);
+                    }
+
+                    memStream.Position = 0;
+
+                    var stringContent = new StreamReader(memStream);
+                    return stringContent.ReadToEnd();
+                }
+            }
+            finally
+            {
+                client.Dispose();
             }
         }
-
-
-        /*
-        *******Example use of DownloadStreamWithProgress***********
-        
-        //----------------- In your GoGetSomethingFromTheInternet Task ------------------//
-
-        var reporter = new Progress<DownloadProgressArgs>();
-
-        //hook into the ProgressChanged event, this is where the progress is reported
-        reporter.ProgressChanged += Reporter_ProgressChanged;
-        
-        using (var jsonOrLongStringResult = await new HttpClient.DownloadStringWithProgressAsync(fav.Photo.MediumUrl, reporter))
-        {
-            do something appropriate with the result, like JsonConvert.Deserialize<T>(jsonOrLongStringResult);
-        }
-       
-        //when you're done, go ahead an unhook the event handler
-        reporter.ProgressChanged -= Reporter_ProgressChanged;
-        
-
-
-        //-----------------------This is the event handler ------------------------------//
-
-        private void Reporter_ProgressChanged(object sender, DownloadProgressArgs e)
-        {
-            SomeTextBlock.Text = $"{e.PercentComplete}% downloaded";
-        }
-
-        */
     }
 }

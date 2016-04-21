@@ -1,0 +1,56 @@
+﻿<Page xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:local="using:UwpHelpers.Examples.Views"
+      xmlns:xamlEx="using:UwpHelpers.Controls.Extensions"
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+      xmlns:viewModels="using:UwpHelpers.Examples.ViewModels"
+      x:Class="UwpHelpers.Examples.Views.HttpClientExtensionsPage"
+      mc:Ignorable="d">
+
+    <Page.DataContext>
+        <viewModels:HttpClientExtensionsViewModel />
+    </Page.DataContext>
+
+    <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition />
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
+
+        <Border x:Name="Header"
+                VerticalAlignment="Top"
+                Background="Black">
+            <StackPanel Orientation="Horizontal"
+                        HorizontalAlignment="Center">
+                <TextBlock Text="Download w/Progress"
+                           Foreground="White"
+                           Margin="5" />
+            </StackPanel>
+        </Border>
+
+        <Image Source="{Binding DownloadedImage}"
+               Grid.Row="1" />
+
+        <Button Content="Download Large Image"
+                Command="{Binding DownloadImageCommand}"
+                Grid.Row="2"
+                HorizontalAlignment="Center" />
+
+        <Grid x:Name="BusyOverlayGrid"
+              Grid.Row="0"
+              Grid.RowSpan="3"
+              xamlEx:XamlExtensions.IsVisible="{Binding IsBusy}"
+              Background="{ThemeResource SystemControlBackgroundBaseMediumLowBrush}">
+            <StackPanel VerticalAlignment="Center">
+                <TextBlock Text="{Binding IsBusyMessage}"
+                           HorizontalAlignment="Center"
+                           Foreground="{ThemeResource SystemControlBackgroundAltHighBrush}" />
+                <ProgressBar Value="{Binding DownloadProgress}" />
+            </StackPanel>
+
+        </Grid>
+
+    </Grid>
+</Page>
