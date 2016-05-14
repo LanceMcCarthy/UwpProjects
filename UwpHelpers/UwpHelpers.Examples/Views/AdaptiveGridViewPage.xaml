@@ -1,18 +1,46 @@
-﻿<Page
-    x:Class="UwpHelpers.Examples.Views.AdaptiveGridViewPage"
-    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    xmlns:local="using:UwpHelpers.Examples.Views"
-    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    xmlns:listControls="using:UwpHelpers.Controls.ListControls"
-    xmlns:extensions="using:UwpHelpers.Controls.Extensions"
-    xmlns:viewModels="using:UwpHelpers.Examples.ViewModels"
-    mc:Ignorable="d">
+﻿<Page x:Class="UwpHelpers.Examples.Views.AdaptiveGridViewPage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:local="using:UwpHelpers.Examples.Views"
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+      xmlns:listControls="using:UwpHelpers.Controls.ListControls"
+      xmlns:extensions="using:UwpHelpers.Controls.Extensions"
+      xmlns:viewModels="using:UwpHelpers.Examples.ViewModels"
+      mc:Ignorable="d">
 
     <Page.DataContext>
         <viewModels:AdaptiveGridViewViewModel />
     </Page.DataContext>
+
+    <Page.Resources>
+        <CollectionViewSource x:Key="GroupedSource"
+                              IsSourceGrouped="True"
+                              ItemsPath="Items"
+                              Source="{Binding GroupedItems}" />
+        
+        <Style x:Key="GridViewItemContainerStyle"
+               TargetType="GridViewItem">
+            <Setter Property="HorizontalContentAlignment"
+                    Value="Stretch" />
+            <Setter Property="HorizontalAlignment"
+                    Value="Stretch" />
+            <Setter Property="VerticalContentAlignment"
+                    Value="Stretch" />
+            <Setter Property="VerticalAlignment"
+                    Value="Stretch" />
+            <Setter Property="Margin"
+                    Value="5" />
+        </Style>
+        
+        <DataTemplate x:Key="SampleItemTemplate">
+            <Border Background="{ThemeResource SystemControlHighlightListAccentHighBrush}">
+                <TextBlock Text="{Binding DisplayValue}"
+                           HorizontalAlignment="Center"
+                           Margin="20" />
+            </Border>
+        </DataTemplate>
+    </Page.Resources>
 
     <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
         <Grid.RowDefinitions>
@@ -21,34 +49,42 @@
         </Grid.RowDefinitions>
 
         <!-- AdapiveGridView demo and XamlExtension visibilty demo (uses AppBarButton IsChecked value for Visisbility -->
-        
+
+        <!-- Using a flat items source -->
         <listControls:AdaptiveGridView ItemsSource="{Binding ListItems}"
-                                       extensions:XamlExtensions.IsVisible="{Binding ElementName=GridVisibilityToggleButton, Path=IsChecked}"
                                        MinItemHeight="105"
-                                       MinItemWidth="315">
-            <listControls:AdaptiveGridView.ItemTemplate>
-                <DataTemplate>
-                    <Border Background="{ThemeResource SystemControlHighlightListAccentHighBrush}">
-                        <TextBlock Text="{Binding}"
-                                   HorizontalAlignment="Center"
-                                   Margin="20" />
-                    </Border>
-                </DataTemplate>
-            </listControls:AdaptiveGridView.ItemTemplate>
-            <listControls:AdaptiveGridView.ItemContainerStyle>
-                <Style TargetType="GridViewItem">
-                    <Setter Property="HorizontalContentAlignment"
-                            Value="Stretch" />
-                    <Setter Property="HorizontalAlignment"
-                            Value="Stretch" />
-                    <Setter Property="VerticalContentAlignment"
-                            Value="Stretch" />
-                    <Setter Property="VerticalAlignment"
-                            Value="Stretch" />
-                    <Setter Property="Margin"
-                            Value="5" />
-                </Style>
-            </listControls:AdaptiveGridView.ItemContainerStyle>
+                                       MinItemWidth="315"
+                                       extensions:XamlExtensions.IsVisible="{Binding ElementName=GroupedGridVisibilityToggleButton, Path=IsChecked}"
+                                       ItemContainerStyle="{StaticResource GridViewItemContainerStyle}"
+                                       ItemTemplate="{StaticResource SampleItemTemplate}">
+            <listControls:AdaptiveGridView.ItemContainerTransitions>
+                <TransitionCollection>
+                    <EntranceThemeTransition />
+                </TransitionCollection>
+            </listControls:AdaptiveGridView.ItemContainerTransitions>
+        </listControls:AdaptiveGridView>
+
+        <!-- Using a grouped items source, notice the GroupStyle to render the group header -->
+        <listControls:AdaptiveGridView ItemsSource="{Binding Source={StaticResource GroupedSource}}"
+                                       MinItemHeight="105"
+                                       MinItemWidth="315"
+                                       extensions:XamlExtensions.IsHidden="{Binding ElementName=GroupedGridVisibilityToggleButton, Path=IsChecked}"
+                                       ItemContainerStyle="{StaticResource GridViewItemContainerStyle}"
+                                       ItemTemplate="{StaticResource SampleItemTemplate}"
+                                       Visibility="Collapsed">
+            <listControls:AdaptiveGridView.GroupStyle>
+                <GroupStyle>
+                    <GroupStyle.HeaderTemplate>
+                        <DataTemplate>
+                            <Border Background="Black"
+                                    Padding="10,5,10,5">
+                                <TextBlock Text="{Binding GroupTitle}"
+                                           Foreground="White" />
+                            </Border>
+                        </DataTemplate>
+                    </GroupStyle.HeaderTemplate>
+                </GroupStyle>
+            </listControls:AdaptiveGridView.GroupStyle>
             <listControls:AdaptiveGridView.ItemContainerTransitions>
                 <TransitionCollection>
                     <EntranceThemeTransition />
@@ -57,15 +93,13 @@
         </listControls:AdaptiveGridView>
 
         <CommandBar Grid.Row="1">
+            <!-- XamlExtensions demo : Any UI element's Visibility property can be toggled using a bool without needing a ValueConverter
+                 There are two attachable properties: IsVisible and IsHidden. See the AdaptiveGridViews above. -->
 
-            <!-- XamlExtensions demo : Any UI element's Visibility property can be toggled using a bool without needing a ValueConverter -->
-            
-            <AppBarToggleButton x:Name="GridVisibilityToggleButton"
-                                Icon="Preview"
+            <AppBarToggleButton x:Name="GroupedGridVisibilityToggleButton"
+                                Icon="List"
                                 IsChecked="True"
-                                Label="delete button visibility via attached property" />
-
+                                Label="Toggle Grouped/Ungrouped" />
         </CommandBar>
-
     </Grid>
 </Page>

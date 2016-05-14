@@ -2,10 +2,8 @@
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
-using System.Diagnostics;
 using System.IO;
 using System.Linq;
-using System.Net;
 using System.Net.Http;
 using System.Runtime.CompilerServices;
 using System.Runtime.Serialization;
@@ -24,7 +22,6 @@ namespace UwpHelpers.Examples.ViewModels
 
         public NetworkImageViewModel()
         {
-            
         }
 
         public ObservableCollection<string> Images
@@ -44,26 +41,26 @@ namespace UwpHelpers.Examples.ViewModels
             try
             {
                 IsBusy = true;
-                var apiEndpoint = "http://www.bing.com/HPImageArchive.aspx?format=js&idx=0&n=8";
 
-                var handler = new HttpClientHandler();
-                if (handler.SupportsAutomaticDecompression)
-                    handler.AutomaticDecompression = DecompressionMethods.Deflate | DecompressionMethods.GZip;
-
-                var client = new HttpClient(handler);
-                var response = await client.GetStringAsync(apiEndpoint);
-
-                var result = Deserialize<BingImagesRoot>(response);
-
-                Debug.WriteLine($"GetBingImagesAsync() Image count: {result.images.Count}");
-
-                if (result.images.Any())
+                using (var client = new HttpClient())
                 {
-                    Images.Clear();
+                    var response = await client.GetStringAsync(@"http://www.bing.com/HPImageArchive.aspx?format=js&idx=0&n=8");
 
-                    foreach (var bingImage in result.images)
+                    byte[] bytes = Encoding.Unicode.GetBytes(response);
+                    using (var stream = new MemoryStream(bytes))
                     {
-                        Images.Add($"http://www.bing.com/{bingImage.url}");
+                        var serializer = new DataContractJsonSerializer(typeof(BingImagesRoot));
+                        var result = (BingImagesRoot) serializer.ReadObject(stream);
+
+                        if (result.images.Any())
+                        {
+                            Images.Clear();
+
+                            foreach (var bingImage in result.images)
+                            {
+                                Images.Add($"http://www.bing.com/{bingImage.url}");
+                            }
+                        }
                     }
                 }
             }
@@ -74,16 +71,6 @@ namespace UwpHelpers.Examples.ViewModels
             finally
             {
                 IsBusy = false;
-            }
-        }
-
-        private static T Deserialize<T>(string json)
-        {
-            byte[] bytes = Encoding.Unicode.GetBytes(json);
-            using (var stream = new MemoryStream(bytes))
-            {
-                var serializer = new DataContractJsonSerializer(typeof(T));
-                return (T) serializer.ReadObject(stream);
             }
         }
         

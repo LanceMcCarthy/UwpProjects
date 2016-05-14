@@ -11,7 +11,7 @@ using Windows.UI.Xaml.Controls;
 namespace UwpHelpers.Controls.ListControls
 {
     /// <summary>
-    /// A GridView that lets you set a MinWidth and MinHeight for items you want to restrict to an aspect ration, but still resize
+    /// An adaptive GridView that restricts item's aspect ratio to MinItemWidth and MinItemHeight values
     /// </summary>
     public class AdaptiveGridView : GridView
     {
@@ -22,8 +22,8 @@ namespace UwpHelpers.Controls.ListControls
         /// </summary>
         public double MinItemHeight
         {
-            get { return (double) GetValue(AdaptiveGridView.MinItemHeightProperty); }
-            set { SetValue(AdaptiveGridView.MinItemHeightProperty, value); }
+            get { return (double) GetValue(MinItemHeightProperty); }
+            set { SetValue(MinItemHeightProperty, value); }
         }
 
         public static readonly DependencyProperty MinItemHeightProperty =
@@ -44,8 +44,8 @@ namespace UwpHelpers.Controls.ListControls
         /// </summary>
         public double MinItemWidth
         {
-            get { return (double) GetValue(AdaptiveGridView.MinimumItemWidthProperty); }
-            set { SetValue(AdaptiveGridView.MinimumItemWidthProperty, value); }
+            get { return (double) GetValue(MinimumItemWidthProperty); }
+            set { SetValue(MinimumItemWidthProperty, value); }
         }
 
         public static readonly DependencyProperty MinimumItemWidthProperty =
@@ -65,35 +65,39 @@ namespace UwpHelpers.Controls.ListControls
 
         public AdaptiveGridView()
         {
-            if (this.ItemContainerStyle == null)
-            {
-                this.ItemContainerStyle = new Style(typeof(GridViewItem));
-            }
+            if (ItemContainerStyle == null)
+                ItemContainerStyle = new Style(typeof(GridViewItem));
 
-            this.ItemContainerStyle.Setters.Add(new Setter(GridViewItem.HorizontalContentAlignmentProperty, HorizontalAlignment.Stretch));
-
-            this.Loaded += (s, a) =>
-            {
-                if (this.ItemsPanelRoot != null)
-                {
-                    this.InvalidateMeasure();
-                }
-            };
+            ItemContainerStyle.Setters.Add(new Setter(HorizontalContentAlignmentProperty, HorizontalAlignment.Stretch));
+            
+            Loaded += AdaptiveGridView_Loaded;
         }
-        
-        protected override Size MeasureOverride(Size availableSize)
+
+        private void AdaptiveGridView_Loaded(object sender, RoutedEventArgs e)
         {
-            var panel = this.ItemsPanelRoot as ItemsWrapGrid;
+            if (ItemsPanelRoot != null)
+            {
+                InvalidateMeasure();
+            }
+        }
+
+        protected override Size ArrangeOverride(Size finalSize)
+        {
+            var panel = ItemsPanelRoot as ItemsWrapGrid;
             if (panel != null)
             {
-                if (MinItemWidth == 0)
-                    throw new DivideByZeroException("You need to have a MinItemWidth greater than zero");
+                if (MinItemWidth == 0 || MinItemHeight == 0)
+                {
+                    throw new ArgumentException("You need to set MinItemHeight and MinItemWidth to a value greater than 0");
+                }
 
-                var availableWidth = availableSize.Width - (this.Padding.Right + this.Padding.Left);
+                var availableWidth = finalSize.Width - (Padding.Right + Padding.Left);
 
                 var numColumns = Math.Floor(availableWidth / MinItemWidth);
                 numColumns = numColumns == 0 ? 1 : numColumns;
-                var numRows = Math.Ceiling(this.Items.Count / numColumns);
+
+                //Not used yet (for horizontal scrolling scenarios)
+                //var numRows = Math.Ceiling(this.Items.Count / numColumns);
 
                 var itemWidth = availableWidth / numColumns;
                 var aspectRatio = MinItemHeight / MinItemWidth;
@@ -103,7 +107,7 @@ namespace UwpHelpers.Controls.ListControls
                 panel.ItemHeight = itemHeight;
             }
 
-            return base.MeasureOverride(availableSize);
+            return base.ArrangeOverride(finalSize);
         }
     }
 }

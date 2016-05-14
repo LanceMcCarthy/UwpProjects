@@ -7,28 +7,43 @@ namespace UwpHelpers.Examples.ViewModels
 {
     public class AdaptiveGridViewViewModel : INotifyPropertyChanged
     {
+        private ObservableCollection<GridViewSampleItem> listItems;
+        private ObservableCollection<GridViewItemGroup> groupedItems;
+
         public AdaptiveGridViewViewModel()
         {
-            
         }
 
-        private ObservableCollection<string> listItems;
-        public ObservableCollection<string> ListItems => listItems ?? (listItems = GenerateSampleListData());
+        public ObservableCollection<GridViewSampleItem> ListItems => listItems ?? (listItems = GenerateSampleListData());
         
-        private ObservableCollection<string> GenerateSampleListData()
-        {
-            var list = new ObservableCollection<string>();
+        public ObservableCollection<GridViewItemGroup> GroupedItems => groupedItems ?? (groupedItems = GenerateGroupedItems());
 
-            for (int i = 1; i < 10; i++)
-            {
-                list.Add($"Item {i}");
-            }
+        /// <summary>
+        /// Generates grouped sample items
+        /// </summary>
+        /// <returns>A collection of pre-grouped sample items</returns>
+        private ObservableCollection<GridViewItemGroup> GenerateGroupedItems() => new ObservableCollection<GridViewItemGroup>
+        {
+            new GridViewItemGroup(1),
+            new GridViewItemGroup(2)
+        };
+
+        /// <summary>
+        /// Generates sample items
+        /// </summary>
+        /// <returns>A collection of sample items</returns>
+        private static ObservableCollection<GridViewSampleItem> GenerateSampleListData()
+        {
+            var list = new ObservableCollection<GridViewSampleItem>();
+
+            for (int i = 1; i < 6; i++)
+                list.Add(new GridViewSampleItem(i));
 
             return list;
         }
 
         #region INPC
-        
+
         public event PropertyChangedEventHandler PropertyChanged;
 
         [NotifyPropertyChangedInvocator]
@@ -39,4 +54,44 @@ namespace UwpHelpers.Examples.ViewModels
 
         #endregion
     }
+
+    #region demo data models
+
+    public class GridViewSampleItem
+    {
+        public GridViewSampleItem(int id)
+        {
+            DisplayValue = $"Item {id}";
+            IsEven = id % 2 == 0;
+        }
+        public string DisplayValue { get; set; }
+        public bool IsEven { get; set; }
+    }
+
+    public class GridViewItemGroup
+    {
+        private readonly int groupId;
+
+        public GridViewItemGroup(int id)
+        {
+            this.groupId = id;
+        }
+
+        public string GroupTitle => $"Group {groupId}";
+
+        private ObservableCollection<GridViewSampleItem> items;
+        public ObservableCollection<GridViewSampleItem> Items => items ?? (items = GenerateGroupItems());
+
+        private ObservableCollection<GridViewSampleItem> GenerateGroupItems()
+        {
+            var list = new ObservableCollection<GridViewSampleItem>();
+
+            for (int i = 1; i < 6; i++)
+                list.Add(new GridViewSampleItem(i));
+
+            return list;
+        }
+    }
+
+    #endregion
 }
