@@ -1,7 +1,7 @@
-﻿using System;
-using System.Collections.ObjectModel;
+﻿using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
+using UwpHelpers.Examples.Models;
 using UwpHelpers.Examples.Views;
 
 namespace UwpHelpers.Examples.ViewModels
@@ -10,17 +10,17 @@ namespace UwpHelpers.Examples.ViewModels
     {
         public MainPageViewModel()
         {
-            Demos = new ObservableCollection<Demo>()
+            Demos = new ObservableCollection<DemoPage>
             {
-                new Demo { DemoTitle = "AdaptiveGridView Demo", GlyphIcon ="", DemoPage = typeof(AdaptiveGridViewPage)},
-                new Demo { DemoTitle = "BusyIndicator Demos", GlyphIcon ="", DemoPage = typeof(BusyIndicatorPage)},
-                new Demo {DemoTitle = "UIElement Blur Demo", GlyphIcon = "", DemoPage = typeof(ElementBlurPage) },
-                new Demo {DemoTitle = "Incremental Scrolling Demo", GlyphIcon = "", DemoPage = typeof(IncrementalScrollingPage) },
-                new Demo {DemoTitle = "NetworkImage Demo", GlyphIcon = "", DemoPage = typeof(NetworkImagePage) }
+                new DemoPage { DemoTitle = "AdaptiveGridView Demo", GlyphIcon ="", DemoPageType = typeof(AdaptiveGridViewPage)},
+                new DemoPage { DemoTitle = "BusyIndicator Demos", GlyphIcon ="", DemoPageType = typeof(BusyIndicatorPage)},
+                new DemoPage {DemoTitle = "UIElement Blur Demo", GlyphIcon = "", DemoPageType = typeof(ElementBlurPage) },
+                new DemoPage {DemoTitle = "Incremental Scrolling Demo", GlyphIcon = "", DemoPageType = typeof(IncrementalScrollingPage) },
+                new DemoPage {DemoTitle = "NetworkImage Demo", GlyphIcon = "", DemoPageType = typeof(NetworkImagePage) }
             };
         }
 
-        public ObservableCollection<Demo> Demos { get; set; }
+        public ObservableCollection<DemoPage> Demos { get; set; }
         
         #region INPC
 
@@ -32,12 +32,5 @@ namespace UwpHelpers.Examples.ViewModels
         }
 
         #endregion
-    }
-
-    public class Demo
-    {
-        public Type DemoPage { get; set; }
-        public string DemoTitle { get; set; }
-        public string GlyphIcon { get; set; }
     }
 }

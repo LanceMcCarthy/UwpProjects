@@ -1,5 +1,5 @@
 ﻿using Windows.UI.Xaml.Controls;
-using UwpHelpers.Examples.ViewModels;
+using UwpHelpers.Examples.Models;
 
 namespace UwpHelpers.Examples
 {
@@ -12,8 +12,7 @@ namespace UwpHelpers.Examples
 
         private void ListViewBase_OnItemClick(object sender, ItemClickEventArgs e)
         {
-            var selectedDemo = e.ClickedItem as Demo;
-            Frame.Navigate(selectedDemo?.DemoPage);
+            Frame.Navigate((e.ClickedItem as DemoPage)?.DemoPageType);
         }
     }
 }

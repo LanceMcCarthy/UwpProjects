@@ -1,5 +1,5 @@
 ﻿/*
-Code provided as-is, no warranty implied
+Code provided as-is, no warranty implied, see LICENSE.txt
 Thanks to https://github.com/r2d2rigo for the restricted aspect ratio formula and MinItemWidth MinItemHeight approach
 */
 
@@ -84,7 +84,6 @@ namespace UwpHelpers.Controls.ListControls
 
         protected override Size ArrangeOverride(Size finalSize)
         {
-            //Bug: Moved from MeasureOverride to ArrangeOverride to fix issue where items were not being measured when Grouping
             var panel = this.ItemsPanelRoot as ItemsWrapGrid;
             if (panel != null)
             {
@@ -109,8 +108,6 @@ namespace UwpHelpers.Controls.ListControls
                 panel.ItemHeight = itemHeight;
             }
 
-            Debug.WriteLine($"----AdaptiveGridView ArrangeOverride----\r\nItemWidth: {(this.ItemsPanelRoot as ItemsWrapGrid)?.ItemWidth} - ItemHeight: {(this.ItemsPanelRoot as ItemsWrapGrid)?.ItemHeight}");
-            
             return base.ArrangeOverride(finalSize);
         }
     }

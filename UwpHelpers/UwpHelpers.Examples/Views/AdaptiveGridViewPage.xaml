@@ -73,7 +73,7 @@
                 <GroupStyle>
                     <GroupStyle.HeaderTemplate>
                         <DataTemplate>
-                            <Border Background="Black">
+                            <Border Background="Black" Padding="10,5,10,5">
                                 <TextBlock Text="{Binding GroupTitle}"
                                            Foreground="White" />
                             </Border>

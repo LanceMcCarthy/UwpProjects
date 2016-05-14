@@ -1,14 +1,14 @@
 ﻿using System.Collections.ObjectModel;
 using System.ComponentModel;
-using System.Linq;
 using System.Runtime.CompilerServices;
+using UwpHelpers.Examples.Models;
 
 namespace UwpHelpers.Examples.ViewModels
 {
     public class AdaptiveGridViewViewModel : INotifyPropertyChanged
     {
         private ObservableCollection<string> listItems;
-        private ObservableCollection<Group> groupedItems;
+        private ObservableCollection<GridViewItemGroup> groupedItems;
 
         public AdaptiveGridViewViewModel()
         {
@@ -16,12 +16,12 @@ namespace UwpHelpers.Examples.ViewModels
         
         public ObservableCollection<string> ListItems => listItems ?? (listItems = GenerateSampleListData());
 
-        public ObservableCollection<Group> GroupedItems => groupedItems ?? (groupedItems = GenerateGroupedItems());
+        public ObservableCollection<GridViewItemGroup> GroupedItems => groupedItems ?? (groupedItems = GenerateGroupedItems());
 
-        private ObservableCollection<Group> GenerateGroupedItems() => new ObservableCollection<Group>
+        private ObservableCollection<GridViewItemGroup> GenerateGroupedItems() => new ObservableCollection<GridViewItemGroup>
         {
-            new Group(1),
-            new Group(2)
+            new GridViewItemGroup(1),
+            new GridViewItemGroup(2)
         };
 
         private static ObservableCollection<string> GenerateSampleListData()
@@ -44,41 +44,5 @@ namespace UwpHelpers.Examples.ViewModels
         }
 
         #endregion
-    }
-
-    public class Group
-    {
-        private readonly int groupId;
-
-        public Group(int id)
-        {
-            this.groupId = id;
-        }
-        
-        public string GroupTitle => $"Group {groupId}";
-
-        private ObservableCollection<GroupableItem> items;
-        public ObservableCollection<GroupableItem> Items => items ?? (items = GenerateGroupItems());
-
-        private ObservableCollection<GroupableItem> GenerateGroupItems()
-        {
-            var list = new ObservableCollection<GroupableItem>();
-            
-            for (int i = 1; i < 6; i++)
-                list.Add(new GroupableItem(i));
-
-            return list;
-        }
-    }
-
-    public class GroupableItem
-    {
-        public GroupableItem(int id)
-        {
-            DisplayValue = $"Item {id}";
-            IsEven = id % 2 == 0;
-        }
-        public string DisplayValue { get; set; }
-        public bool IsEven { get; set; }
     }
 }

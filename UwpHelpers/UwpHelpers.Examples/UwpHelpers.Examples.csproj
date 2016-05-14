@@ -99,6 +99,11 @@
     <Compile Include="MainPage.xaml.cs">
       <DependentUpon>MainPage.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Models\BingDataModels.cs" />
+    <Compile Include="Models\DemoPage.cs" />
+    <Compile Include="Models\GridViewGroupableItem.cs" />
+    <Compile Include="Models\GridViewItemGroup.cs" />
+    <Compile Include="Models\IncrementableItem.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ViewModels\AdaptiveGridViewViewModel.cs" />
     <Compile Include="ViewModels\BusyIndicatorViewModel.cs" />
@@ -174,6 +179,7 @@
       <Name>UwpHelpers.Controls</Name>
     </ProjectReference>
   </ItemGroup>
+  <ItemGroup />
   <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '14.0' ">
     <VisualStudioVersion>14.0</VisualStudioVersion>
   </PropertyGroup>

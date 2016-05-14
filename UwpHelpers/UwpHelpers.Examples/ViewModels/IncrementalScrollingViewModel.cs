@@ -4,6 +4,7 @@ using System.Runtime.CompilerServices;
 using System.Threading.Tasks;
 using Windows.ApplicationModel;
 using UwpHelpers.Controls.Common;
+using UwpHelpers.Examples.Models;
 
 namespace UwpHelpers.Examples.ViewModels
 {
@@ -19,7 +20,7 @@ namespace UwpHelpers.Examples.ViewModels
             InitializeData();
         }
         
-        public IncrementalLoadingCollection<IncrementedItem> InfiniteItems { get; set; }
+        public IncrementalLoadingCollection<IncrementableItem> InfiniteItems { get; set; }
         
         private void InitializeData()
         {
@@ -28,11 +29,11 @@ namespace UwpHelpers.Examples.ViewModels
 
             //when instantiating the collection, you pass it the task that gets more item, in this case it's "GetMoreData"
             //NOTE: This is for infinite items. if you have a max or total count, use the overload and pass the total as the 2nd parameter
-            InfiniteItems = new IncrementalLoadingCollection<IncrementedItem>((cancellationToken, count) => Task.Run(GetMoreData, cancellationToken));
+            InfiniteItems = new IncrementalLoadingCollection<IncrementableItem>((cancellationToken, count) => Task.Run(GetMoreData, cancellationToken));
         }
 
         //all you need to do is return a list of your data in this task
-        private async Task<ObservableCollection<IncrementedItem>> GetMoreData()
+        private async Task<ObservableCollection<IncrementableItem>> GetMoreData()
         {
             //I'm just simulating an API that supports paging
             return await FakeApiCallAsync(currentPage++, 50);
@@ -41,18 +42,18 @@ namespace UwpHelpers.Examples.ViewModels
         #region unrelated demo code
 
         //Super Awesome API :D
-        private async Task<ObservableCollection<IncrementedItem>> FakeApiCallAsync(int pageNumber, int itemsPerPage)
+        private async Task<ObservableCollection<IncrementableItem>> FakeApiCallAsync(int pageNumber, int itemsPerPage)
         {
             return await Task.Run(() =>
             {
-                var items = new ObservableCollection<IncrementedItem>();
+                var items = new ObservableCollection<IncrementableItem>();
 
                 var startingRecordToUse = itemsPerPage * (pageNumber - 1);
                 var endingRecordToUse = startingRecordToUse + itemsPerPage;
 
                 for (int i = startingRecordToUse; i < endingRecordToUse; i++)
                 {
-                    items.Add(new IncrementedItem { Id = i, Title = $"Item {i}" });
+                    items.Add(new IncrementableItem { Id = i, Title = $"Item {i}" });
                 }
 
                 return items;
@@ -69,11 +70,5 @@ namespace UwpHelpers.Examples.ViewModels
         #endregion
 
         #endregion
-    }
-
-    public class IncrementedItem
-    {
-        public int Id { get; set; }
-        public string Title { get; set; }
     }
 }

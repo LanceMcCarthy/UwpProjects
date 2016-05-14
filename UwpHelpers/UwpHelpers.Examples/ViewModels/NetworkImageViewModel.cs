@@ -1,18 +1,15 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
-using System.Diagnostics;
 using System.IO;
 using System.Linq;
-using System.Net;
 using System.Net.Http;
 using System.Runtime.CompilerServices;
-using System.Runtime.Serialization;
 using System.Runtime.Serialization.Json;
 using System.Text;
 using System.Threading.Tasks;
 using Windows.UI.Popups;
+using UwpHelpers.Examples.Models;
 
 namespace UwpHelpers.Examples.ViewModels
 {
@@ -23,7 +20,7 @@ namespace UwpHelpers.Examples.ViewModels
 
         public NetworkImageViewModel()
         {
-            
+
         }
 
         public ObservableCollection<string> Images
@@ -43,26 +40,26 @@ namespace UwpHelpers.Examples.ViewModels
             try
             {
                 IsBusy = true;
-                var apiEndpoint = "http://www.bing.com/HPImageArchive.aspx?format=js&idx=0&n=8";
-
-                var handler = new HttpClientHandler();
-                if (handler.SupportsAutomaticDecompression)
-                    handler.AutomaticDecompression = DecompressionMethods.Deflate | DecompressionMethods.GZip;
-
-                var client = new HttpClient(handler);
-                var response = await client.GetStringAsync(apiEndpoint);
-
-                var result = Deserialize<BingImagesRoot>(response);
-
-                Debug.WriteLine($"GetBingImagesAsync() Image count: {result.images.Count}");
-
-                if (result.images.Any())
+                
+                using (var client = new HttpClient())
                 {
-                    Images.Clear();
+                    var response = await client.GetStringAsync(@"http://www.bing.com/HPImageArchive.aspx?format=js&idx=0&n=8");
 
-                    foreach (var bingImage in result.images)
+                    byte[] bytes = Encoding.Unicode.GetBytes(response);
+                    using (var stream = new MemoryStream(bytes))
                     {
-                        Images.Add($"http://www.bing.com/{bingImage.url}");
+                        var serializer = new DataContractJsonSerializer(typeof(BingImagesRoot));
+                        var result = (BingImagesRoot) serializer.ReadObject(stream);
+
+                        if (result.images.Any())
+                        {
+                            Images.Clear();
+
+                            foreach (var bingImage in result.images)
+                            {
+                                Images.Add($"http://www.bing.com/{bingImage.url}");
+                            }
+                        }
                     }
                 }
             }
@@ -76,15 +73,7 @@ namespace UwpHelpers.Examples.ViewModels
             }
         }
 
-        private static T Deserialize<T>(string json)
-        {
-            byte[] bytes = Encoding.Unicode.GetBytes(json);
-            using (var stream = new MemoryStream(bytes))
-            {
-                var serializer = new DataContractJsonSerializer(typeof(T));
-                return (T) serializer.ReadObject(stream);
-            }
-        }
+        #region INPC
 
         public event PropertyChangedEventHandler PropertyChanged;
 
@@ -92,81 +81,7 @@ namespace UwpHelpers.Examples.ViewModels
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
-    }
-    
-    #region demo models
 
-    [DataContract]
-    public class BingImagesRoot
-    {
-        [DataMember]
-        public List<BingImage> images { get; set; }
-        [DataMember]
-        public Tooltips tooltips { get; set; }
+        #endregion
     }
-
-    [DataContract]
-    public class Tooltips
-    {
-        [DataMember]
-        public string loading { get; set; }
-        [DataMember]
-        public string previous { get; set; }
-        [DataMember]
-        public string next { get; set; }
-        [DataMember]
-        public string walle { get; set; }
-        [DataMember]
-        public string walls { get; set; }
-    }
-
-    [DataContract]
-    public class BingImage
-    {
-        [DataMember]
-        public string startdate { get; set; }
-        [DataMember]
-        public string fullstartdate { get; set; }
-        [DataMember]
-        public string enddate { get; set; }
-        [DataMember]
-        public string url { get; set; }
-        [DataMember]
-        public string urlbase { get; set; }
-        [DataMember]
-        public string copyright { get; set; }
-        [DataMember]
-        public string copyrightlink { get; set; }
-        [DataMember]
-        public bool wp { get; set; }
-        [DataMember]
-        public string hsh { get; set; }
-        [DataMember]
-        public int drk { get; set; }
-        [DataMember]
-        public int top { get; set; }
-        [DataMember]
-        public int bot { get; set; }
-        [DataMember]
-        public List<ImageHints> hs { get; set; }
-        [DataMember]
-        public object[] msg { get; set; }
-    }
-
-    [DataContract]
-    public class ImageHints
-    {
-        [DataMember]
-        public string desc { get; set; }
-        [DataMember]
-        public string link { get; set; }
-        [DataMember]
-        public string query { get; set; }
-        [DataMember]
-        public int locx { get; set; }
-        [DataMember]
-        public int locy { get; set; }
-    }
-
-    #endregion
 }
