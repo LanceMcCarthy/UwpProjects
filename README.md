@@ -15,6 +15,9 @@ A set of UWP controls and utilities (I will add more over time)
 
 ![alt tag](https://i.gyazo.com/9d19b70d72c65c3d24fb81a857cdf4f8.gif)
 
+###AdaptiveGridView with grouping
+
+![alt tag](https://i.gyazo.com/d51eb22c60cbab80363b0e2976f9867d.gif)
 
 **Properties**
 * MinItemWidth (double)
