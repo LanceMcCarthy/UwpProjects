@@ -4,6 +4,7 @@ Thanks to https://github.com/r2d2rigo for the restricted aspect ratio formula an
 */
 
 using System;
+using System.Diagnostics;
 using Windows.Foundation;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
@@ -11,7 +12,7 @@ using Windows.UI.Xaml.Controls;
 namespace UwpHelpers.Controls.ListControls
 {
     /// <summary>
-    /// A GridView that lets you set a MinWidth and MinHeight for items you want to restrict to an aspect ration, but still resize
+    /// An adaptive GridView, where items are restricted to an aspect ratio set by MinWidth and MinHeight
     /// </summary>
     public class AdaptiveGridView : GridView
     {
@@ -70,7 +71,7 @@ namespace UwpHelpers.Controls.ListControls
                 this.ItemContainerStyle = new Style(typeof(GridViewItem));
             }
 
-            this.ItemContainerStyle.Setters.Add(new Setter(GridViewItem.HorizontalContentAlignmentProperty, HorizontalAlignment.Stretch));
+            this.ItemContainerStyle.Setters.Add(new Setter(HorizontalContentAlignmentProperty, HorizontalAlignment.Stretch));
 
             this.Loaded += (s, a) =>
             {
@@ -80,20 +81,25 @@ namespace UwpHelpers.Controls.ListControls
                 }
             };
         }
-        
-        protected override Size MeasureOverride(Size availableSize)
+
+        protected override Size ArrangeOverride(Size finalSize)
         {
+            //Bug: Moved from MeasureOverride to ArrangeOverride to fix issue where items were not being measured when Grouping
             var panel = this.ItemsPanelRoot as ItemsWrapGrid;
             if (panel != null)
             {
-                if (MinItemWidth == 0)
-                    throw new DivideByZeroException("You need to have a MinItemWidth greater than zero");
+                if (MinItemWidth == 0 || MinItemHeight == 0)
+                {
+                    throw new ArgumentException("You need to set MinItemHeight and MinItemWidth to a value greater than 0");
+                }
 
-                var availableWidth = availableSize.Width - (this.Padding.Right + this.Padding.Left);
+                var availableWidth = finalSize.Width - (this.Padding.Right + this.Padding.Left);
 
                 var numColumns = Math.Floor(availableWidth / MinItemWidth);
                 numColumns = numColumns == 0 ? 1 : numColumns;
-                var numRows = Math.Ceiling(this.Items.Count / numColumns);
+
+                //Not used yet (for horizontal scrolling scenarios)
+                //var numRows = Math.Ceiling(this.Items.Count / numColumns);
 
                 var itemWidth = availableWidth / numColumns;
                 var aspectRatio = MinItemHeight / MinItemWidth;
@@ -103,7 +109,9 @@ namespace UwpHelpers.Controls.ListControls
                 panel.ItemHeight = itemHeight;
             }
 
-            return base.MeasureOverride(availableSize);
+            Debug.WriteLine($"----AdaptiveGridView ArrangeOverride----\r\nItemWidth: {(this.ItemsPanelRoot as ItemsWrapGrid)?.ItemWidth} - ItemHeight: {(this.ItemsPanelRoot as ItemsWrapGrid)?.ItemHeight}");
+            
+            return base.ArrangeOverride(finalSize);
         }
     }
 }

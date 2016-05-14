@@ -18,18 +18,12 @@ namespace UwpHelpers.Examples.ViewModels
 
         public ObservableCollection<Group> GroupedItems => groupedItems ?? (groupedItems = GenerateGroupedItems());
 
-        private ObservableCollection<Group> GenerateGroupedItems()
+        private ObservableCollection<Group> GenerateGroupedItems() => new ObservableCollection<Group>
         {
-            var list = new ObservableCollection<Group>();
+            new Group(1),
+            new Group(2)
+        };
 
-            for (int i = 1; i < 5; i++)
-            {
-                list.Add(new Group(i));
-            }
-
-            return list;
-        }
-        
         private static ObservableCollection<string> GenerateSampleListData()
         {
             var list = new ObservableCollection<string>();
