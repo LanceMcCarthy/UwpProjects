@@ -18,7 +18,8 @@ namespace UwpHelpers.Examples.ViewModels
                 new Demo { DemoTitle = "UIElement Blur Demo", GlyphIcon = "", DemoPage = typeof(ElementBlurPage) },
                 new Demo { DemoTitle = "Incremental Scrolling Demo", GlyphIcon = "", DemoPage = typeof(IncrementalScrollingPage) },
                 new Demo { DemoTitle = "NetworkImage Demo", GlyphIcon = "", DemoPage = typeof(NetworkImagePage) },
-                new Demo { DemoTitle = "HttpClientExtensions Demo", GlyphIcon = "", DemoPage = typeof(HttpClientExtensionsPage) }
+                new Demo { DemoTitle = "HttpClientExtensions Demo", GlyphIcon = "", DemoPage = typeof(HttpClientExtensionsPage) },
+                new Demo { DemoTitle = "Dialogs Demo", GlyphIcon = "", DemoPage = typeof(DialogsPage) }
             };
         }
 

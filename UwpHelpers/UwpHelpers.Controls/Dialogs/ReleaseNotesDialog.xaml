@@ -1,0 +1,51 @@
+﻿<ContentDialog x:Class="UwpHelpers.Controls.Dialogs.ReleaseNotesDialog"
+               xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+               xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+               xmlns:local="using:UwpHelpers.Controls.Dialogs"
+               xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+               xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+               mc:Ignorable="d"
+               Title="Release Notes"
+               SecondaryButtonText="close"
+               SecondaryButtonClick="ContentDialog_SecondaryButtonClick">
+    
+    <ContentDialog.Resources>
+        <DataTemplate x:Key="ListHeaderTemplate">
+            <Grid BorderBrush="{ThemeResource AppBarItemPointerOverBackgroundThemeBrush}"
+                  BorderThickness="0,0,0,1">
+                <TextBlock Text="{Binding}"
+                           HorizontalAlignment="Center" />
+            </Grid>
+        </DataTemplate>
+        <DataTemplate x:Key="ListItemTemplate">
+            <TextBlock Text="{Binding}"
+                       TextWrapping="Wrap" />
+        </DataTemplate>
+    </ContentDialog.Resources>
+    
+    <Grid>
+        <StackPanel>
+            <TextBlock x:Name="SubTitleTextBlock"
+                       Text="{x:Bind AppVersion}"
+                       Margin="0,0,0,15"/>
+            <TextBlock x:Name="MessageTextBlock"
+                       Text="{x:Bind Message}"
+                       TextWrapping="WrapWholeWords"
+                       Margin="0,0,0,20" />
+            <ListView x:Name="FeaturesListView"
+                      Header="Features"
+                      HeaderTemplate="{StaticResource ListHeaderTemplate}"
+                      ItemsSource="{x:Bind AddedFeatures}"
+                      ItemTemplate="{StaticResource ListItemTemplate}"
+                      Margin="0,0,0,10"
+                      MaxHeight="200">
+            </ListView>
+            <ListView x:Name="FixesListView"
+                      Header="Fixes"
+                      HeaderTemplate="{StaticResource ListHeaderTemplate}"
+                      ItemsSource="{x:Bind BugFixes}"
+                      ItemTemplate="{StaticResource ListItemTemplate}"
+                      MaxHeight="200"/>
+        </StackPanel>
+    </Grid>
+</ContentDialog>

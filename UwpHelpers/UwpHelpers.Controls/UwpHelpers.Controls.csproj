@@ -117,6 +117,9 @@
     <Compile Include="Common\DelegateCommand.cs" />
     <Compile Include="Common\DownloadProgressArgs.cs" />
     <Compile Include="Common\IncrementalLoadingCollection.cs" />
+    <Compile Include="Dialogs\ReleaseNotesDialog.xaml.cs">
+      <DependentUpon>ReleaseNotesDialog.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Extensions\HttpClientExtensions.cs" />
     <Compile Include="Extensions\XamlExtensions.cs" />
     <Compile Include="ImageControls\NetworkImage.xaml.cs">
@@ -133,6 +136,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="BusyIndicators\DownloadUploadIndicator.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Dialogs\ReleaseNotesDialog.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

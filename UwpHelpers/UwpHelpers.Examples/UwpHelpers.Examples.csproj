@@ -113,6 +113,9 @@
     <Compile Include="Views\BusyIndicatorPage.xaml.cs">
       <DependentUpon>BusyIndicatorPage.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Views\DialogsPage.xaml.cs">
+      <DependentUpon>DialogsPage.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\ElementBlurPage.xaml.cs">
       <DependentUpon>ElementBlurPage.xaml</DependentUpon>
     </Compile>
@@ -157,6 +160,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\BusyIndicatorPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\DialogsPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

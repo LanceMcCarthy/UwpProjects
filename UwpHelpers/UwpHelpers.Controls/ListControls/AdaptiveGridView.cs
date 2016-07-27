@@ -16,13 +16,13 @@ namespace UwpHelpers.Controls.ListControls
     public class AdaptiveGridView : GridView
     {
         #region DependencyProperties
-        
+
         /// <summary>
-        /// Minimum height for item
+        /// Minimum height for item (must be greater than zero)
         /// </summary>
         public double MinItemHeight
         {
-            get { return (double) GetValue(MinItemHeightProperty); }
+            get { return (double)GetValue(MinItemHeightProperty); }
             set { SetValue(MinItemHeightProperty, value); }
         }
 
@@ -33,9 +33,9 @@ namespace UwpHelpers.Controls.ListControls
                 typeof(AdaptiveGridView),
                 new PropertyMetadata(1.0, (s, a) =>
                 {
-                    if (!double.IsNaN((double) a.NewValue))
+                    if (!double.IsNaN((double)a.NewValue))
                     {
-                        ((AdaptiveGridView) s).InvalidateMeasure();
+                        ((AdaptiveGridView)s).InvalidateMeasure();
                     }
                 }));
 
@@ -44,7 +44,7 @@ namespace UwpHelpers.Controls.ListControls
         /// </summary>
         public double MinItemWidth
         {
-            get { return (double) GetValue(MinimumItemWidthProperty); }
+            get { return (double)GetValue(MinimumItemWidthProperty); }
             set { SetValue(MinimumItemWidthProperty, value); }
         }
 
@@ -55,11 +55,24 @@ namespace UwpHelpers.Controls.ListControls
                 typeof(AdaptiveGridView),
                 new PropertyMetadata(1.0, (s, a) =>
                 {
-                    if (!Double.IsNaN((double) a.NewValue))
+                    if (!double.IsNaN((double)a.NewValue))
                     {
-                        ((AdaptiveGridView) s).InvalidateMeasure();
+                        ((AdaptiveGridView)s).InvalidateMeasure();
                     }
                 }));
+
+        /// <summary>
+        /// Reports if there are currently any items in the AdaptiveGridView, is updated as items change.
+        /// This property can be used to bind to the Visibility of an "Empty Content" overlay.
+        /// </summary>
+        public bool HasItems
+        {
+            get { return (bool)GetValue(HasItemsProperty); }
+            set { SetValue(HasItemsProperty, value); }
+        }
+
+        public static readonly DependencyProperty HasItemsProperty = DependencyProperty.Register(
+            "HasItems", typeof(bool), typeof(AdaptiveGridView), new PropertyMetadata(default(bool)));
 
         #endregion
 
@@ -69,7 +82,7 @@ namespace UwpHelpers.Controls.ListControls
                 ItemContainerStyle = new Style(typeof(GridViewItem));
 
             ItemContainerStyle.Setters.Add(new Setter(HorizontalContentAlignmentProperty, HorizontalAlignment.Stretch));
-            
+
             Loaded += AdaptiveGridView_Loaded;
         }
 
@@ -108,6 +121,13 @@ namespace UwpHelpers.Controls.ListControls
             }
 
             return base.ArrangeOverride(finalSize);
+        }
+
+        protected override void OnItemsChanged(object e)
+        {
+            base.OnItemsChanged(e);
+
+            this.HasItems = Items?.Count > 0;
         }
     }
 }
