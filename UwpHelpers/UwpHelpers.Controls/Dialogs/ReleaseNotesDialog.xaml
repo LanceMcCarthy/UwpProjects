@@ -35,7 +35,7 @@
             <ListView x:Name="FeaturesListView"
                       Header="Features"
                       HeaderTemplate="{StaticResource ListHeaderTemplate}"
-                      ItemsSource="{x:Bind AddedFeatures}"
+                      ItemsSource="{x:Bind Features}"
                       ItemTemplate="{StaticResource ListItemTemplate}"
                       Margin="0,0,0,10"
                       MaxHeight="200">
@@ -43,7 +43,7 @@
             <ListView x:Name="FixesListView"
                       Header="Fixes"
                       HeaderTemplate="{StaticResource ListHeaderTemplate}"
-                      ItemsSource="{x:Bind BugFixes}"
+                      ItemsSource="{x:Bind Fixes}"
                       ItemTemplate="{StaticResource ListItemTemplate}"
                       MaxHeight="200"/>
         </StackPanel>

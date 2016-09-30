@@ -10,9 +10,14 @@
     <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
         <StackPanel HorizontalAlignment="Center"
                     VerticalAlignment="Center">
-            <Button x:Name="ReleaseNotesDialogButton" 
-                    Content="ReleaseNotesDialog"
+            <Button x:Name="ReleaseNotesDialogButton1" 
+                    Content="show Release Notes with Features and Fixes"
+                    Margin="20"
                     Click="ReleaseNotesDialogButton_OnClick"/>
+            <Button x:Name="ReleaseNotesDialogButton2"
+                    Content="show Release Notes with Features and Fixes"
+                    Margin="20"
+                    Click="ReleaseNotesDialogButton_OnClick" />
         </StackPanel>
     </Grid>
 </Page>

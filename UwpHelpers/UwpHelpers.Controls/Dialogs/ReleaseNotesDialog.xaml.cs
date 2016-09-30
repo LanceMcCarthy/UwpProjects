@@ -1,18 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Runtime.InteropServices.WindowsRuntime;
+﻿using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using Windows.ApplicationModel;
-using Windows.Foundation;
-using Windows.Foundation.Collections;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
-using Windows.UI.Xaml.Controls.Primitives;
-using Windows.UI.Xaml.Data;
-using Windows.UI.Xaml.Input;
-using Windows.UI.Xaml.Media;
-using Windows.UI.Xaml.Navigation;
 
 namespace UwpHelpers.Controls.Dialogs
 {
@@ -30,24 +20,24 @@ namespace UwpHelpers.Controls.Dialogs
             set { SetValue(MessageProperty, value); }
         }
 
-        public static readonly DependencyProperty AddedFeaturesProperty = DependencyProperty.Register(
-            "AddedFeatures", typeof(List<string>), typeof(ReleaseNotesDialog), new PropertyMetadata(new List<string>()));
+        public static readonly DependencyProperty FeaturesProperty = DependencyProperty.Register(
+            "Features", typeof(ObservableCollection<string>), typeof(ReleaseNotesDialog), new PropertyMetadata(new ObservableCollection<string>()));
 
         /// <summary>
         /// This is the list that will be displayed under the 'New Features' section
-        /// NOTE - this is readonly, use AddedFeatures.Add(string) to add a feature
+        /// Usage: Features.Add(string) to add a feature
         /// </summary>
-        public List<string> AddedFeatures => (List<string>) GetValue(AddedFeaturesProperty);
+        public ObservableCollection<string> Features => (ObservableCollection<string>) GetValue(FeaturesProperty);
 
         
-        public static readonly DependencyProperty BugFixesProperty = DependencyProperty.Register(
-            "BugFixes", typeof(List<string>), typeof(ReleaseNotesDialog), new PropertyMetadata(new List<string>()));
+        public static readonly DependencyProperty FixesProperty = DependencyProperty.Register(
+            "Fixes", typeof(ObservableCollection<string>), typeof(ReleaseNotesDialog), new PropertyMetadata(new ObservableCollection<string>()));
 
         /// <summary>
         /// This is the list that will be shown under the 'Bug Fixes' section
-        /// NOTE - this is readonly, use BugFixes.Add(string) to add a fix
+        /// NOTE - this is readonly, use Fixes.Add(string) to add a fix
         /// </summary>
-        public List<string> BugFixes => (List<string>) GetValue(BugFixesProperty);
+        public ObservableCollection<string> Fixes => (ObservableCollection<string>) GetValue(FixesProperty);
 
         public static readonly DependencyProperty UseFullVersionNumberProperty = DependencyProperty.Register(
             "UseFullVersionNumber", typeof(bool), typeof(ReleaseNotesDialog), new PropertyMetadata(default(bool)));
@@ -61,6 +51,18 @@ namespace UwpHelpers.Controls.Dialogs
         public ReleaseNotesDialog()
         {
             this.InitializeComponent();
+            Features.CollectionChanged += Features_CollectionChanged;
+            Fixes.CollectionChanged += Fixes_CollectionChanged;
+        }
+
+        private void Fixes_CollectionChanged(object sender, System.Collections.Specialized.NotifyCollectionChangedEventArgs e)
+        {
+            FixesListView.Visibility = ((ObservableCollection<string>) sender).Count > 0 ? Visibility.Visible : Visibility.Collapsed;
+        }
+
+        private void Features_CollectionChanged(object sender, System.Collections.Specialized.NotifyCollectionChangedEventArgs e)
+        {
+            FeaturesListView.Visibility = ((ObservableCollection<string>)sender).Count > 0 ? Visibility.Visible : Visibility.Collapsed;
         }
 
         /// <summary>
@@ -110,8 +112,8 @@ namespace UwpHelpers.Controls.Dialogs
         {
             base.OnApplyTemplate();
 
-            FixesListView.Visibility = BugFixes.Count == 0? Visibility.Collapsed : Visibility.Visible;
-            FeaturesListView.Visibility = AddedFeatures.Count == 0 ? Visibility.Collapsed : Visibility.Visible;
+            FixesListView.Visibility = Fixes.Count == 0? Visibility.Collapsed : Visibility.Visible;
+            FeaturesListView.Visibility = Features.Count == 0 ? Visibility.Collapsed : Visibility.Visible;
         }
     }
 }

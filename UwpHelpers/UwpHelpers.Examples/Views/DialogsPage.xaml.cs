@@ -18,12 +18,12 @@ namespace UwpHelpers.Examples.Views
 
             rnd.Message = "Thank you for checking out ReleaseNotesDialog! Here's a list of what's new and what's fixed: (note, if you dont add any features or fixes, the list will hide itself)";
 
-            rnd.AddedFeatures.Add("New Feature 1!");
-            rnd.AddedFeatures.Add("New Feature 2!");
-            rnd.AddedFeatures.Add("New Feature 3!");
+            rnd.Features.Add("New Feature 1!");
+            rnd.Features.Add("New Feature 2!");
+            rnd.Features.Add("New Feature 3!");
 
-            rnd.BugFixes.Add("Fixed crash when opening");
-            rnd.BugFixes.Add("Added text wrapping to fix text being cut off");
+            rnd.Fixes.Add("Fixed crash when opening");
+            rnd.Fixes.Add("Added text wrapping to fix text being cut off");
 
             await rnd.ShowAsync();
         }
