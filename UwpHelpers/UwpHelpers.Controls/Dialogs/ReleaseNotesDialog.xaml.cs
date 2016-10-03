@@ -19,25 +19,30 @@ namespace UwpHelpers.Controls.Dialogs
             get { return (string) GetValue(MessageProperty); }
             set { SetValue(MessageProperty, value); }
         }
-
+        
         public static readonly DependencyProperty FeaturesProperty = DependencyProperty.Register(
             "Features", typeof(ObservableCollection<string>), typeof(ReleaseNotesDialog), new PropertyMetadata(new ObservableCollection<string>()));
 
         /// <summary>
-        /// This is the list that will be displayed under the 'New Features' section
-        /// Usage: Features.Add(string) to add a feature
+        /// A list of new app features to be shown in the dialog
         /// </summary>
-        public ObservableCollection<string> Features => (ObservableCollection<string>) GetValue(FeaturesProperty);
+        public ObservableCollection<string> Features
+        {
+            get { return (ObservableCollection<string>) GetValue(FeaturesProperty); }
+            set { SetValue(FeaturesProperty, value); }
+        }
 
-        
         public static readonly DependencyProperty FixesProperty = DependencyProperty.Register(
             "Fixes", typeof(ObservableCollection<string>), typeof(ReleaseNotesDialog), new PropertyMetadata(new ObservableCollection<string>()));
 
         /// <summary>
-        /// This is the list that will be shown under the 'Bug Fixes' section
-        /// NOTE - this is readonly, use Fixes.Add(string) to add a fix
+        /// A list of bug fixes to be shown in the dialog
         /// </summary>
-        public ObservableCollection<string> Fixes => (ObservableCollection<string>) GetValue(FixesProperty);
+        public ObservableCollection<string> Fixes
+        {
+            get { return (ObservableCollection<string>) GetValue(FixesProperty); }
+            set { SetValue(FixesProperty, value); }
+        }
 
         public static readonly DependencyProperty UseFullVersionNumberProperty = DependencyProperty.Register(
             "UseFullVersionNumber", typeof(bool), typeof(ReleaseNotesDialog), new PropertyMetadata(default(bool)));
@@ -47,22 +52,23 @@ namespace UwpHelpers.Controls.Dialogs
             get { return (bool) GetValue(UseFullVersionNumberProperty); }
             set { SetValue(UseFullVersionNumberProperty, value); }
         }
+
+        public static readonly DependencyProperty AppNameProperty = DependencyProperty.Register(
+            "AppName", typeof(string), typeof(ReleaseNotesDialog), new PropertyMetadata("Release Notes"));
+
+        /// <summary>
+        /// Use your appname for the title. 
+        /// Note: Default Value is  "Release Notes"
+        /// </summary>
+        public string AppName
+        {
+            get { return (string) GetValue(AppNameProperty); }
+            set { SetValue(AppNameProperty, value); }
+        }
         
         public ReleaseNotesDialog()
         {
             this.InitializeComponent();
-            Features.CollectionChanged += Features_CollectionChanged;
-            Fixes.CollectionChanged += Fixes_CollectionChanged;
-        }
-
-        private void Fixes_CollectionChanged(object sender, System.Collections.Specialized.NotifyCollectionChangedEventArgs e)
-        {
-            FixesListView.Visibility = ((ObservableCollection<string>) sender).Count > 0 ? Visibility.Visible : Visibility.Collapsed;
-        }
-
-        private void Features_CollectionChanged(object sender, System.Collections.Specialized.NotifyCollectionChangedEventArgs e)
-        {
-            FeaturesListView.Visibility = ((ObservableCollection<string>)sender).Count > 0 ? Visibility.Visible : Visibility.Collapsed;
         }
 
         /// <summary>
@@ -75,24 +81,6 @@ namespace UwpHelpers.Controls.Dialogs
             this.Message = message;
         }
 
-        private void ContentDialog_SecondaryButtonClick(ContentDialog sender, ContentDialogButtonClickEventArgs args)
-        {
-            
-        }
-
-        private string AppName
-        {
-            get
-            {
-                //return "App Name shows Here";
-
-                if (DesignMode.DesignModeEnabled)
-                    return "App Name shows Here";
-
-                return Package.Current.Id.FullName;
-            }
-        }
-
         private string AppVersion
         {
             get
@@ -103,8 +91,8 @@ namespace UwpHelpers.Controls.Dialogs
                 var version = Package.Current.Id.Version;
 
                 return UseFullVersionNumber 
-                    ? $"{version.Major}.{version.Minor}.{version.Build}.{version.Revision}" 
-                    : $"{version.Major}.{version.Minor}.{version.Build}";
+                    ? $"{version.Major}.{version.Minor}.{version.Build}" 
+                    : $"{version.Major}.{version.Minor}";
             }
         }
 

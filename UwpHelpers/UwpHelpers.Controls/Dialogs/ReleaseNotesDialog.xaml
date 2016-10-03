@@ -5,9 +5,8 @@
                xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
                xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
                mc:Ignorable="d"
-               Title="Release Notes"
-               SecondaryButtonText="close"
-               SecondaryButtonClick="ContentDialog_SecondaryButtonClick">
+               Title="{x:Bind AppName}"
+               SecondaryButtonText="close">
     
     <ContentDialog.Resources>
         <DataTemplate x:Key="ListHeaderTemplate">
@@ -25,11 +24,12 @@
     
     <Grid>
         <StackPanel>
-            <TextBlock x:Name="SubTitleTextBlock"
-                       Text="{x:Bind AppVersion}"
-                       Margin="0,0,0,15"/>
-            <TextBlock x:Name="MessageTextBlock"
-                       Text="{x:Bind Message}"
+            <StackPanel Margin="0,0,0,15" Orientation="Horizontal">
+                <TextBlock Text="v." />
+                <TextBlock Text="{x:Bind AppVersion}" />
+            </StackPanel>
+            
+            <TextBlock Text="{x:Bind Message}"
                        TextWrapping="WrapWholeWords"
                        Margin="0,0,0,20" />
             <ListView x:Name="FeaturesListView"

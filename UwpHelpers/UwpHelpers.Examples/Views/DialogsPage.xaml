@@ -5,19 +5,33 @@
     xmlns:local="using:UwpHelpers.Examples.Views"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:viewModels="using:UwpHelpers.Examples.ViewModels"
     mc:Ignorable="d">
+    
+    <Page.DataContext>
+        <viewModels:DialogsViewModel/>
+    </Page.DataContext>
 
-    <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
-        <StackPanel HorizontalAlignment="Center"
-                    VerticalAlignment="Center">
-            <Button x:Name="ReleaseNotesDialogButton1" 
-                    Content="show Release Notes with Features and Fixes"
-                    Margin="20"
-                    Click="ReleaseNotesDialogButton_OnClick"/>
-            <Button x:Name="ReleaseNotesDialogButton2"
-                    Content="show Release Notes with Features and Fixes"
-                    Margin="20"
-                    Click="ReleaseNotesDialogButton_OnClick" />
-        </StackPanel>
+    <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}" >
+        
+        <Grid BorderThickness="2"
+              HorizontalAlignment="Center"
+              VerticalAlignment="Center"
+              BorderBrush="{ThemeResource ApplicationForegroundThemeBrush}">
+            <StackPanel>
+                <TextBlock Text="ReleaseNoteDialog demo"
+                           HorizontalAlignment="Center" />
+
+                <Button Content="Show Release Notes with Features only"
+                        Margin="20,20,20,10"
+                        HorizontalAlignment="Stretch"
+                        Command="{Binding ShowReleaseNotesCommand}" />
+                <Button Content="Show Release Notes with Features, Fixes and app name"
+                        Margin="20,10,20,20"
+                        HorizontalAlignment="Stretch"
+                        Command="{Binding ShowReleaseNotesWithFixesCommand}" />
+            </StackPanel>
+        </Grid>
+        
     </Grid>
 </Page>

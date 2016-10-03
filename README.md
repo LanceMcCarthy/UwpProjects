@@ -1,6 +1,5 @@
 # UwpProjects <img src="https://lance.visualstudio.com/DefaultCollection/_apis/public/build/definitions/99c7351f-17fc-47b4-9314-f259e58e77eb/2/badge" alt="Build status" />
 A set of UWP controls and utilities (I will add more over time)
-*Note: To see my Telerik UWP examples, go here: https://github.com/LanceMcCarthy/TelerikUwpProjects*
 
 ##Contents
 * BusyIndicators in *UwpHelpers.Controls.BusyIndicators* (cool custom busy indicator)
@@ -9,6 +8,7 @@ A set of UWP controls and utilities (I will add more over time)
 * IncrementalLoadingCollection in *UwpHelpers.Controls.Common* (demo in Examples)
 * NetworkImage in *UwpHelpers.Controls.ImageControls* (an Image control that shows download progress)
 * DownloadStreamWithProgressAsync in *UwpHelpers.Controls.Extensions* (HttpClient Extension method that reports download progress)
+* ReleaseNotesDialog in *UwpHelpers.Controls.Dialogs* 
 
 
 ###AdaptiveGridView
@@ -20,17 +20,19 @@ A set of UWP controls and utilities (I will add more over time)
 ![alt tag](https://i.gyazo.com/d51eb22c60cbab80363b0e2976f9867d.gif)
 
 **Properties**
+
 * MinItemWidth (double)
 * MinItemHeight (double)
 
 
 **Example**
-```
-<listControls:AdaptiveGridView ItemsSource="{Binding ListItems}"
-                               MinItemHeight="105"
-                               MinItemWidth="315">
 
-```
+    
+    <listControls:AdaptiveGridView ItemsSource="{Binding ListItems}"
+       MinItemHeight="105"
+       MinItemWidth="315">
+    
+    
 
 
 ###BusyIndicators
@@ -41,6 +43,8 @@ A set of UWP controls and utilities (I will add more over time)
 * BandBusyIndicator
 * DownloadUploadIndicator
 
+
+
 **Properties**
 
 * IsActive (boolean): shows or hides the indicator
@@ -48,12 +52,12 @@ A set of UWP controls and utilities (I will add more over time)
 * DisplayMessage (string): message shown when active
 * DisplayMessageSize (double): message font size
 
+    
+    
+    <busyIndicators:BandBusyIndicator IsActive="{Binding IsBusy}"
+      DisplayMessage="busy..."
+      Direction="Uploading"  />
 
-```
-<busyIndicators:BandBusyIndicator IsActive="{Binding IsBusy}"
-                                  DisplayMessage="busy..."
-                                  Direction="Uploading"  />
-```
 
 ###BlurElementAsync
 
@@ -62,17 +66,19 @@ A set of UWP controls and utilities (I will add more over time)
 
 **Example**
 
-```
+
+
 //You can pass any UIElement to the method and it will render all of the children into a bitmap with a Blur applied
 var blurredElement = await ContentToBlur.BlurElementAsync();
 
 //example: you can then set Background brush of a Grid
 ContentRootGrid.Background = new ImageBrush
 {
-      ImageSource = blurredBitmapImage,
-      Stretch = Stretch.UniformToFill
+  ImageSource = blurredBitmapImage,
+  Stretch = Stretch.UniformToFill
 };
-```
+
+
 
 ###IncrementalLoadingCollection
 
@@ -82,21 +88,24 @@ ContentRootGrid.Background = new ImageBrush
 **Example**
 
 *XAML*
-```
-<ListView ItemsSource="{Binding InfiniteItems}" />
-```
+
+
+    <ListView ItemsSource="{Binding InfiniteItems}" />
+
+
 
 *ViewModel or Code-Behind*
-```
-InfiniteItems = new IncrementalLoadingCollection<T>((cancellationToken, count) => Task.Run(GetMoreData, cancellationToken));
 
-//and GetMoreData is
-private async Task<ObservableCollection<T>> GetMoreData()
-{
+    
+    InfiniteItems = new IncrementalLoadingCollection<T>((cancellationToken, count) => Task.Run(GetMoreData, cancellationToken));
+    
+    //and GetMoreData is
+    private async Task<ObservableCollection<T>> GetMoreData()
+    {
       return more items of type ObservableCollection<T>
-}
+    }
 
-```
+
 
 ###NetworkImage
 
@@ -115,11 +124,12 @@ private async Task<ObservableCollection<T>> GetMoreData()
 **Example**
 
 *XAML*
-```
-<imageControls:NetworkImage ImageUrl="http://bigimages.com/MyHugeImage.jpg" />
-```
 
-	
+    
+    <imageControls:NetworkImage ImageUrl="http://bigimages.com/MyHugeImage.jpg" />
+    
+
+
 ###DownloadStreamWithProgressAsync (HttpClient Extension)
 
 ![alt tag](https://i.gyazo.com/70dc4afcd36b9a04a9c3159c67000a1c.gif)
@@ -136,20 +146,69 @@ Note: There are a couple more methods in the helper class (i.e. DownloadStringwi
 **Example**
 
 *C# - usage*
-```
-var reporter = new Progress<DownloadProgressArgs>();
-reporter.ProgressChanged += Reporter_ProgressChanged;
 
-var imageStream = await new HttpClient(myFavoriteHandler).DownloadStreamWithProgressAsync(bigImageUrl, reporter)
+    var reporter = new Progress<DownloadProgressArgs>();
+    reporter.ProgressChanged += Reporter_ProgressChanged;
+    
+    var imageStream = await new HttpClient(myFavoriteHandler).DownloadStreamWithProgressAsync(bigImageUrl, reporter)
 
-```
+
 
 *C# - event handler*
-```
-private void Reporter_ProgressChanged(object sender, DownloadProgressArgs e)
-{
+
+
+    private void Reporter_ProgressChanged(object sender, DownloadProgressArgs e)
+    {
      SomeProgressBar.Value = e.PercentComplete;
-}
-```
+    }
+
+
+
+
+
+###ReleaseNotesDialog 
+
+![alt tag](https://i.gyazo.com/25a89e98e5846e4ffff36b1b14e6399b.gif)
+
+
+**Properties**
+
+* AppName (string): Set the Dialog's title, default value is "Release Notes"
+* Features (ObservableCollection<string>): List of new features
+* Fixes (ObservableCollection<string>): List of fixes
+* UseFullVersionNumber (boolean): Determines whether to show the Build number (1.0.X).
+
+
+
+
+**Example**
+
+*C# - usage*
+
+
+
+    var rnd = new ReleaseNotesDialog();
+    
+    rnd.AppName = "My App Name";
+    rnd.Message = "Thank you for checking out ReleaseNotesDialog! Here's a list of what's new and what's fixed:";
+    
+    rnd.Features = new ObservableCollection<string>
+    { 
+    	"Amazing feature!", 
+    	"Added theming", 
+    	"Backup and restore added!" 
+    };
+    
+     rnd.Fixes = new ObservableCollection<string>
+    {
+    	"Amazing feature!",
+    	"Added theming",
+    	"Fixed crash when opening",
+    	"Added text wrapping to fix text being cut off"
+    };
+    
+    await rnd.ShowAsync();
+
+
 
 
