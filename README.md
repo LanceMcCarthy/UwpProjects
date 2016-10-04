@@ -2,13 +2,14 @@
 A set of UWP controls and utilities (I will add more over time)
 
 ##Contents
-* BusyIndicators in *UwpHelpers.Controls.BusyIndicators* (cool custom busy indicator)
-* AdaptiveGridView in *UwpHelpers.Controls.ListControls* (maintains aspect ratio of items as it scales for column width)
-* BlurElementAsync in *UwpHelpers.Examples.Helpers* (converts any UIElement into a blurred BitmapImage)
-* IncrementalLoadingCollection in *UwpHelpers.Controls.Common* (demo in Examples)
-* NetworkImage in *UwpHelpers.Controls.ImageControls* (an Image control that shows download progress)
-* DownloadStreamWithProgressAsync in *UwpHelpers.Controls.Extensions* (HttpClient Extension method that reports download progress)
-* ReleaseNotesDialog in *UwpHelpers.Controls.Dialogs* 
+
+* [AdaptiveGridView](https://github.com/LanceMcCarthy/UwpProjects#adaptivegridview) in *UwpHelpers.Controls.ListControls* (maintains aspect ratio of items as it scales for column width)
+* [BusyIndicators](https://github.com/LanceMcCarthy/UwpProjects#busyindicators) in *UwpHelpers.Controls.BusyIndicators* (custom busy indicators)
+* [BlurElementAsync](https://github.com/LanceMcCarthy/UwpProjects#blurelementasync) in *UwpHelpers.Examples.Helpers* (converts any UIElement into a blurred bitmap)
+* [IncrementalLoadingCollection](https://github.com/LanceMcCarthy/UwpProjects#incrementalloadingcollection) in *UwpHelpers.Controls.Common* (Use this for lazy-loading scenarios, demo in Examples)
+* [NetworkImage](https://github.com/LanceMcCarthy/UwpProjects#networkimage) in *UwpHelpers.Controls.ImageControls* (an Image control that shows download progress)
+* [DownloadStreamWithProgressAsync](https://github.com/LanceMcCarthy/UwpProjects#downloadstreamwithprogressasync-httpclient-extension) in *UwpHelpers.Controls.Extensions* (HttpClient Extension methods that reports download progress)
+* [ReleaseNotesDialog](https://github.com/LanceMcCarthy/UwpProjects#releasenotesdialog) in *UwpHelpers.Controls.Dialogs* 
 
 
 ###AdaptiveGridView
@@ -125,9 +126,9 @@ ContentRootGrid.Background = new ImageBrush
 
 *XAML*
 
-    
-    <imageControls:NetworkImage ImageUrl="http://bigimages.com/MyHugeImage.jpg" />
-    
+```
+<imageControls:NetworkImage ImageUrl="http://bigimages.com/MyHugeImage.jpg" />
+``` 
 
 
 ###DownloadStreamWithProgressAsync (HttpClient Extension)
@@ -138,7 +139,7 @@ ContentRootGrid.Background = new ImageBrush
 **Properties**
 
 * Url (string): url of the thing you want to download
-* Reporter (Progress<DownloadProgressArgs> ) - reports the progress via event, see example below
+* Reporter (Progress`<DownloadProgressArgs`> ) - reports the progress via event, see example below
 
 Note: There are a couple more methods in the helper class (i.e. DownloadStringwithProgressAsync)
 
@@ -174,9 +175,9 @@ Note: There are a couple more methods in the helper class (i.e. DownloadStringwi
 **Properties**
 
 * AppName (string): Set the Dialog's title, default value is "Release Notes"
-* Features (ObservableCollection<string>): List of new features
-* Fixes (ObservableCollection<string>): List of fixes
-* UseFullVersionNumber (boolean): Determines whether to show the Build number (1.0.X).
+* Features (ObservableCollection`<string`>): List of new features
+* Fixes (ObservableCollection`<string`>): List of fixes
+* UseFullVersionNumber (bool): Determines whether to show the Build number (1.0.X).
 
 
 
