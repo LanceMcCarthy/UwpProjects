@@ -12,11 +12,11 @@ A set of UWP controls and utilities that I have built and used as a Windows dev.
 * [ReleaseNotesDialog](https://github.com/LanceMcCarthy/UwpProjects#releasenotesdialog) in *UwpHelpers.Controls.Dialogs* (shows a list of Features and Fixes using the familiar ContentDialog approach)
 
 
-###AdaptiveGridView
+### AdaptiveGridView
 
 ![alt tag](https://i.gyazo.com/9d19b70d72c65c3d24fb81a857cdf4f8.gif)
 
-###AdaptiveGridView with grouping
+### AdaptiveGridView with grouping
 
 ![alt tag](https://i.gyazo.com/d51eb22c60cbab80363b0e2976f9867d.gif)
 
@@ -35,7 +35,7 @@ A set of UWP controls and utilities that I have built and used as a Windows dev.
        
 ```
 
-###BusyIndicators
+### BusyIndicators
 
 ![alt tag](https://i.gyazo.com/f95e8b62627551bec566f45aa7b77655.gif)
 
@@ -58,7 +58,7 @@ A set of UWP controls and utilities that I have built and used as a Windows dev.
       Direction="Uploading"  />
 ```
 
-###BlurElementAsync
+### BlurElementAsync
 
 ![alt tag](https://i.gyazo.com/b1ef38ded3e6428e607595d8638bb88f.gif)
 
@@ -79,7 +79,7 @@ ContentRootGrid.Background = new ImageBrush
 ```
 
 
-###IncrementalLoadingCollection
+### IncrementalLoadingCollection
 
 ![alt tag](https://i.gyazo.com/450b257a52ece99e59052af9ff28d825.gif)
 
@@ -110,7 +110,7 @@ private async Task<ObservableCollection<T>> GetMoreData()
 ```
 
 
-###NetworkImage
+### NetworkImage
 
 ![alt tag](https://i.gyazo.com/3cfc9b6d98bd5b060440a308edc45df7.gif)
 
@@ -135,7 +135,7 @@ private async Task<ObservableCollection<T>> GetMoreData()
 ``` 
 
 
-###DownloadStreamWithProgressAsync (HttpClient Extension)
+### DownloadStreamWithProgressAsync (HttpClient Extension)
 
 ![alt tag](https://i.gyazo.com/70dc4afcd36b9a04a9c3159c67000a1c.gif)
 
@@ -172,7 +172,7 @@ private void Reporter_ProgressChanged(object sender, DownloadProgressArgs e)
 ```
 
 
-###ReleaseNotesDialog 
+### ReleaseNotesDialog 
 
 ![alt tag](https://i.gyazo.com/25a89e98e5846e4ffff36b1b14e6399b.gif)
 
