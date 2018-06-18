@@ -6,9 +6,9 @@ using System.Runtime.InteropServices;
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
 [assembly: AssemblyTitle("UwpHelpers.Controls")]
-[assembly: AssemblyDescription("")]
+[assembly: AssemblyDescription("A set of simple helpers and controls for UWP projects")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("")]
+[assembly: AssemblyCompany("Lancelot Software, LLC")]
 [assembly: AssemblyProduct("UwpHelpers.Controls")]
 [assembly: AssemblyCopyright("Copyright ©  2016")]
 [assembly: AssemblyTrademark("")]
