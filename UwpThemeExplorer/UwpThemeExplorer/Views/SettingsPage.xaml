@@ -1,0 +1,39 @@
+﻿<Page
+    x:Class="UwpThemeExplorer.Views.SettingsPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    Style="{StaticResource PageStyle}"
+    xmlns:helper="using:UwpThemeExplorer.Helpers"
+    xmlns:xaml="using:Windows.UI.Xaml"
+    mc:Ignorable="d">
+    <Page.Resources>
+        <helper:EnumToBooleanConverter x:Key="EnumToBooleanConverter" EnumType="ElementTheme" />
+    </Page.Resources>
+
+    <Grid Margin="{StaticResource MediumLeftRightMargin}">
+        <StackPanel  x:Name="ContentArea"
+                         Margin="{StaticResource SettingsSubheaderMargin}">
+
+            <TextBlock x:Uid="Settings_Personalization"
+                       Style="{StaticResource SubtitleTextBlockStyle}" />
+
+                <TextBlock
+                x:Uid="Settings_About"
+                Style="{StaticResource SubtitleTextBlockStyle}" />
+
+            <StackPanel Margin="{StaticResource EightTopMargin}">
+                <TextBlock
+                    Text="{x:Bind ViewModel.VersionDescription, Mode=OneWay}" />
+                <TextBlock
+                    x:Uid="Settings_AboutDescription"
+                    Margin="{StaticResource EightTopMargin}" />
+
+                <HyperlinkButton
+                    x:Uid="Settings_PrivacyTermsLink"
+                    Margin="{StaticResource EightTopMargin}" />
+            </StackPanel>
+        </StackPanel>
+    </Grid>    
+</Page>

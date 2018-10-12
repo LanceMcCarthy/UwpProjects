@@ -1,0 +1,68 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+
+<Package
+  xmlns="http://schemas.microsoft.com/appx/manifest/foundation/windows10"
+  xmlns:mp="http://schemas.microsoft.com/appx/2014/phone/manifest"
+  xmlns:uap="http://schemas.microsoft.com/appx/manifest/uap/windows10"
+  xmlns:genTemplate="http://schemas.microsoft.com/appx/developer/windowsTemplateStudio"
+  IgnorableNamespaces="uap mp genTemplate">
+
+  <Identity
+    Name="3FEE89A0-221E-4EBA-B62C-EB420CAC6349"
+    Publisher="CN=mccarthy"
+    Version="1.0.0.0" />
+
+  <mp:PhoneIdentity PhoneProductId="3FEE89A0-221E-4EBA-B62C-EB420CAC6349" PhonePublisherId="00000000-0000-0000-0000-000000000000"/>
+
+  <Properties>
+    <DisplayName>UwpThemeExplorer</DisplayName>
+    <PublisherDisplayName>mccarthy</PublisherDisplayName>
+    <Logo>Assets\StoreLogo.png</Logo>
+  </Properties>
+
+  <Dependencies>
+    <TargetDeviceFamily Name="Windows.Universal" MinVersion="10.0.0.0" MaxVersionTested="10.0.0.0" />
+  </Dependencies>
+
+  <Resources>
+    <Resource Language="x-generate"/>
+  </Resources>
+
+  <Applications>
+    <Application Id="App"
+      Executable="$targetnametoken$.exe"
+      EntryPoint="UwpThemeExplorer.App">
+      <uap:VisualElements
+        DisplayName="ms-resource:AppDisplayName"
+        Square150x150Logo="Assets\Square150x150Logo.png"
+        Square44x44Logo="Assets\Square44x44Logo.png"
+        Description="ms-resource:AppDescription"
+        BackgroundColor="transparent">
+        <uap:DefaultTile Wide310x150Logo="Assets\Wide310x150Logo.png"/>
+        <uap:SplashScreen Image="Assets\SplashScreen.png" />
+      </uap:VisualElements>
+
+      <Extensions>
+        <uap:Extension Category="windows.protocol">
+          <uap:Protocol Name="wtsapp">
+            <uap:Logo>Assets\Icon.png</uap:Logo>
+            <uap:DisplayName>UwpThemeExplorer</uap:DisplayName>
+          </uap:Protocol>
+        </uap:Extension>
+      </Extensions>
+    </Application>
+  </Applications>
+
+  <Capabilities>
+    <Capability Name="internetClient" />
+  </Capabilities>
+
+  <genTemplate:Metadata>
+    <genTemplate:Item Name="generator" HexValue="Windows Template Studio"/>
+    <genTemplate:Item Name="wizardVersion" Version="v2.4.18260.1" />
+    <genTemplate:Item Name="templatesVersion" Version="v2.4.18260.1" />
+    <genTemplate:Item Name="projectType" HexValue="TabbedPivot" />
+    <genTemplate:Item Name="framework" HexValue="MVVMBasic" />
+    <genTemplate:Item Name="platform" HexValue="Uwp" />
+  </genTemplate:Metadata>
+</Package>

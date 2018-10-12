@@ -1,0 +1,99 @@
+﻿<Page x:Class="UwpThemeExplorer.Views.PivotPage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+      Style="{StaticResource PageStyle}"
+      xmlns:behaviors="using:UwpThemeExplorer.Behaviors"
+      xmlns:i="using:Microsoft.Xaml.Interactivity"
+      xmlns:model="using:UwpThemeExplorer.Models"
+      xmlns:views="using:UwpThemeExplorer.Views"
+      xmlns:grid="using:Telerik.UI.Xaml.Controls.Grid"
+      xmlns:primitives="using:Telerik.UI.Xaml.Controls.Primitives"
+      mc:Ignorable="d">
+
+    <Page.Resources>
+        <DataTemplate x:Key="BrushCellContentTemplate">
+            <DataTemplate>
+                <Grid Background="{Binding BrushValue}"
+                      HorizontalAlignment="Stretch"
+                      VerticalAlignment="Center">
+                    <Rectangle Width="100"
+                               Height="50"
+                               Margin="10,5"
+                               HorizontalAlignment="Center"
+                               VerticalAlignment="Center"/>
+                </Grid>
+            </DataTemplate>
+        </DataTemplate>
+    </Page.Resources>
+    <Grid>
+        <Pivot x:Uid="PivotPage"
+               x:Name="pivot">
+            <i:Interaction.Behaviors>
+                <behaviors:PivotBehavior />
+            </i:Interaction.Behaviors>
+
+            <PivotItem x:Uid="PivotItem_Default">
+                <Grid Margin="{StaticResource MediumLeftRightMargin}">
+                    <Grid Background="{ThemeResource SystemControlPageBackgroundChromeLowBrush}">
+                        <grid:RadDataGrid ItemsSource="{x:Bind ViewModel.DefaultResources}"
+                                          ColumnDataOperationsMode="Flyout"
+                                          AutoGenerateColumns="False">
+                            <grid:RadDataGrid.Columns>
+                                <grid:DataGridTextColumn PropertyName="Name" />
+                                <grid:DataGridTextColumn PropertyName="HexValue" />
+                                <grid:DataGridTemplateColumn Header="Brush Color"
+                                                             CellContentTemplate="{StaticResource BrushCellContentTemplate}" />
+                            </grid:RadDataGrid.Columns>
+                        </grid:RadDataGrid>
+                    </Grid>
+                </Grid>
+            </PivotItem>
+            <PivotItem x:Uid="PivotItem_Dark">
+                <Grid Margin="{StaticResource MediumLeftRightMargin}">
+                    <Grid Background="{ThemeResource SystemControlPageBackgroundChromeLowBrush}">
+                        <grid:RadDataGrid ColumnDataOperationsMode="Flyout"
+                                          ItemsSource="{x:Bind ViewModel.LightResources}"
+                                          AutoGenerateColumns="False">
+                            <grid:RadDataGrid.Columns>
+                                <grid:DataGridTextColumn PropertyName="Name" />
+                                <grid:DataGridTextColumn PropertyName="HexValue" />
+                                <grid:DataGridTemplateColumn Header="Brush Color"
+                                                             CellContentTemplate="{StaticResource BrushCellContentTemplate}" />
+                            </grid:RadDataGrid.Columns>
+                        </grid:RadDataGrid>
+                    </Grid>
+                </Grid>
+            </PivotItem>
+            <PivotItem x:Uid="PivotItem_HighContrast">
+                <Grid Margin="{StaticResource MediumLeftRightMargin}">
+                    <Grid Background="{ThemeResource SystemControlPageBackgroundChromeLowBrush}">
+                        <grid:RadDataGrid ColumnDataOperationsMode="Flyout"
+                                          ItemsSource="{x:Bind ViewModel.HighContrastResources}"
+                                          AutoGenerateColumns="False">
+                            <grid:RadDataGrid.Columns>
+                                <grid:DataGridTextColumn PropertyName="Name" />
+                                <grid:DataGridTextColumn PropertyName="HexValue" />
+                                <grid:DataGridTemplateColumn Header="Brush Color"
+                                                             CellContentTemplate="{StaticResource BrushCellContentTemplate}" />
+                            </grid:RadDataGrid.Columns>
+                        </grid:RadDataGrid>
+                    </Grid>
+                </Grid>
+            </PivotItem>
+            <PivotItem x:Uid="PivotItem_Settings">
+                <Frame>
+                    <views:SettingsPage />
+                </Frame>
+            </PivotItem>
+            <PivotItem x:Uid="PivotItem_SchemeActivationSample">
+                <Frame>
+                    <views:SchemeActivationSamplePage />
+                </Frame>
+            </PivotItem>
+        </Pivot>
+
+        <primitives:RadBusyIndicator IsActive="{Binding IsBusy}"/>
+    </Grid>
+</Page>
