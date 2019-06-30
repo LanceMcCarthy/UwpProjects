@@ -5,6 +5,7 @@ A set of UWP controls and utilities that I have built and used as a Windows dev.
 
 * [AdaptiveGridView](https://github.com/LanceMcCarthy/UwpProjects#adaptivegridview) in *UwpHelpers.Controls.ListControls* (maintains aspect ratio of items as it scales for column width)
 * [BusyIndicators](https://github.com/LanceMcCarthy/UwpProjects#busyindicators) in *UwpHelpers.Controls.BusyIndicators* (custom busy indicators)
+* [AnimatedBusyIndicator](https://github.com/LanceMcCarthy/UwpProjects#animatedbusyindicators) in *UwpHelpers.Controls.BusyIndicators* (custom busy indicators)
 * [BlurElementAsync](https://github.com/LanceMcCarthy/UwpProjects#blurelementasync) in *UwpHelpers.Examples.Helpers* (converts any UIElement into a blurred bitmap)
 * [IncrementalLoadingCollection](https://github.com/LanceMcCarthy/UwpProjects#incrementalloadingcollection) in *UwpHelpers.Controls.Common* (Use this for lazy-loading scenarios, demo in Examples)
 * [NetworkImage](https://github.com/LanceMcCarthy/UwpProjects#networkimage) in *UwpHelpers.Controls.ImageControls* (an Image control that shows download progress)
@@ -35,10 +36,42 @@ A set of UWP controls and utilities that I have built and used as a Windows dev.
        
 ```
 
+### AnimatedBusyIndicator
+A UWP control leveraging WinUI and Composition
+
+![Demo GIF](https://dvlup.blob.core.windows.net/general-app-files/GIFs/AnimatedBusyIndicator.gif)
+
+##### Default use
+
+```xml
+<controls:AnimatedBusyIndicator IsActive="True"
+                                BusyContent="I'm busy right now...">
+    <controls:AnimatedBusyIndicator.AnimationContent>
+        <lottie:LottieVisualSource UriSource="ms-appx:///Assets/LottieFiles/AlienIdScan.json" />
+    </controls:AnimatedBusyIndicator.AnimationContent>
+</controls:AnimatedBusyIndicator>
+```
+
+##### Custom content and overridden animation settings
+```xml
+<controls:AnimatedBusyIndicator IsActive="True"
+                                AnimationWidth="100"
+                                AnimationHeight="100"
+                                AnimationHorizontalAlignment="Center"
+                                AnimationVerticalAlignment="Center">
+    <controls:AnimatedBusyIndicator.BusyContent>
+        <!-- The internal ContentPresenter will faithfully display your content, but can still take advantage of inherited properties like Foreground -->
+        <TextBlock Text="I'm custom content, yay!" FontWeight="Bold" />
+    </controls:AnimatedBusyIndicator.BusyContent>
+    <controls:AnimatedBusyIndicator.AnimationContent>
+        <lottie:LottieVisualSource UriSource="ms-appx:///Assets/LottieFiles/ChartLoading.json" />
+    </controls:AnimatedBusyIndicator.AnimationContent>
+</controls:AnimatedBusyIndicator>
+```
+
 ### BusyIndicators
 
 ![alt tag](https://i.gyazo.com/f95e8b62627551bec566f45aa7b77655.gif)
-
 
 * BandBusyIndicator
 * DownloadUploadIndicator
