@@ -131,10 +131,10 @@
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Microsoft.NETCore.UniversalWindowsPlatform">
-      <Version>6.0.6</Version>
+      <Version>6.2.12</Version>
     </PackageReference>
     <PackageReference Include="Win2D.uwp">
-      <Version>1.23.0</Version>
+      <Version>1.26.0</Version>
     </PackageReference>
   </ItemGroup>
   <ItemGroup>
