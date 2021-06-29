@@ -1,71 +1,70 @@
-# UwpProjects <img src="https://lance.visualstudio.com/DefaultCollection/_apis/public/build/definitions/99c7351f-17fc-47b4-9314-f259e58e77eb/2/badge" alt="Build status" />
-A set of UWP controls and utilities that I have built and used as a Windows dev. I will continue to add to this from my personal colleciton of do-dads and bobbles and as a I build new ones.
+# UWP Projects
+A set of custom UWP controls and utilities that I have built for my apps. I will continue to add to this repo from my personal collection of doo-dads and bobbles and as a I build new ones 🚀
 
-##Contents
+| Branch   | Build Status  |
+|----------|---------------|
+| `master` | [![Components Build](https://dev.azure.com/lance/UwpProjects/_apis/build/status/Components%20Build)](https://dev.azure.com/lance/UwpProjects/_build/latest?definitionId=2) |
 
-* [AdaptiveGridView](https://github.com/LanceMcCarthy/UwpProjects#adaptivegridview) in *UwpHelpers.Controls.ListControls* (maintains aspect ratio of items as it scales for column width)
-* [BusyIndicators](https://github.com/LanceMcCarthy/UwpProjects#busyindicators) in *UwpHelpers.Controls.BusyIndicators* (custom busy indicators)
-* [BlurElementAsync](https://github.com/LanceMcCarthy/UwpProjects#blurelementasync) in *UwpHelpers.Examples.Helpers* (converts any UIElement into a blurred bitmap)
-* [IncrementalLoadingCollection](https://github.com/LanceMcCarthy/UwpProjects#incrementalloadingcollection) in *UwpHelpers.Controls.Common* (Use this for lazy-loading scenarios, demo in Examples)
-* [NetworkImage](https://github.com/LanceMcCarthy/UwpProjects#networkimage) in *UwpHelpers.Controls.ImageControls* (an Image control that shows download progress)
-* [DownloadStreamWithProgressAsync](https://github.com/LanceMcCarthy/UwpProjects#downloadstreamwithprogressasync-httpclient-extension) in *UwpHelpers.Controls.Extensions* (HttpClient Extension methods that reports download progress)
-* [ReleaseNotesDialog](https://github.com/LanceMcCarthy/UwpProjects#releasenotesdialog) in *UwpHelpers.Controls.Dialogs* (shows a list of Features and Fixes using the familiar ContentDialog approach)
+## Components
 
+| Component (w/ jumplink) | Namespace | Description |
+|-----------|-----------|-------------|
+| [AdaptiveGridView](https://github.com/LanceMcCarthy/UwpProjects#adaptivegridview) | `UwpHelpers.Controls.ListControls` | Maintains aspect ratio of items as column width changes |
+| [BusyIndicators](https://github.com/LanceMcCarthy/UwpProjects#busyindicators) | `UwpHelpers.Controls.BusyIndicators` | Custom busy indicators |
+| [BlurElementAsync](https://github.com/LanceMcCarthy/UwpProjects#blurelementasync) | `UwpHelpers.Examples.Helpers` | Converts any UIElement into a blurred bitmap |
+| [IncrementalLoadingCollection](https://github.com/LanceMcCarthy/UwpProjects#incrementalloadingcollection) | `UwpHelpers.Controls.Common` | Use this for lazy-loading scenarios, demo in Examples |
+| [NetworkImage](https://github.com/LanceMcCarthy/UwpProjects#networkimage) | `UwpHelpers.Controls.ImageControls` | An Image control that shows download progress |
+| [DownloadStreamWithProgressAsync](https://github.com/LanceMcCarthy/UwpProjects#downloadstreamwithprogressasync-httpclient-extension) | `UwpHelpers.Controls.Extensions` | HttpClient Extension methods that reports download progress|
+| [ReleaseNotesDialog](https://github.com/LanceMcCarthy/UwpProjects#releasenotesdialog) | `UwpHelpers.Controls.Dialogs` | Shows a list of Features and Fixes using the familiar ContentDialog approach |
 
-### AdaptiveGridView
+#### AdaptiveGridView
 
 ![alt tag](https://i.gyazo.com/9d19b70d72c65c3d24fb81a857cdf4f8.gif)
 
-### AdaptiveGridView with grouping
+##### With grouping
 
 ![alt tag](https://i.gyazo.com/d51eb22c60cbab80363b0e2976f9867d.gif)
 
-**Properties**
+##### Properties
 
-* MinItemWidth (`double`)
-* MinItemHeight (`double`)
+* **MinItemWidth** - `double`: Sets minimum width of GridView items.
+* **MinItemHeight** - `double`: Sets the minimum height of GridView items.
 
+##### Example
 
-**Example**
-
-```
+```xml
 <listControls:AdaptiveGridView ItemsSource="{Binding ListItems}"
        MinItemHeight="105"
        MinItemWidth="315">
-       
 ```
 
-### BusyIndicators
+#### BusyIndicators
+
+* **BandBusyIndicator**
+* **DownloadUploadIndicator**
 
 ![alt tag](https://i.gyazo.com/f95e8b62627551bec566f45aa7b77655.gif)
 
+##### Properties
 
-* BandBusyIndicator
-* DownloadUploadIndicator
+* **IsActive** - `boolean`: Shows or hides the indicator.
+* **Direction** - `AnimationDirection`: The direction of the animation.
+* **DisplayMessage** - `string`: Message shown when active.
+* **DisplayMessageSize** - `double`: Message font size.
 
-
-
-**Properties**
-
-* IsActive (`boolean`): shows or hides the indicator
-* Direction (`AnimationDirection`): The direction of the animation
-* DisplayMessage (`string`): message shown when active
-* DisplayMessageSize (`double`): message font size
-
-```
+```xml
 <busyIndicators:BandBusyIndicator IsActive="{Binding IsBusy}"
       DisplayMessage="busy..."
       Direction="Uploading"  />
 ```
 
-### BlurElementAsync
+#### BlurElementAsync
 
 ![alt tag](https://i.gyazo.com/b1ef38ded3e6428e607595d8638bb88f.gif)
 
+##### Example
 
-**Example**
-
-```
+```csharp
 //You can pass any UIElement to the method and it will render all of the children into a bitmap with a Blur applied
 var blurredElement = await ContentToBlur.BlurElementAsync();
 
@@ -75,30 +74,21 @@ ContentRootGrid.Background = new ImageBrush
   ImageSource = blurredBitmapImage,
   Stretch = Stretch.UniformToFill
 };
-
 ```
 
-
-### IncrementalLoadingCollection
+#### IncrementalLoadingCollection
 
 ![alt tag](https://i.gyazo.com/450b257a52ece99e59052af9ff28d825.gif)
 
+##### Example
 
-**Example**
-
-*XAML*
-
-```
-
+```xml
 <ListView ItemsSource="{Binding InfiniteItems}" />
-
 ```
 
 *ViewModel or Code-Behind*
 
-
-```
-
+```csharp
 InfiniteItems = new IncrementalLoadingCollection<T>((cancellationToken, count) => Task.Run(GetMoreData, cancellationToken));
     
 //and GetMoreData is
@@ -106,94 +96,68 @@ private async Task<ObservableCollection<T>> GetMoreData()
 {
    return more items of type ObservableCollection<T>
 }
-
 ```
-
-
-### NetworkImage
+#### NetworkImage
 
 ![alt tag](https://i.gyazo.com/3cfc9b6d98bd5b060440a308edc45df7.gif)
 
+##### Properties
 
-**Properties**
+* **ImageUrl** - `string`: String URL of the photo.
+* **IsActive** - `bool`: The control manages this automatically, but you can manually enable/disable if needed .
+* **DownloadPercentageVisibility** - `Visibility`: If you want to hide the progress percentage.
+* **ProgressRingVisibility** - `Visibility`: If you want to hide the ProgressRing animation.
+* **ImageStretch** -`Stretch`: Stretch property passed to the underlying Image control.
 
-* ImageUrl (`string`): string url of the photo
-* IsActive (`bool`) - the control manages this automatically, but you can manually enable/disable if needed 
-* DownloadPercentageVisibility (`Visibility`) - If you want to hide the progress percentage
-* ProgressRingVisibility (`Visibility`) - If you want to hide the ProgressRing animation
-* ImageStretch (`Stretch`) - Stretch property passed ot the underlying Image control
+##### Example
 
-
-**Example**
-
-*XAML*
-
-```
-
+```xml
 <imageControls:NetworkImage ImageUrl="http://bigimages.com/MyHugeImage.jpg" />
-
 ``` 
-
 
 ### DownloadStreamWithProgressAsync (HttpClient Extension)
 
 ![alt tag](https://i.gyazo.com/70dc4afcd36b9a04a9c3159c67000a1c.gif)
 
+##### Properties
 
-**Properties**
+* **Url** - `string`: Url of the thing you want to download.
+* **Reporter** - `Progress<DownloadProgressArgs>` - reports the progress via event args.
 
-* Url (`string`): url of the thing you want to download
-* Reporter (`Progress<DownloadProgressArgs>`) - reports the progress via event, see example below
+> Note: There are a couple more methods in the helper class (i.e. DownloadStringwithProgressAsync)
 
-Note: There are a couple more methods in the helper class (i.e. DownloadStringwithProgressAsync)
+##### Example
 
+```csharp
+void SetupReporter()
+{
+    var reporter = new Progress<DownloadProgressArgs>();
+    reporter.ProgressChanged += Reporter_ProgressChanged;
 
-**Example**
+    var imageStream = await new HttpClient(myFavoriteHandler).DownloadStreamWithProgressAsync(bigImageUrl, reporter)
+}
 
-*C# - usage*
-
-```
-
-var reporter = new Progress<DownloadProgressArgs>();
-reporter.ProgressChanged += Reporter_ProgressChanged;
-
-var imageStream = await new HttpClient(myFavoriteHandler).DownloadStreamWithProgressAsync(bigImageUrl, reporter)
-    
-```
-
-*C# - event handler*
-
-```
 private void Reporter_ProgressChanged(object sender, DownloadProgressArgs e)
 {
     SomeProgressBar.Value = e.PercentComplete;
 }
-    
 ```
 
-
-### ReleaseNotesDialog 
+#### ReleaseNotesDialog 
 
 ![alt tag](https://i.gyazo.com/25a89e98e5846e4ffff36b1b14e6399b.gif)
 
+##### Properties
 
-**Properties**
+* **AppName** - `string`: Sets the dialog title (default value is "Release Notes").
+* **Features** - `ObservableCollection<string>`: List of new features.
+* **Fixes** - `ObservableCollection<string>`: List of fixes.
+* **UseFullVersionNumber** - `bool`: Determines whether to show the manifest build number (e.g. 1.0.0).
 
-* AppName (`string`): Set the Dialog's title, default value is "Release Notes"
-* Features (`ObservableCollection<string>`): List of new features
-* Fixes (`ObservableCollection<string>`): List of fixes
-* UseFullVersionNumber (`bool`): Determines whether to show the Build number (1.0.X).
+##### Example
 
-
-
-
-**Example**
-
-*C# - usage*
-
-```
-
- var rnd = new ReleaseNotesDialog();
+```csharp
+var rnd = new ReleaseNotesDialog();
     
 rnd.AppName = "My App Name";
 rnd.Message = "Thank you for checking out ReleaseNotesDialog! Here's a list of what's new and what's fixed:";
@@ -212,11 +176,7 @@ rnd.Fixes = new ObservableCollection<string>
 };
     
 await rnd.ShowAsync();
-
 ```
 
-* Updated to be included in GitHub Arctic Code Vault
 
-
-
-
+> Lancelot Software © 2010-2021
